@@ -1,0 +1,196 @@
+@use "variables" as variable;
+@use "mixins" as mx;
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;    
+    min-height: 100vh;
+}
+.container{
+    max-width: var(--max-width);
+    width: 100%;
+}
+.bg_gary{
+    background-color: variable.$gray-1;
+}
+.heading_one{
+    font-weight: bold; 
+    font-size: 1.744rem;
+    line-height: 2.125rem;
+    margin-bottom: 2rem;
+}
+.box_wrap{
+    width: 100%;
+    justify-content: center;
+    .box_one{
+        // width: 45.625rem;
+        width: 54%;
+        background-color: variable.$gray-1; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .title_image{
+            margin: 4.063rem auto;
+            display: block;
+            text-align: center;
+        }       
+    }
+    .box_two{
+        // width: 48.125rem;
+        width: 56%;
+        min-height:64.313rem;
+        // min-height:100vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-position-x: center;
+        background-size: cover;
+        background-color: #38585c;
+        background-repeat: no-repeat;
+        .heading_wrap{
+            max-width: 24.375rem;
+            word-break: break-word;            
+            .heading_one{
+                color:variable.$white;
+            }
+                        
+        }
+    }
+}
+.form_wrap{
+    max-width: 31.125rem;
+    background-color: variable.$white;
+    padding: 3.625rem 2.5rem;
+    margin: 0 auto;
+    border-radius: 0.625rem;
+}
+.form{
+    margin-top: 2rem;
+    .label{
+        font-weight: 400;
+        font-size: 0.996rem;
+        line-height: 1.188rem;
+        margin-bottom: .625rem;
+    }
+    .input_field{
+        padding: 1rem .75rem 1.063rem;
+        border-radius: .625rem;
+        font-size: .75rem;
+        line-height: .938rem;
+        padding-left: 3rem;
+        &:hover, &:focus{
+            box-shadow: none;
+            outline: none;
+            border-color: variable.$secondary-color;
+        }       
+        &::placeholder{
+            font-size: .75rem;
+            line-height: .938rem;
+            color: variable.$gray-2
+        }
+        &.input_mail{
+            background-image: url('../../../public/icons/Email.svg');
+            background-repeat: no-repeat;
+            background-size: 1.25rem;
+            background-position: 1rem;
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover, 
+            &:-webkit-autofill:focus, 
+            &:-webkit-autofill:active{
+                background-image: url('../../../public/icons/Email.svg')!important;
+                -webkit-box-shadow: 0 0 0 30px white inset !important;
+            }
+        }
+        &.input_lock{
+            background-image: url('../../../public/icons/lock.svg');
+            background-repeat: no-repeat;
+            background-size: 1.438rem;
+            background-position: 1rem;
+        }
+        &.input_code{            
+            background-image: url('../../../public/icons/Group.svg');
+            background-repeat: no-repeat;
+            background-size: 1.688rem;
+            background-position: 1rem;
+        }
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover, 
+        &:-webkit-autofill:focus, 
+        &:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+        }
+
+    }
+    .pass_eye{
+        position: absolute;
+        top: .6rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+}
+.btn{
+    font-weight: 600;
+    font-size: 0.996rem;
+    line-height: 1.188rem;
+    padding: .938rem;
+    min-width: 26.152rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: solid; 
+    border-radius: 0.625rem;
+    margin-bottom: 0.625rem;  
+}
+.btn_primary{
+    @include mx.custom_button(variable.$primary-color, variable.$white, variable.$primary-color)
+}
+.other_login{
+    @include mx.custom_button(#ffffff, #797979, #E9E9E9);
+}
+.link{
+    text-decoration: none;
+    color: variable.$primary-color;
+    transition: all 0.3s ease;
+    &:hover{
+        text-decoration: underline;
+        color:darken(variable.$primary-color,8%);
+    }
+}
+.fs_sm{
+    font-size: .75rem;
+    line-height: 1.063rem;
+}
+.mw_356{
+    max-width: 22.25rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.mtb_4{
+    margin: 1.563rem auto;
+}
+.copyright{
+    text-align: center;
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.063rem;
+    color: variable.$gray-2;  
+    padding: 0.313rem;
+    margin-top: 2rem;
+    margin-bottom: 4.188rem;
+}
+.description {
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    font-size: 0.85rem;
+    max-width: var(--max-width);
+    width: 100%;
+    z-index: 2;
+    /* font-family: var(--font-mono); */
+}
+.text-black{
+    color: variable.$black;
+}
