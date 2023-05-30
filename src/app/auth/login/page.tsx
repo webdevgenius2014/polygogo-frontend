@@ -11,7 +11,7 @@ export default function Login() {
   const [isOTPShow, setIsOTPShow]=useState(false);
   const [userName, setUserName] = useState("");
   const [otp , setOTP] = useState("");
-  const [showMessage, setShowMessage]=useState(null);
+  const [message, setMessage]=useState(null);
   const getCode = () => {
     const API_URL = "register";
     console.log("hello i am here 111");   
@@ -20,21 +20,23 @@ export default function Login() {
       console.log(response);
       if(response.status===201){
         setIsOTPShow(true);
-        setShowMessage(response.data.message)
+        setMessage(response.data.message)
       }else{
-        setShowMessage(response.error)
+        setMessage(response.error)
       }
       
     },error=>{      
-      setShowMessage(error.error)
+      setMessage(error.error)
     })
   };
   const verifyCode=()=>{
-    const API_URL = "login";
+    const API_URL = "verify-email";
     console.log(userName); 
     console.log(otp);         
     AuthService.login( API_URL, userName, otp ).then((response)=>{
-      console.log(response);
+      if(response.status===200){
+        setMessage(response.data.message)
+      }
     },error=>{
       console.log(error);
     })
@@ -61,7 +63,7 @@ export default function Login() {
                   <h2 className={`text-center ${styles.heading_one}`}>Enter Code</h2>
                   <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} />                  
                 </>)}
-                {showMessage!==null && <p className='text-center mt-2'>{showMessage}</p>}
+                {message!==null && <p className='text-center mt-2'>{message}</p>}
                 <div className='mt-4'></div>
                 <SocialMideiaLogin />
                 <p className='text-center mt-2'>Don't have an account ? <Link href="/auth/register" className={styles.link}>SIGN UP</Link></p>
