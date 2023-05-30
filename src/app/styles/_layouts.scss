@@ -74,6 +74,32 @@
         line-height: 1.188rem;
         margin-bottom: .625rem;
     }
+    .icon_wrap::after{
+        position: absolute;
+        left: 1rem;
+        top: 2.938rem;
+        z-index: 99;
+        background-position: left;
+        background-repeat: no-repeat;  
+    }
+    .input_mail::after{
+        content: '';
+        background-image: url('../../../public/icons/Email.svg'); 
+        width: 1.375rem;
+        height: 1.25rem;
+    }
+    .input_code::after{
+        content: '';            
+        background-image: url('../../../public/icons/Group.svg');
+        width: 1.688rem;
+        height: 1.438rem;
+    }
+    .input_lock::after{
+        content: '';
+        background-image: url('../../../public/icons/lock.svg');        
+        width: 1.563rem;
+        height: 1.563rem;        
+    } 
     .input_field{
         padding: 1rem .75rem 1.063rem;
         border-radius: .625rem;
@@ -89,39 +115,13 @@
             font-size: .75rem;
             line-height: .938rem;
             color: variable.$gray-2
-        }
-        &.input_mail{
-            background-image: url('../../../public/icons/Email.svg');
-            background-repeat: no-repeat;
-            background-size: 1.25rem;
-            background-position: 1rem;
-            &:-webkit-autofill,
-            &:-webkit-autofill:hover, 
-            &:-webkit-autofill:focus, 
-            &:-webkit-autofill:active{
-                background-image: url('../../../public/icons/Email.svg')!important;
-                -webkit-box-shadow: 0 0 0 30px white inset !important;
-            }
-        }
-        &.input_lock{
-            background-image: url('../../../public/icons/lock.svg');
-            background-repeat: no-repeat;
-            background-size: 1.438rem;
-            background-position: 1rem;
-        }
-        &.input_code{            
-            background-image: url('../../../public/icons/Group.svg');
-            background-repeat: no-repeat;
-            background-size: 1.688rem;
-            background-position: 1rem;
-        }
+        }      
         &:-webkit-autofill,
         &:-webkit-autofill:hover, 
         &:-webkit-autofill:focus, 
         &:-webkit-autofill:active{
             -webkit-box-shadow: 0 0 0 30px white inset !important;
         }
-
     }
     .pass_eye{
         position: absolute;

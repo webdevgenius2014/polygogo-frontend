@@ -68,8 +68,8 @@ const ForgotPasswordForm :React.FC<Props> = ({ setIsOTPShow }) =>{
                 placeholder="Email or mobile number"
                 error={formState.errors.emailOrPhone?.message}
                 label='Email or Phone Number'                    
-                wrapperClass="form-group mb-4"
-                className={`form-control ${styles.input_field} ${styles.input_mail} ${formState.errors.emailOrPhone ? 'is-invalid' : ''}`}         
+                wrapperClass={`form-group mb-4 position-relative ${styles.input_mail} ${styles.icon_wrap}`}
+                className={`form-control ${styles.input_field} ${formState.errors.emailOrPhone ? 'is-invalid' : ''}`}         
             />            
             <button type='submit' disabled={formState.isSubmitting} className={`mt-3 ${styles.btn} ${styles.btn_primary}`}>
                 {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}

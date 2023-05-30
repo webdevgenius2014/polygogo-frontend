@@ -1,12 +1,44 @@
 'use client';
 import Image from 'next/image'
 import styles from '../../styles/styles.module.scss'
-import LoginRegisterForm from '../../form-components/login-resister';
+import LoginForm from '../../form-components/login';
+import VerifyCodeForm from '../../form-components/verify-user';
 import SocialMideiaLogin from '../../form-components/login-buttons'
 import Link from 'next/link';
 import { useState } from 'react';
+import AuthService from '../../services/auth.service'
 export default function Login() {
-  const [isShowPass, setIsShowPass] = useState(false);  
+  const [isOTPShow, setIsOTPShow]=useState(false);
+  const [userName, setUserName] = useState("");
+  const [otp , setOTP] = useState("");
+  const [showMessage, setShowMessage]=useState(null);
+  const getCode = () => {
+    const API_URL = "register";
+    console.log("hello i am here 111");   
+    console.log(userName);
+    AuthService.getOTP( API_URL, userName ).then((response)=>{
+      console.log(response);
+      if(response.status===201){
+        setIsOTPShow(true);
+        setShowMessage(response.data.message)
+      }else{
+        setShowMessage(response.error)
+      }
+      
+    },error=>{      
+      setShowMessage(error.error)
+    })
+  };
+  const verifyCode=()=>{
+    const API_URL = "login";
+    console.log(userName); 
+    console.log(otp);         
+    AuthService.login( API_URL, userName, otp ).then((response)=>{
+      console.log(response);
+    },error=>{
+      console.log(error);
+    })
+  };
   return (
     <main className={styles.main}>
         <div className={styles.container}>
@@ -21,11 +53,15 @@ export default function Login() {
                 />
               </div>
               
-              <div className={styles.form_wrap}>
-                {isShowPass!==true?(
+              <div className={styles.form_wrap}>                
+                {isOTPShow!==true?(<>
                   <h2 className={`text-center ${styles.heading_one}`}>Welcome back!</h2>
-                ):''}  
-                <LoginRegisterForm isShowPass={isShowPass} setIsShowPass={setIsShowPass} /> 
+                  <LoginForm userName={userName} setUserName={setUserName} loginUser={getCode} />
+                </>):(<>
+                  <h2 className={`text-center ${styles.heading_one}`}>Enter Code</h2>
+                  <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} />                  
+                </>)}
+                {showMessage!==null && <p className='text-center mt-2'>{showMessage}</p>}
                 <div className='mt-4'></div>
                 <SocialMideiaLogin />
                 <p className='text-center mt-2'>Don't have an account ? <Link href="/auth/register" className={styles.link}>SIGN UP</Link></p>
@@ -36,22 +72,22 @@ export default function Login() {
                 <div className={`text-center ${styles.heading_wrap}`}>
                   <h1 className={styles.heading_one}>Your job is about to get a whole lot smoother with text</h1>
                 </div>
-                {!isShowPass?(
-                    <Image
-                        src="/images/email-login.png"
-                        width={579}
-                        height={482}
-                        alt="email login"
-                        className='mw-100'
-                    />
+                {!isOTPShow?(
+                  <Image
+                    src="/images/email-login.png"
+                    width={579}
+                    height={482}
+                    alt="email login"
+                    className='mw-100'
+                  />
                 ):(
-                    <Image
-                        src="/images/password-lock.png"
-                        width={512}
-                        height={369}
-                        alt="password lock"
-                        className='mw-100'
-                    />
+                  <Image
+                    src="/images/enter-code.png"
+                    width={427}
+                    height={238}
+                    alt="enter-code"
+                    className='mw-100'
+                  />
                 )}                 
             </div>
           </div>

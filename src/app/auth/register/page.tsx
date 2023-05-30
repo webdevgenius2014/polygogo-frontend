@@ -46,16 +46,14 @@ export default function Register() {
                   {isFromShow?(<>
                     <VerifyCodeForm />
                     <div className='text-center' style={{marginTop: '5.8rem'}}><Link href="/auth/register" className={styles.link}>Need more help?</Link></div>
-                  </>):<div style={{marginTop: '4.584rem'}}></div>}
-                  
+                  </>):<div style={{marginTop: '4.584rem'}}></div>}                  
                 </>):(<>
                   <h2 className={`text-center mb-3 ${styles.heading_one}`}>Give company a try. It"’"s free.</h2> 
                   <p className={`text-center ${styles.fs_sm} ${styles.mw_356}`} style={{marginBottom: '2.938rem'}}>Grow with tools for texting customers, getting reviews, and making sales. No credit card required.</p>
                   <SocialMideiaLogin />
                   {isFromShow?(
                     <LoginRegisterForm isShowPass={isShowPass} setIsShowPass={setIsShowPass} setIsOTPShow={setIsOTPShow} />
-                  ):<div style={{marginTop: '4.584rem'}}></div>}
-                                
+                  ):<div style={{marginTop: '4.584rem'}}></div>}                                
                   <p className='text-center mb-0'>You can also continue with <span className={styles.link} onClick={()=>setIsFromShow(true)}>Email</span></p>
                   <p className={`text-center ${styles.fs_sm} ${styles.mw_356} ${styles.mtb_4}`}>By continuing, you agree that you have read and accept Polygogo <Link href="/" className={`${styles.link}`}>Terms of Service </Link> and <Link href="/" className={`${styles.link}`}>Privacy Policy.</Link></p>
                   <p className='text-center'>Already have an account? <Link href="/auth/login" className={`text-uppercase ${styles.link}`}>Sign In</Link></p>

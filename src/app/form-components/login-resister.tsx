@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link'
 import * as Yup from 'yup';
+
+
 interface LoginRegisterInterface {
     emailOrPhone: string
     password: string    
@@ -57,15 +59,15 @@ const LoginRegisterForm : React.FC<Props> = ({ isShowPass=false, setIsShowPass, 
         formState,    
         setError                
     } =  useForm<LoginRegisterInterface>(); 
+
     const onSubmit = (data: LoginRegisterInterface) => {
         console.log("hello i am here");
-        console.log(data);
+        console.log(data);        
         if(setIsOTPShow!==undefined){
             setIsOTPShow(true);
         }        
     };
-    const handleSchema1Validation = async (data: LoginRegisterInterface) => {
-        console.log("hello2222");   
+    const handleSchema1Validation = async (data: LoginRegisterInterface) => {       
         try {
             await schema1.validate(data, { abortEarly: false });
             setIsShowPass(true);
@@ -115,8 +117,8 @@ const LoginRegisterForm : React.FC<Props> = ({ isShowPass=false, setIsShowPass, 
                     placeholder="Password"
                     label="Password"
                     error={formState.errors.password?.message}
-                    wrapperClass="form-group mb-4"
-                    className={`form-control ${styles.input_field} ${styles.input_lock} ${formState.errors.password ? 'is-invalid' : ''}`} 
+                    wrapperClass={`form-group mb-4 ${styles.input_lock} ${styles.icon_wrap}`}
+                    className={`form-control ${styles.input_field} ${formState.errors.password ? 'is-invalid' : ''}`} 
                 />                
                 <div className='text-end'><Link href="/auth/forgot-password">Frogot Password?</Link></div> 
             </>} 

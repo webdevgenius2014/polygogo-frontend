@@ -48,13 +48,13 @@ export default function ForgotPassword() {
                         className='mw-100'
                     />
                 ):(
-                    <Image
-                        src="/images/enter-code.png"
-                        width={427}
-                        height={238}
-                        alt="change-pwd-code"
-                        className='mw-100'
-                    />
+                  <Image
+                    src="/images/enter-code.png"
+                    width={427}
+                    height={238}
+                    alt="enter-code"
+                    className='mw-100'
+                  />
                 )}
             </div>
           </div>

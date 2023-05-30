@@ -5,47 +5,53 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styles from '../styles/styles.module.scss'
+import { type } from "os";
 // interface for form
 interface VerifyCodeInterface {
     oneTimePassword: string;
 }
+type Props = {
+    otp:string;
+    setOTP:(val:string)=>void
+    submitCode:(val:VerifyCodeInterface)=>void;
+}
 const validationSchema = Yup.object().shape({            
-    oneTimePassword: Yup.string().min(5, 'Code must be at least 5 characters').max(5, 'Invalid code').required('Please enter verification code'),
+    oneTimePassword: Yup.string().min(6, 'Code must be at least 5 characters').max(6, 'Invalid code').required('Please enter verification code'),
 });
-const VerifyCodeForm :React.FC=() =>{  
+const VerifyCodeForm :React.FC<Props>=({otp, setOTP, submitCode}) =>{ 
     const {
-        register,        
-        formState,
-        handleSubmit,
+        register, 
+        handleSubmit,      
+        formState,        
         reset,
     } = useForm<VerifyCodeInterface>({resolver: yupResolver(validationSchema)}); 
-   
-    const onSubmit = (data: VerifyCodeInterface) => {
 
-        console.log("hello i am here");
-        console.log(formState.errors);
-    };
+    const handleChange=(e:any)=>{
+        setOTP(e.target.value)
+    }
     return (
         <Form     
-            register={register}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
+            register={register}            
+            buttonLabel="Sign In"
+            formState={formState}
+            handleSubmit={handleSubmit}              
+            onSubmit={submitCode}
             className={styles.form}     
         >
             <Input
-                name="oneTimePassword"                                     
+                name="oneTimePassword"                                               
                 register={register}
-                placeholder="Enter Code"
-                label="Enter Code"
-                defaultValue='' 
-                error={formState.errors.oneTimePassword?.message}                                      
-                wrapperClass="form-group mb-4"
-                className={`form-control ${styles.input_field} ${styles.input_code} ${formState.errors.oneTimePassword ? 'is-invalid' : ''}`}         
+                value={otp}
+                handleChange={(e:any)=>{
+                    console.log(e.target.value);
+                    handleChange(e)
+                }} 
+                placeholder="Email or mobile number"
+                error={formState.errors.oneTimePassword?.message}
+                label='Email or Phone Number'                    
+                wrapperClass={`form-group position-relative mb-4 ${styles.input_code} ${styles.icon_wrap}`}
+                className={`form-control ${styles.input_field} ${formState.errors.oneTimePassword ? 'is-invalid' : ''}`}         
             />
-            <button type='submit' disabled={formState.isSubmitting} className={`mt-3 ${styles.btn} ${styles.btn_primary}`}>
-                {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                <span>Sign In</span>
-            </button>  
         </Form>
     );
 };

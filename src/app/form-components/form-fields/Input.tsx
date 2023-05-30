@@ -7,6 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: any;
   register?: any;
   wrapperClass?: string;
+  handleChange?:any;
   inputClassName?: string;  
 }
 
@@ -16,17 +17,22 @@ const Input: FC<InputProps> = ({
   placeholder,
   error,
   label,
-  wrapperClass,  
+  wrapperClass,
+  handleChange,  
   ...rest
-}) => {
-  console.log("hii i am here"+name);
+}) => {  
+  const registerField = register(name);  
   return (
     <div className={wrapperClass}>
       {label && <label htmlFor={name} className={`${styles.label}`}>{label}</label>}      
       <input 
         placeholder={placeholder?placeholder:''}                   
         aria-invalid={error ? "true" : "false"}
-        {...register(name)}
+        {...registerField}
+        onChange={e => {
+          registerField.onChange(e);
+          handleChange(e); 
+        }}
         {...rest}
       />      
       {error&& <p className={'text-danger mt-2'}>{error}</p>}
