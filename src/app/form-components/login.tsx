@@ -65,11 +65,12 @@ const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{
                 register={register}
                 value={userName}
                 handleChange={(e:any)=>handleChange(e)} 
-                placeholder="Email or mobile number"
+                placeholder="Email or Phone Number"
                 error={formState.errors.emailOrPhone?.message}
-                label='Email or Phone Number'                    
-                wrapperClass={`form-group position-relative mb-4 ${styles.input_mail} ${styles.icon_wrap}`}
-                className={`form-control ${styles.input_field} ${formState.errors.emailOrPhone ? 'is-invalid' : ''}`}         
+                //label='Email or Phone Number'                    
+                wrapperClass="form-group"
+                iconClass={`position-relative ${styles.input_mail} ${styles.icon_wrap}`}
+                className={`form-control ${styles.input_field} ${formState.errors.emailOrPhone ? styles.is_invalid : ''}`}         
             /> 
         </Form>
     );

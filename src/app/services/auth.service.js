@@ -1,7 +1,6 @@
 import axios from "axios";
 const apiURl=process.env.NEXT_PUBLIC_API_URL
-// const BASE_API = apiURl+"/api/";
-const BASE_API = "http://45.79.216.68/api/"
+const BASE_API = apiURl+"/api/";
 class AuthService {
   getOTP(endUrl, username){    
     return axios.post(BASE_API+endUrl, {
@@ -26,9 +25,23 @@ class AuthService {
         return response;
       });
   }
+  // signInWithGoogle(){
+  //   return axios({
+  //     method: "get",
+  //     url: "sandbox7.feedly.com",
+  //     client_id: "sandbox",
+  //     client_secret: "e4RK9ybUMPAa5PgV",
+  //     redirect_uri: "http://localhost:8080"
+  //   })
+  //   .then(function(response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function(error) {
+  //     console.log(error);
+  //   });
+  // }
   logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("company");      
+    sessionStorage.removeItem("auth_token");        
   }
   register(url, formData) { 
     var finalData = {};

@@ -48,8 +48,9 @@ const VerifyCodeForm :React.FC<Props>=({otp, setOTP, submitCode}) =>{
                 }} 
                 placeholder="Email or mobile number"
                 error={formState.errors.oneTimePassword?.message}
-                label='Email or Phone Number'                    
-                wrapperClass={`form-group position-relative mb-4 ${styles.input_code} ${styles.icon_wrap}`}
+                //label='Email or Phone Number'                    
+                wrapperClass="form-group"
+                iconClass={`position-relative ${styles.input_code} ${styles.icon_wrap}`}
                 className={`form-control ${styles.input_field} ${formState.errors.oneTimePassword ? 'is-invalid' : ''}`}         
             />
         </Form>

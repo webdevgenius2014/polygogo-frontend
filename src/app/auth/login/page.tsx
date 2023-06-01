@@ -1,22 +1,25 @@
 'use client';
 import Image from 'next/image'
-import styles from '../../styles/styles.module.scss'
-import LoginForm from '../../form-components/login';
-import VerifyCodeForm from '../../form-components/verify-user';
-import SocialMideiaLogin from '../../form-components/login-buttons'
+import styles from '../styles/styles.module.scss'
+import LoginForm from '../form-components/login';
+import VerifyCodeForm from '../form-components/verify-user';
+import SocialMideiaLogin from '../form-components/login-buttons'
 import Link from 'next/link';
 import { useState } from 'react';
-import AuthService from '../../services/auth.service'
+import AuthService from '../services/auth.service'
+import { useAuth } from '../middleware/middleware'
 export default function Login() {
+  useAuth();
+
   const [isOTPShow, setIsOTPShow]=useState(false);
   const [userName, setUserName] = useState("");
   const [otp , setOTP] = useState("");
-  const [message, setMessage]=useState(null);
-  const getCode = () => {
+  const [message, setMessage]=useState("");
+  const getCode = async () => {
     const API_URL = "register";
     console.log("hello i am here 111");   
     console.log(userName);
-    AuthService.getOTP( API_URL, userName ).then((response)=>{
+    await AuthService.getOTP( API_URL, userName ).then((response)=>{
       console.log(response);
       if(response.status===201){
         setIsOTPShow(true);
@@ -29,13 +32,12 @@ export default function Login() {
       setMessage(error.error)
     })
   };
-  const verifyCode=()=>{
-    const API_URL = "verify-email";
-    console.log(userName); 
-    console.log(otp);         
-    AuthService.login( API_URL, userName, otp ).then((response)=>{
+  const verifyCode = async ()=>{
+    const API_URL = "verify-email";    
+    await AuthService.login( API_URL, userName, otp ).then((response)=>{
       if(response.status===200){
-        setMessage(response.data.message)
+        setMessage(response.data.message);
+        sessionStorage.setItem("auth_token", response.data.token);
       }
     },error=>{
       console.log(error);

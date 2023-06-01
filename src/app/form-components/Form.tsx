@@ -22,11 +22,12 @@ const Form: FC<IFormProps> = ({
   onSubmit,
   handleSubmit,
   register,
+  className,
   formState,
   ...rest
 }) => {
   return (
-    <form onSubmit={handleSubmit(onSubmit)} {...rest}>     
+    <form className={className} onSubmit={handleSubmit(onSubmit)} {...rest}>     
       {Array.isArray(children)
         ? children.map((child) => {
             return (child && child.props.name
@@ -41,9 +42,10 @@ const Form: FC<IFormProps> = ({
           })
         : children
       } 
-      <button type='submit' disabled={formState && formState.isSubmitting} className={`mt-3 ${styles.btn} ${styles.btn_primary}`}>
+      <button type='submit' disabled={formState && formState.isSubmitting} className={`${styles.btn} ${styles.btn_primary}`}>
         {formState && formState.isSubmitting && <span className="spinner-border spinner-border-sm me-2"></span>}
-        <span>{buttonLabel}</span>
+        <span className="fw-bold">{buttonLabel}</span>
+        <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" />
       </button>   
     </form>
   );
