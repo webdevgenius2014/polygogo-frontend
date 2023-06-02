@@ -1,4 +1,4 @@
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 import Image from 'next/image'
 // type Props = {     
 //     login:any; 

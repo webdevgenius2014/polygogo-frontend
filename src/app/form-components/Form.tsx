@@ -1,6 +1,6 @@
 import React, { FC, createElement } from "react"
 import { ReactNode } from "react"
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 export type classNameType = string;
 export type childrenType = ReactNode;
 

@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image'
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 import LoginForm from '../form-components/login'
 import VerifyCodeForm from '../form-components/verify-user'
 import SocialMideiaLogin from '../form-components/login-buttons'
@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import AuthService from '../services/auth.service'
 import { useAuth } from '../middleware/middleware'
 import { useRouter } from 'next/navigation';
+import { validateEmail, testPhone } from '@/helpers/formatCheck';
 import * as Yup from "yup";
 export default function Login() {
   const router = useRouter();
@@ -37,19 +38,6 @@ export default function Login() {
     height: '27.875rem'
   });
   
-  const validateEmail = (email: string | undefined) => {  
-    var isValid = false;       
-    if(email){
-      isValid= Yup.string().email().isValidSync(email);
-    }
-    return isValid;
-  }; 
-  const testPhone=(value:any)=>{
-    var regex=/[0-9]+/;
-    if(regex.test(value)){
-      return true;
-    }
-  }  
   const getCode = async () => {
     await AuthService.getOtp( (validateEmail(userName))?userName:userName.replace(/\D/g, '') ).then((response)=>{
       console.log(response);

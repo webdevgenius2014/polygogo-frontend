@@ -4,7 +4,7 @@ import Input from "./form-fields/Input";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 // interface for form
 interface ForgotPasswordInterface {
     emailOrPhone: string;

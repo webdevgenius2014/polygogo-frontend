@@ -1,4 +1,4 @@
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 import Image from 'next/image'
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import AuthService from '../services/auth.service'
@@ -20,11 +20,11 @@ const GoogleLoginButton=() => {
             if(response.status===200){
                 console.log("get response of verified email from google api");    
                 console.log(response); 
-                var data=[{
+                var data={
                     "type" : "google",
                     "name" : response.data.name,
                     "email" : response.data.email
-                }]
+                }
                 loginWithGoogleCallback(data);
             }else{
                 setMessage("email verification failed");

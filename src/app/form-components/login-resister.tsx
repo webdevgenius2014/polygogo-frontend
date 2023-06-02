@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Form from "./Form";
 import Input from "./form-fields/Input";
 import InputPassword from './form-fields/InputPassword';
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link'

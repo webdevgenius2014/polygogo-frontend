@@ -5,8 +5,8 @@ import Input from "./form-fields/Input";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import styles from '../styles/styles.module.scss'
-
+import styles from '../../styles/styles.module.scss'
+import { validateEmail, validatePhone } from "../../helpers/formatCheck";
 
 // interface for form
 interface LoginInterface {
@@ -18,20 +18,6 @@ type Props = {
     loginUser:(val: LoginInterface)=>void;        
 };
 // validation
-const validateEmail = (email: string | undefined) => {  
-    var isValid = false;       
-    if(email){
-        isValid= Yup.string().email().isValidSync(email);
-    }
-    return isValid;
-};     
-const validatePhone = (phone: string | undefined) => {     
-    var isValid = false;  
-    if(phone){
-        isValid = (phone && phone.length === 10 ? true : false);
-    } 
-    return isValid; 
-};
 const validationSchema = Yup.object().shape({
     emailOrPhone: Yup.string()
         .required('Email / Phone is required')
@@ -40,9 +26,10 @@ const validationSchema = Yup.object().shape({
         }
     )      
 });
+
 const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{ 
     const[inputClass, setInputClass]=useState(styles.input_mail);
-    const[maxLength, setMaxLength]=useState('');
+    const[maxLength, setMaxLength]=useState(0);
     const {
         register,        
         handleSubmit,
@@ -57,14 +44,14 @@ const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{
         var regex=/[0-9]+/;
         if(regex.test(e.target.value)===true){
             if(e.target.value.length>=3){
-                setMaxLength('10');
+                setMaxLength(10);
                 setInputClass(styles.input_call); 
                 var phone=e.target.value;               
                 setUserName(phone.replace(/(\d{3})(\d{3})(\d{4})/,"($1)-$2-$3")); 
             }
         }else{
             setInputClass(styles.input_mail);
-            setMaxLength('');
+            setMaxLength(0);
         }       
     };   
     return (
@@ -84,7 +71,7 @@ const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{
                 placeholder="Email or Phone Number"
                 error={formState.errors.emailOrPhone?.message}
                 //label='Email or Phone Number' 
-                maxLength={maxLength?maxLength:''}                   
+                maxLength={maxLength?maxLength:0}                   
                 wrapperClass="form-group"
                 iconClass={`position-relative ${userName?inputClass:styles.input_mail} ${styles.icon_wrap}`}
                 className={`form-control ${styles.input_field} ${formState.errors.emailOrPhone ? styles.is_invalid : ''}`}         

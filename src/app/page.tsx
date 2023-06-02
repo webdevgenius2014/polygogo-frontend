@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import styles from './styles/styles.module.scss'
+import styles from '../styles/styles.module.scss'
 import { useAuth } from './middleware/middleware'
 import AuthService from './services/auth.service'
 import { useRouter } from 'next/navigation';

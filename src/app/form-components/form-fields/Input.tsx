@@ -1,5 +1,5 @@
 import React, { FC, InputHTMLAttributes, useEffect } from "react";
-import styles from '../../styles/styles.module.scss'
+import styles from '../../../styles/styles.module.scss'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   placeholder:string;

@@ -1,5 +1,5 @@
 
-import styles from '../styles/styles.module.scss'
+import styles from '../../styles/styles.module.scss'
 import Image from 'next/image'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleLoginButton from './google-login'

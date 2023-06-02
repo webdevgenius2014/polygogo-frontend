@@ -42,18 +42,14 @@ class AuthService {
       return err; 
     });
   }
-  socialLogin(data){    
-    var finalData={};
-    data.forEach(function(value, key){
-      finalData[key] = value;
-    });
-    return axios.post(ApiConfig.socialLogin, finalData).then(response => {
-      return response;
-    },error=>{
-      return error;
-    })
+  socialLogin(payload){    
+    return axios.post(ApiConfig.socialLogin, payload)
+                .then(response => {
+                return response;
+              },error=>{
+                return error;
+              })
   }
-
 
   logout() {
     sessionStorage.removeItem("auth_token");        
