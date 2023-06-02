@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes } from "react";
+import React, { FC, InputHTMLAttributes, useEffect } from "react";
 import styles from '../../styles/styles.module.scss'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -6,6 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: any;
   register?: any;
+  maxLength?:string;
   wrapperClass?: string;
   iconClass?:string
   handleChange?:any;
@@ -18,30 +19,34 @@ const Input: FC<InputProps> = ({
   placeholder,
   error,
   label,
+  maxLength,
   wrapperClass,
   iconClass,
   handleChange,  
   ...rest
 }) => {  
   const registerField = register(name);   
+  
   return (
     <div className={wrapperClass}>
       {label && <label htmlFor={name} className={`${styles.label}`}>{label}</label>}  
       {iconClass? <div className={`${iconClass}`}>
-      <input 
-        placeholder={placeholder?placeholder:''}                   
-        aria-invalid={error ? "true" : "false"}
-        {...registerField}
-        onChange={e => {
-          registerField.onChange(e);
-          handleChange(e); 
-        }}
-        {...rest}
-      />
+        <input 
+          placeholder={placeholder?placeholder:''}                   
+          aria-invalid={error ? "true" : "false"}
+          maxLength={maxLength?maxLength:''}
+          {...registerField}
+          onChange={e => {
+            registerField.onChange(e);
+            handleChange(e); 
+          }}
+          {...rest}
+        />
       </div>:<>
         <input 
           placeholder={placeholder?placeholder:''}                   
           aria-invalid={error ? "true" : "false"}
+          maxLength={maxLength?maxLength:''}
           {...registerField}
           onChange={e => {
             registerField.onChange(e);

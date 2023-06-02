@@ -1,26 +1,20 @@
 
 import styles from '../styles/styles.module.scss'
 import Image from 'next/image'
-export default function SocialMideiaLogin() {
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLoginButton from './google-login'
+import AppleLoginButton from './apple-login';
+
+const SocialMideiaLogin: React.FC=()=> {
+  const clientId= process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   return(
-    <> 
-      <button type='button' className={`${styles.btn} ${styles.other_login}`}>
-          <Image
-            src="/google.svg"
-            width={20}
-            height={21}
-            alt="google"                
-          />
-          <span className='ms-3'>Login with Google</span>
-      </button>
-      <button type='button' className={`${styles.btn} ${styles.other_login}`}>
-          <Image
-            src="/apple.svg"
-            width={20}
-            height={24}
-            alt="apple"                
-          />           
-          <span className='ms-3'>Login With Apple Store</span>
-      </button>
+    <>
+      {clientId && <>
+      <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLoginButton />
+      </GoogleOAuthProvider>
+      </>}
+      <AppleLoginButton /> 
   </>);
 }
+export default SocialMideiaLogin;

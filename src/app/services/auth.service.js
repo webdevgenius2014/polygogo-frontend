@@ -1,10 +1,11 @@
 import axios from "axios";
 const apiURl=process.env.NEXT_PUBLIC_API_URL
 const BASE_API = apiURl+"/api/";
-class AuthService {
-  getOTP(endUrl, username){    
-    return axios.post(BASE_API+endUrl, {
-        'email':username,
+import ApiConfig from '../config/apiConfig';
+class AuthService {  
+  getOtp(username){    
+    return axios.post(ApiConfig.registerLogin, {
+        'username':username,
       }).then(response => {
         return response;
       },error=>{
@@ -12,37 +13,52 @@ class AuthService {
       }
     )
   }
-  login(endUrl, email, otp) {    
+  verifyOtp(username, otp) {   
     return axios
-      .post(BASE_API+endUrl, {
-        'email':email,
+      .post(ApiConfig.verifyOtp, {
+        'username':username,
         'otp':otp,
       })
-      .then(response => {        
-        // if (response.data.token) {           
-        //   localStorage.setItem("user", JSON.stringify(response.data));         
-        // }
+      .then(response => { 
+        // if(response.status===200){
+        //   sessionStorage.setItem("auth_token", response.data.token);
+        // }        
         return response;
-      });
+      }
+    );
   }
-  // signInWithGoogle(){
-  //   return axios({
-  //     method: "get",
-  //     url: "sandbox7.feedly.com",
-  //     client_id: "sandbox",
-  //     client_secret: "e4RK9ybUMPAa5PgV",
-  //     redirect_uri: "http://localhost:8080"
-  //   })
-  //   .then(function(response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function(error) {
-  //     console.log(error);
-  //   });
-  // }
+  signInWithGoogle(data){
+    return axios
+    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${data.access_token}`, {
+      headers: {
+        Authorization: `Bearer ${data.access_token}`,
+        Accept: 'application/json'
+      }
+    })
+    .then((res) => {
+      return res;   
+    })
+    .catch((err) => {
+      return err; 
+    });
+  }
+  socialLogin(data){    
+    var finalData={};
+    data.forEach(function(value, key){
+      finalData[key] = value;
+    });
+    return axios.post(ApiConfig.socialLogin, finalData).then(response => {
+      return response;
+    },error=>{
+      return error;
+    })
+  }
+
+
   logout() {
     sessionStorage.removeItem("auth_token");        
   }
+
   register(url, formData) { 
     var finalData = {};
     formData.forEach(function(value, key){

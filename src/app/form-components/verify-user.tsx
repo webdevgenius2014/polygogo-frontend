@@ -46,7 +46,7 @@ const VerifyCodeForm :React.FC<Props>=({otp, setOTP, submitCode}) =>{
                     console.log(e.target.value);
                     handleChange(e)
                 }} 
-                placeholder="Email or mobile number"
+                placeholder="Enter Code"
                 error={formState.errors.oneTimePassword?.message}
                 //label='Email or Phone Number'                    
                 wrapperClass="form-group"
