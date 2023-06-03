@@ -1,32 +1,18 @@
 import axios from "axios";
+import instance from '../AppInterceptor'
 const apiURl=process.env.NEXT_PUBLIC_API_URL
 const BASE_API = apiURl+"/api/";
 import ApiConfig from '../config/apiConfig';
 class AuthService {  
-  getOtp(username){    
-    return axios.post(ApiConfig.registerLogin, {
-        'username':username,
-      }).then(response => {
-        return response;
-      },error=>{
-        return error;
-      }
-    )
+  getOtp(username){
+    let payload = {username:username} 
+    return instance.post(ApiConfig.registerLogin, payload)  
   }
-  verifyOtp(username, otp) {   
-    return axios
-      .post(ApiConfig.verifyOtp, {
-        'username':username,
-        'otp':otp,
-      })
-      .then(response => { 
-        // if(response.status===200){
-        //   sessionStorage.setItem("auth_token", response.data.token);
-        // }        
-        return response;
-      }
-    );
+
+  verifyOtp(payload) {  
+    return instance.post(ApiConfig.verifyOtp, payload)    
   }
+
   signInWithGoogle(data){
     return axios
     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${data.access_token}`, {
@@ -42,19 +28,14 @@ class AuthService {
       return err; 
     });
   }
+  
   socialLogin(payload){    
-    return axios.post(ApiConfig.socialLogin, payload)
-                .then(response => {
-                return response;
-              },error=>{
-                return error;
-              })
+    return instance.post(ApiConfig.socialLogin, payload)
   }
 
   logout() {
     sessionStorage.removeItem("auth_token");        
   }
-
   register(url, formData) { 
     var finalData = {};
     formData.forEach(function(value, key){

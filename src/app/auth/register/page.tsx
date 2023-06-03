@@ -7,7 +7,7 @@ import VerifyCodeForm from '../../form-components/verify-user';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react';
 // import {testAPI} from '../../services/user.service';
-import axiosInstance from '../../services/user.service';
+import axiosInstance from '../../../services/user.service';
 
 export default function Register() {
   const [isFromShow, setIsFromShow]= useState(false);

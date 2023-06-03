@@ -5,7 +5,7 @@ import LoginForm from '../form-components/login'
 import VerifyCodeForm from '../form-components/verify-user'
 import SocialMideiaLogin from '../form-components/login-buttons'
 import { useEffect, useState } from 'react';
-import AuthService from '../services/auth.service'
+import AuthService from '../../services/auth.service'
 import { useAuth } from '../middleware/middleware'
 import { useRouter } from 'next/navigation';
 import { validateEmail, testPhone } from '@/helpers/formatCheck';
@@ -39,12 +39,11 @@ export default function Login() {
   });
   
   const getCode = async () => {
-    await AuthService.getOtp( (validateEmail(userName))?userName:userName.replace(/\D/g, '') ).then((response)=>{
+    await AuthService.getOtp( (validateEmail(userName))?userName:userName.replace(/\D/g, '') )
+    .then((response)=>{
       console.log(response);
-      if(response.status===200){ 
-        if(!isOTPShow){
-          setIsOTPShow(true);
-        } 
+      if(response?.status===200){ 
+        if(!isOTPShow){    setIsOTPShow(true);     } 
         if(isResend){
           setMessage('');
           setIsResend(false);
@@ -53,15 +52,19 @@ export default function Login() {
         setMessage(`Enter the verification code sent on ${userName}`);
       }else{
         setAlertClass('text-danger');
-        setMessage(response.error)
+        setMessage(response?.error)
       }
     },error=>{  
       setAlertClass('text-danger');    
-      setMessage(error.error)
+      setMessage(error?.error)
     })
   };
   const verifyCode = async ()=>{ 
-    await AuthService.verifyOtp( userName, otp ).then((response)=>{      
+    let payload = {
+      username : userName,
+      otp: otp
+    }
+    await AuthService.verifyOtp( payload ).then((response)=>{      
       if(response){
         if(response.status===200){
           if(isResend){

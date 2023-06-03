@@ -1,7 +1,7 @@
 import styles from '../../styles/styles.module.scss'
 import Image from 'next/image'
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import AuthService from '../services/auth.service'
+import AuthService from '../../services/auth.service'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 const GoogleLoginButton=() => {  
