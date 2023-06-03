@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styles from '../../styles/styles.module.scss'
-import { validateEmail, validatePhone } from "../../helpers/formatCheck";
+import { validateEmail, validatePhone, testPhone } from "../../helpers/formatCheck";
 
 // interface for form
 interface LoginInterface {
@@ -39,10 +39,8 @@ const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{
     } = useForm<LoginInterface>({resolver: yupResolver(validationSchema)});
     
     const handleChange=(e:any)=>{
-        validatePhone(e.target.value);
         setUserName(e.target.value);
-        var regex=/[0-9]+/;
-        if(regex.test(e.target.value)===true){
+        if(testPhone(e.target.value)===true){
             if(e.target.value.length>=3){
                 setMaxLength(10);
                 setInputClass(styles.input_call); 

@@ -174,7 +174,7 @@ export default function Login() {
                         style={{height: `${imageProps.imageOne.height}` }}   
                         className={`mw-100`}                                
                       />
-                      {isShowForm && (validateEmail(userName) || !testPhone(userName)) && <span className={`${styles.d_text} ${styles.email_text}`} >{userName}</span>}
+                      {isShowForm && (validateEmail(userName) && !testPhone(userName)) && <span className={`${styles.d_text} ${styles.email_text}`} >{userName}</span>}
                     </div>                    
                   </div>
                   <div className={`mw-100 ${styles.img_two}`}>
@@ -185,7 +185,7 @@ export default function Login() {
                         style={{height: `${imageProps.imageTwo.height}` }}                   
                         className={`mw-100`} 
                       />
-                      {isShowForm && (testPhone(userName)) && <span className={`${styles.d_text} ${styles.phone_text}`} >{userName}</span>}
+                      {isShowForm && (testPhone(userName) && !validateEmail(userName)) && <span className={`${styles.d_text} ${styles.phone_text}`} >{userName}</span>}
                     </div>
                   </div>                  
                 </div>
