@@ -14,7 +14,7 @@ const SocialMideiaLogin: React.FC=()=> {
         <GoogleLoginButton />
       </GoogleOAuthProvider>
       </>}
-      <AppleLoginButton /> 
+      {process.env.NEXT_PUBLIC_APPLE_CLIENT_ID && <AppleLoginButton />}
   </>);
 }
 export default SocialMideiaLogin;
