@@ -4,6 +4,8 @@ import styles from '../styles/styles.module.scss'
 import { useAuth } from './middleware/middleware'
 import AuthService from '../services/auth.service'
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 export default function Home() {  
   //useAuth();
 
@@ -30,20 +32,15 @@ export default function Home() {
             {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
           </button>
           :<div className={`ms-auto w-auto`}>
-            <button 
-            type='button' 
-            className={`${styles.btn} ${styles.btn_secondary}`} 
-            onClick={()=>router.push('/login')}>
-              <span className='fw-bold'>Login</span>
-              {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
-            </button> 
-            <button 
-            type='button' 
-            className={`${styles.btn} ${styles.btn_secondary}`} 
-            onClick={()=>router.push('/register')}>
-              <span className='fw-bold'>Start a free trial</span>
-              {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
-            </button>
+            <Link className={`${styles.btn} ${styles.btn_secondary}`} 
+            href="/login">
+                <span className='fw-bold'>Login</span>
+            </Link>
+
+            <Link className={`${styles.btn} ${styles.btn_secondary}`} 
+            href="/register">
+                <span className='fw-bold'>Start a free trial</span>
+            </Link>
           </div>
           }
         </div>
