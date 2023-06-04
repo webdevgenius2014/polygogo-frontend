@@ -12,13 +12,14 @@ interface VerifyCodeInterface {
 }
 type Props = {
     otp:string;
+    buttonLabel:string,
     setOTP:(val:string)=>void
     submitCode:(val:VerifyCodeInterface)=>void;
 }
 const validationSchema = Yup.object().shape({            
     oneTimePassword: Yup.string().min(6, 'Code must be at least 5 characters').max(6, 'Invalid code').required('Please enter verification code'),
 });
-const VerifyCodeForm :React.FC<Props>=({otp, setOTP, submitCode}) =>{ 
+const VerifyCodeForm :React.FC<Props>=({otp, buttonLabel, setOTP, submitCode}) =>{ 
     const {
         register, 
         handleSubmit,      
@@ -32,7 +33,7 @@ const VerifyCodeForm :React.FC<Props>=({otp, setOTP, submitCode}) =>{
     return (
         <Form     
             register={register}            
-            buttonLabel="Sign In"
+            buttonLabel={buttonLabel}
             formState={formState}
             handleSubmit={handleSubmit}              
             onSubmit={submitCode}

@@ -55,7 +55,7 @@ const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{
     return (
         <Form     
             register={register}
-            buttonLabel="Send Code"  
+            buttonLabel="Get Code"  
             handleSubmit={handleSubmit}     
             onSubmit={loginUser}
             formState={formState}

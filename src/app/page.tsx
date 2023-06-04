@@ -5,7 +5,8 @@ import { useAuth } from './middleware/middleware'
 import AuthService from '../services/auth.service'
 import { useRouter } from 'next/navigation';
 export default function Home() {  
-  useAuth();
+  //useAuth();
+
   const router = useRouter();
   const logoutUser=()=>{
     AuthService.logout();
@@ -23,10 +24,28 @@ export default function Home() {
               alt="Poly go go Black"                
             />
           </div>
+          {sessionStorage.getItem("auth_token") ? 
           <button type='button' className={`ms-auto w-auto ${styles.btn} ${styles.btn_secondary}`} onClick={()=>logoutUser()}>
             <span className='fw-bold'>Logout</span>
             {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
           </button>
+          :<div className={`ms-auto w-auto`}>
+            <button 
+            type='button' 
+            className={`${styles.btn} ${styles.btn_secondary}`} 
+            onClick={()=>router.push('/login')}>
+              <span className='fw-bold'>Login</span>
+              {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
+            </button> 
+            <button 
+            type='button' 
+            className={`${styles.btn} ${styles.btn_secondary}`} 
+            onClick={()=>router.push('/register')}>
+              <span className='fw-bold'>Start a free trial</span>
+              {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
+            </button>
+          </div>
+          }
         </div>
         <div className='text-center pt-5 mt-5'>
           <h1 className={styles.text_primary}>Hello,  Welcome to Poly Go GO!</h1>
