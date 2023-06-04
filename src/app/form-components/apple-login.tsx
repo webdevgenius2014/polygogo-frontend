@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation';
 const AppleLoginButton= () => {
     const router = useRouter();
     const clientId = process.env.NEXT_PUBLIC_APPLE_CLIENT_ID;
+    console.log(clientId);
     const redirectUrl = process.env.NEXT_PUBLIC_APPLE_REDIRECT_URL;
+    console.log(redirectUrl);
 
     const appleResponse = async(response:any) => {
         console.log(response)
