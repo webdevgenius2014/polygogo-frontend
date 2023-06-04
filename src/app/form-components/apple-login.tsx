@@ -8,8 +8,23 @@ const AppleLoginButton= () => {
     const router = useRouter();
     const clientId = process.env.NEXT_PUBLIC_APPLE_CLIENT_ID;
     const redirectUrl = process.env.NEXT_PUBLIC_APPLE_REDIRECT_URL;
-    const responseApple = (response:any) => {
+    const responseApple = async (response:any) => {
         console.log(response, response.authorization?.id_token)
+        if(!response.error)
+        {
+            let params = {
+                "type" : "apple",
+                "id_token" : response.authorization?.id_token
+            }
+            await AuthService.socialLogin(params).then((data)=>{      
+                if(data){
+                    sessionStorage.setItem("auth_token", data.data.token);
+                    setTimeout(() => {
+                        router.push('/');
+                    }, 3000); 
+                }
+            })
+        }
     }
 
     // const appleResponse = async(response:any) => {
