@@ -244,7 +244,6 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                 </div>
               </div>                                
             </div>
-          </div>
         {/* </div> */}
     </main>
   )
