@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/globals.scss'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
+import { useEffect } from 'react'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Poly Go Go',
@@ -12,7 +13,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {  
+}) {   
   return (
     <html lang="en">
       <Head>
