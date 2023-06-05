@@ -226,9 +226,10 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                         <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} buttonLabel={buttonLabel} />                  
                       </>)}
                       {message && <div className='ms-3 me-3 mt-3'>
-                        {isResend?(
+                        {isResend && 
                           <p className='text-center mt-2'>Do not received an OTP, <span onClick={()=>getCode()} className={`fw-bold ${styles.link}`}>Resend Code</span></p>
-                        ):<p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p>}
+                        }
+                        <p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p>
                       </div>}
                     </>)} 
                   </div>
