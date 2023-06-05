@@ -14,3 +14,6 @@ export const testPhone=(value:any)=>{
 export const validatePhone = (phone: string | undefined) => {     
     return (phone && phone.length === 10 ? true : false);
 };
+export const validateOTP= (otp: string | undefined) => {  
+    return (otp && otp.length === 6 ? true : false);
+}; 

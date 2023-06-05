@@ -15,7 +15,7 @@ export default function Home() {
     router.push('/login');
   }
   return (
-    <main className={` ${styles.main} ${styles.container} ${styles.bg_light}`}>
+    <main className={` ${styles.main} ${styles.bg_light}`}>
       <div className='p-4 w-100'>
         <div className={`p-4 mb-4 d-flex align-items-center justify-space-between`}>
           <div className={styles.title_image}>
@@ -32,15 +32,8 @@ export default function Home() {
             {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
           </button>
           :<div className={`ms-auto w-auto`}>
-            <Link className={`${styles.btn} ${styles.btn_secondary}`} 
-            href="/login">
-                <span className='fw-bold'>Login</span>
-            </Link>
-
-            <Link className={`${styles.btn} ${styles.btn_secondary}`} 
-            href="/register">
-                <span className='fw-bold'>Start a free trial</span>
-            </Link>
+            <Link className={`me-3 ${styles.btn} ${styles.btn_secondary}`} href="/login"><span className='fw-bold'>Login</span></Link>
+            <Link className={`${styles.btn} ${styles.btn_secondary}`} href="/register"><span className='fw-bold'>Start a free trial</span></Link>
           </div>
           }
         </div>

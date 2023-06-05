@@ -43,13 +43,13 @@ const VerifyCodeForm :React.FC<Props>=({otp, buttonLabel, setOTP, submitCode}) =
                 name="oneTimePassword"                                               
                 register={register}
                 value={otp}
-                handleChange={(e:any)=>{
-                    console.log(e.target.value);
+                handleChange={(e:any)=>{                    
                     handleChange(e)
                 }} 
                 placeholder="Enter Code"
                 error={formState.errors.oneTimePassword?.message}
-                //label='Email or Phone Number'                    
+                //label='Email or Phone Number'
+                maxLength={6}                     
                 wrapperClass="form-group"
                 iconClass={`position-relative ${styles.input_code} ${styles.icon_wrap}`}
                 className={`form-control ${styles.input_field} ${formState.errors.oneTimePassword ? 'is-invalid' : ''}`}         
