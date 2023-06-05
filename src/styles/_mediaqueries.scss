@@ -1,10 +1,21 @@
 @media screen and (max-width: 1499px) {
-    .box_wrap .box_one{
-        .title_image{
-            margin-left: 2rem;
+    .box_wrap {
+        .box_one{
+            .title_image{
+                margin-left: 2rem;
+            }
+            .box_image_wrap{
+                margin: 8rem 0 1.875rem 2rem;
+            }
+            .bottom_left_circle{
+                width: 17rem;           
+            }
         }
-        .box_image_wrap{
-            margin: 8rem 0 1.875rem 2rem;
+        .box_two{
+            &::before{
+                width: 17.5rem;
+                height: 15.625rem;
+            }
         }
     }
 }
@@ -28,17 +39,11 @@
                     display: none;
                 }
             }
-            .bottom_left_circle{
-                width: 17rem;
+            .bottom_left_circle{               
                 margin-right: 1.25rem;
             }
         }
-        .box_two{
-            &::before{
-                width: 17.5rem;
-                height: 15.625rem;
-            }
-        }
+        
     }
     .box_wrap .box_two .form_wrap{
         width:28rem;
