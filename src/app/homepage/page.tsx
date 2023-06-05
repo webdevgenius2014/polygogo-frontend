@@ -1,8 +1,8 @@
 'use client'
 import Image from 'next/image'
-import styles from '../styles/styles.module.scss'
-import { useAuth } from './middleware/middleware'
-import AuthService from '../services/auth.service'
+import styles from '../../styles/styles.module.scss'
+import { useAuth } from '../middleware/middleware'
+import AuthService from '../../services/auth.service'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -45,7 +45,7 @@ export default function Home() {
           }
         </div>
         <div className='text-center pt-5 mt-5'>
-          <h1 className={styles.text_primary}>Hello,  Welcome to Poly Go GO!</h1>
+          <h1 className={styles.text_primary}>Hello,  Welcome to Poly Go GO9!</h1>
         </div> 
       </div>     
     </main>
