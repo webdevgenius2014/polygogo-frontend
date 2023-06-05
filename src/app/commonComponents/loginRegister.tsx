@@ -160,7 +160,8 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                   src="/PolygogoBlack.png"
                   width={176}
                   height={35}
-                  alt="Poly go go Black"                
+                  alt="Poly go go Black"  
+                  title='Poly go go'              
                 />
               </div>
               {/* <div className={styles.step_image}>
@@ -207,10 +208,11 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
             <div className={styles.box_two}> 
               <div className={`d-block mb-4 d-lg-none  ${styles.title_image}`}>
                 <Image
-                  src="/PolygogoBlack.png"
+                  src="/PolygogoWhite.png"
                   width={176}
                   height={35}
-                  alt="Poly go go Black"                
+                  alt="PolygogoWhite"
+                  title='Poly go go'                
                 />
               </div>               
               <div className={`position-relative ${styles.form_wrap} ${styles.after_before_dots}`}>                
