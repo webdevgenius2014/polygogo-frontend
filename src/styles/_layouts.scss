@@ -159,6 +159,7 @@
                         
         }
         .form_wrap{
+            width: 30.875rem; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -167,12 +168,15 @@
                 position: absolute;
                 left: .625rem;
                 top: .625rem;
-            }
+            }            
+        }
+        .form{
+            max-width: 22.625rem; 
         }
     }
 }
 .form_wrap{
-    width: 30.875rem;    
+       
     min-height: 32.375rem;
     background-color: variable.$second-color;
     padding: 5.875rem 1.875rem 5rem;
@@ -209,7 +213,7 @@
 }
 .form{
     margin: 2rem auto auto;
-    max-width: 22.625rem;    
+       
     .label{
         font-weight: 400;
         font-size: 0.996rem;

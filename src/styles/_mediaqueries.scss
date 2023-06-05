@@ -46,7 +46,7 @@
             }
         }
     }
-    .form_wrap{
+    .box_wrap .box_two .form_wrap{
         width:28rem;
     }
 }
@@ -61,27 +61,45 @@
         .box_two{
             width: 100%;
             order:1;
+            background-color: transparent;
+            padding-left:15px;
+            padding-right:15px;
+            &::before{
+                display: none;
+                // background-image:none;
+                // width: 0;
+                // height: 0;
+            }
+            
         }
     }
-    .form_wrap{
-        width:494px;
+    .form_wrap{       
+        &.after_before_dots{
+            &::before, &::after{
+               display: none;
+            }
+        }
     }
 
 }
 @media screen and (max-width: 767px) {
-
-}
-@media screen and (max-width: 575px) {
-    .form_wrap{
-        width:100%;
-        margin-left: 20px;
-        margin-right: 20px;
-        &.after_before_dots{
-            &::before, &::after{
-                content: '';
+    .form_wrap{        
+        padding: 5rem 1.5rem 4rem;
+    }
+    .box_wrap{
+        .box_two{
+            .form{
+                max-width:100%;
             }
         }
     }
+    .btn_primary, .btn_secondary, .other_login{
+        min-width: 100%;
+    }
+    
+}
+@media screen and (max-width: 575px) {    
+    
 }
 @media screen and (max-width: 480px) {
     

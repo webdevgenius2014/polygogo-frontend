@@ -204,36 +204,43 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                 <div className={styles.copyright}>© 2023 Polygogo. All rights reserved.</div>
               </div>             
             </div>
-            <div className={styles.box_two}>                
-                <div className={`position-relative ${styles.form_wrap} ${styles.after_before_dots}`}>
+            <div className={styles.box_two}> 
+              <div className={`d-block mb-4 d-lg-none  ${styles.title_image}`}>
+                <Image
+                  src="/PolygogoBlack.png"
+                  width={176}
+                  height={35}
+                  alt="Poly go go Black"                
+                />
+              </div>               
+              <div className={`position-relative ${styles.form_wrap} ${styles.after_before_dots}`}>                
                 {isOTPShow===true && <div className={`${styles.back_btn}`} onClick={()=>backToLoginForm()} ><img src="/icons/back_arrow.svg" alt="right-arrow" /></div> } 
-                  <div className='w-100'>                    
-                    <h1 className={`text-center ${styles.heading_one} ${styles.text_primary}`}>{formHeading}</h1> 
-                    <p className={styles.sub_title}>{formSubTitle}</p>
-                    {!isShowForm?(<>
-                      <div className='mt-4'></div>
-                      <SocialMideiaLogin />                                          
-                      <p className='text-center mt-2 mb-3'>Continue With <span className='fw-bold'>Email</span> or <span className='fw-bold'>Phone Number</span></p>
-                      <button type='submit' className={`d-block ms-auto me-auto mt-3 ${styles.btn} ${styles.btn_primary}`} onClick={()=>setIsShowForm(true)}>
-                        <span className='fw-bold'>{btnText}</span>
-                        <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" />
-                      </button>
-                    </>):(<>
-                      {isOTPShow!==true?(<> 
-                        <LoginForm userName={userName} setUserName={setUserName} loginUser={getCode} />                        
-                        <SocialMideiaLogin />
-                      </>):(<>              
-                        <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} buttonLabel={buttonLabel} />                  
-                      </>)}
-                      {message && <div className='ms-3 me-3 mt-3'>
-                        {isResend?(
-                          <p className='text-center mt-2'>Do not received an OTP, <span onClick={()=>getCode()} className={`fw-bold ${styles.link}`}>Resend Code</span></p>
-                        ):<p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p>}
-                      </div>}
-                    </>)} 
-                  </div>
+                <div className='w-100'>                    
+                  <h1 className={`text-center ${styles.heading_one} ${styles.text_primary}`}>{formHeading}</h1> 
+                  <p className={styles.sub_title}>{formSubTitle}</p>
+                  {!isShowForm?(<>
+                    <div className='mt-4'></div>
+                    <SocialMideiaLogin />                                          
+                    <p className='text-center mt-2 mb-3'>Continue With <span className='fw-bold'>Email</span> or <span className='fw-bold'>Phone Number</span></p>
+                    <button type='submit' className={`d-block ms-auto me-auto mt-3 ${styles.btn} ${styles.btn_primary}`} onClick={()=>setIsShowForm(true)}>
+                      <span className='fw-bold'>{btnText}</span>
+                      <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" />
+                    </button>
+                  </>):(<>
+                    {isOTPShow!==true?(<> 
+                      <LoginForm userName={userName} setUserName={setUserName} loginUser={getCode} />                        
+                      <SocialMideiaLogin />
+                    </>):(<>              
+                      <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} buttonLabel={buttonLabel} />                  
+                    </>)}
+                    {message && <div className='ms-3 me-3 mt-3'>
+                      {isResend?(
+                        <p className='text-center mt-2'>Didn't received an OTP, <span onClick={()=>getCode()} className={`fw-bold ${styles.link}`}>Resend Code</span></p>
+                      ):<p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p>}
+                    </div>}
+                  </>)} 
                 </div>
-                                
+              </div>                                
             </div>
           </div>
         {/* </div> */}
