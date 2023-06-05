@@ -8,11 +8,9 @@ class AuthService {
     let payload = {username:username} 
     return instance.post(ApiConfig.registerLogin, payload)  
   }
-
   verifyOtp(payload) {  
     return instance.post(ApiConfig.verifyOtp, payload)    
   }
-
   signInWithGoogle(data){
     return axios
     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${data.access_token}`, {
@@ -27,12 +25,10 @@ class AuthService {
     .catch((err) => {
       return err; 
     });
-  }
-  
+  }  
   socialLogin(payload){    
     return instance.post(ApiConfig.socialLogin, payload)
   }
-
   logout() {
     sessionStorage.removeItem("auth_token");        
   }
@@ -54,7 +50,7 @@ class AuthService {
     });
   }
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(sessionStorage.getItem('user'));
   }
 }
 export default new AuthService();

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import AuthService from '../../services/auth.service'
 import { useAuth } from '../middleware/middleware'
 import { useRouter } from 'next/navigation';
-import { validateEmail, testPhone } from '@/helpers/formatCheck';
+import { validateEmail, testPhone, validateOTP } from '@/helpers/formatCheck';
 type Props = { 
     btnText:string,     
     buttonLabel:string
@@ -55,7 +55,7 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
         setMessage(`Enter the verification code sent on ${userName}`);
       }else{
         setAlertClass('text-danger');
-        setMessage(response?.error)
+        setMessage(response?.data.message);
       }
     },error=>{  
       setAlertClass('text-danger');    
@@ -73,20 +73,19 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
           if(isResend){
             setIsResend(false);          
           }
-          setAlertClass(styles.text_primary); 
-          setMessage('User registered successfully...'); 
+          setAlertClass(''); 
+          setMessage(''); 
           sessionStorage.setItem("auth_token", response.data.token);
-          setTimeout(() => {
-            router.push('/');
-          }, 3000);         
+          router.push('/');
         }else{
-          setAlertClass('text-danger');          
+          setAlertClass('text-danger');
+          setMessage(response?.data.message);      
         }
       }
     },error=>{
       console.log(error);
       setAlertClass('text-danger'); 
-      setMessage('Request failed Please enter valid otp.');
+      setMessage('Please enter valid otp.');
     })
   };
   const setstepOneData=()=>{
@@ -177,10 +176,11 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                         style={{height: `${imageProps.imageOne.height}` }}   
                         className={`mw-100`}                                
                       />
-                      {isShowForm && (validateEmail(userName) && !testPhone(userName)) && <span className={`${styles.d_text} ${styles.email_text}`} >{userName}</span>}
+                      {isShowForm && !isOTPShow && (validateEmail(userName) && !testPhone(userName)) && <span className={`${styles.d_text} ${styles.email_text}`} >{userName}</span>}
+                      {isShowForm && isOTPShow  && <span className={`${styles.d_text} ${styles.otp_text}`} >{otp}</span>}
                     </div>                    
                   </div>
-                  <div className={`mw-100 ${styles.img_two}`}>
+                  <div className={`mw-100 ${styles.img_two} ${isShowForm && !isOTPShow?styles.email_img_box:''}`}>
                     <div className={`mw-100 position-relative`}>                
                       <img
                         src={`/images/${imageProps.imageTwo.image}`}
@@ -188,7 +188,7 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                         style={{height: `${imageProps.imageTwo.height}` }}                   
                         className={`mw-100`} 
                       />
-                      {isShowForm && (testPhone(userName) && !validateEmail(userName)) && <span className={`${styles.d_text} ${styles.phone_text}`} >{userName}</span>}
+                      {isShowForm && !isOTPShow && (testPhone(userName) && !validateEmail(userName)) && <span className={`${styles.d_text} ${styles.phone_text}`} >{userName}</span>}
                     </div>
                   </div>                  
                 </div>

@@ -4,6 +4,85 @@
 @media screen and (max-width: 1980px) {
    
 }
-@media screen and (max-width: 1440px) {
-   
+@media screen and (max-width: 1499px) {
+    .box_wrap .box_one{
+        .title_image{
+            margin-left: 2rem;
+        }
+        .box_image_wrap{
+            margin: 8rem 0 1.875rem 2rem;
+        }
+    }
+}
+@media screen and (max-width: 1279px) {
+    .box_wrap .box_one{        
+        .box_image_wrap{
+            margin-top: 9rem;
+        }
+    }
+}
+@media screen and (max-width: 1199px) {
+    .box_wrap {
+        .box_one{
+            .box_image_wrap{
+                width: 33rem;
+                margin-top: 10rem;
+                .img_two.email_img_box{
+                    bottom:-40px
+                }
+                .connect_arrow{
+                    display: none;
+                }
+            }
+            .bottom_left_circle{
+                width: 17rem;
+                margin-right: 1.25rem;
+            }
+        }
+        .box_two{
+            &::before{
+                width: 17.5rem;
+                height: 15.625rem;
+            }
+        }
+    }
+    .form_wrap{
+        width:28rem;
+    }
+}
+@media screen and (max-width: 991px) {
+    .box_wrap{
+        flex-direction:column;
+        .box_one{
+            width: 100%;
+            order:2;
+            display: none;
+        }
+        .box_two{
+            width: 100%;
+            order:1;
+        }
+    }
+    .form_wrap{
+        width:494px;
+    }
+
+}
+@media screen and (max-width: 767px) {
+
+}
+@media screen and (max-width: 575px) {
+    .form_wrap{
+        width:100%;
+        margin-left: 20px;
+        margin-right: 20px;
+        &.after_before_dots{
+            &::before, &::after{
+                content: '';
+            }
+        }
+    }
+}
+@media screen and (max-width: 480px) {
+    
 }

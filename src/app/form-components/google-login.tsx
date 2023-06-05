@@ -36,7 +36,7 @@ const GoogleLoginButton=() => {
     const loginWithGoogleCallback = async (data:any)=>{ 
         await AuthService.socialLogin(data).then((response)=>{      
             if(response){
-                console.log("get token for verified emil from backend api");  
+                console.log("get token for verified email from backend api");  
                 console.log(response);
                 sessionStorage.setItem("auth_token", response.data.token);
                 setTimeout(() => {

@@ -6,7 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: any;
   register?: any;
-  maxLength?:string;
+  maxLength?:number;
   wrapperClass?: string;
   iconClass?:string
   handleChange?:any;
