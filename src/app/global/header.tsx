@@ -13,7 +13,7 @@ export default function Header(){
     return(
         <>
             <header>
-            <nav className={`navbar navbar-expand-lg bg-light fixed-top ${styles.navigation}`}>
+            <nav className={`navbar navbar-expand-lg fixed-top ${styles.navigation_custom}`}>
                 <div className={`container ${styles.container}`}>
                     <a className="navbar-brand" href="#"><img src='images/Polygogo_Logo.png' alt=''/></a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -25,12 +25,12 @@ export default function Header(){
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
-                        <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <ul className={`navbar-nav justify-content-center flex-grow-1 pe-3 ${styles.main_menu}`}>
+                        <li className={`nav-item dropdown ${styles.nav_item}`}>
+                            <a className={`nav-link dropdown-toggle ${styles.site_link} ${styles.link_toggle}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Product
                             </a>
-                            <ul className="dropdown-menu">
+                            <ul className={`dropdown-menu ${styles.custom_dropmenu}`}>
                             <li><a className="dropdown-item" href="#">Action</a></li>
                             <li><a className="dropdown-item" href="#">Another action</a></li>
                             <li>
@@ -39,17 +39,17 @@ export default function Header(){
                             <li><a className="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Industries</a>
+                        <li className={`nav-item ${styles.nav_item}`}>
+                            <a className={`nav-link ${styles.site_link}`} aria-current="page" href="#">Industries</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Pricing</a>
+                        <li className={`nav-item ${styles.nav_item}`}>
+                            <a className={`nav-link ${styles.site_link}`} href="#">Pricing</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Resources</a>
+                        <li className={`nav-item ${styles.nav_item}`}>
+                            <a className={`nav-link ${styles.site_link}`} href="#">Resources</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Customer Support</a>
+                        <li className={`nav-item ${styles.nav_item}`}>
+                            <a className={`nav-link ${styles.site_link}`} href="#">Customer Support</a>
                         </li>
                         
                         </ul>
@@ -63,12 +63,12 @@ export default function Header(){
                         {/* <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" /> */}
                     </button>
                     :<div className={`ms-auto w-auto`}>
-                        <Link className={`${styles.btn} ${styles.btn_secondary}`} 
+                        <Link className={`${styles.site_link} me-2`} 
                         href="/login">
                             <span className='fw-bold'>Login</span>
                         </Link>
 
-                        <Link className={`${styles.btn} ${styles.btn_secondary}`} 
+                        <Link className={`${styles.btn} ${styles.btn_tertiary} mt-0`} 
                         href="/register">
                             <span className='fw-bold'>Start a free trial</span>
                         </Link>

@@ -2,13 +2,14 @@
 import styles from '../../styles/styles.module.scss';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Header from '../shared/header';
+import Header from '../global/header';
+import HomeBanner from '../shared/homeBanner';
 
 export default function Homepage(){
     return(
         <>
         <Header/>
-            <h2>Homepage here</h2>
+            <HomeBanner/>
         </>
     )
 }

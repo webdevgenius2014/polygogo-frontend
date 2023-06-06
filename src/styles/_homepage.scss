@@ -1,3 +1,32 @@
-.navigation{
-    background-color: red;
+@use "variables" as variable;
+@use "mixins" as mx;
+.navigation_custom{
+    padding: 0.5625rem 0;
+    background: $white;
+    box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
+}
+.main_menu{
+    .nav_item{
+        padding: 0 10px;
+        .link_toggle{
+            &::after{
+                background-image: url(../../public/images/dwn_chev.png);
+                background-repeat: no-repeat;
+                border: 0;
+                width: 0.5625rem;
+                height: 0.375rem;
+                margin-left: 0.375rem;
+                vertical-align: 0.0625rem;
+            }
+        }
+    }
+    .site_link{
+        font-weight: 600;
+        color: variable.$black;
+    }
+    
+}
+.btn_tertiary{
+    color: variable.$white;
+    background-color: variable.$gray-4;
 }
