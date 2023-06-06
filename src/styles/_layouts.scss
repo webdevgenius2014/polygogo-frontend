@@ -159,6 +159,7 @@
                         
         }
         .form_wrap{
+            width: 30.875rem; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -167,12 +168,14 @@
                 position: absolute;
                 left: .625rem;
                 top: .625rem;
-            }
+            }            
+        }
+        .form{
+            max-width: 22.625rem; 
         }
     }
 }
-.form_wrap{
-    width: 30.875rem;    
+.form_wrap{       
     min-height: 32.375rem;
     background-color: variable.$second-color;
     padding: 5.875rem 1.875rem 5rem;
@@ -206,10 +209,13 @@
         max-width: 18.375rem;
         margin: auto;
     }
+    .btn_primary, .other_login {
+        min-width: 22.625rem;
+    }
 }
 .form{
     margin: 2rem auto auto;
-    max-width: 22.625rem;    
+       
     .label{
         font-weight: 400;
         font-size: 0.996rem;
@@ -308,15 +314,13 @@
         height: auto;
     }
 }
-.btn_primary{
-    min-width: 22.625rem;
+.btn_primary{   
     @include mx.custom_button(variable.$primary-color, variable.$white, variable.$primary-color)
 }
 .btn_secondary{   
     @include mx.custom_button(variable.$primary-color, variable.$white, variable.$primary-color)
 }
-.other_login{
-    min-width: 22.625rem;
+.other_login{  
     @include mx.custom_button(variable.$while-1, #2F3E46, variable.$gray-3);
 }
 .back_btn{

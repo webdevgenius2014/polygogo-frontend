@@ -1,16 +1,21 @@
-@media screen and (max-width: 2560px) {
-    
-}
-@media screen and (max-width: 1980px) {
-   
-}
 @media screen and (max-width: 1499px) {
-    .box_wrap .box_one{
-        .title_image{
-            margin-left: 2rem;
+    .box_wrap {
+        .box_one{
+            .title_image{
+                margin-left: 2rem;
+            }
+            .box_image_wrap{
+                margin: 8rem 0 1.875rem 2rem;
+            }
+            .bottom_left_circle{
+                width: 17rem;           
+            }
         }
-        .box_image_wrap{
-            margin: 8rem 0 1.875rem 2rem;
+        .box_two{
+            &::before{
+                width: 17.5rem;
+                height: 15.625rem;
+            }
         }
     }
 }
@@ -34,19 +39,13 @@
                     display: none;
                 }
             }
-            .bottom_left_circle{
-                width: 17rem;
+            .bottom_left_circle{               
                 margin-right: 1.25rem;
             }
         }
-        .box_two{
-            &::before{
-                width: 17.5rem;
-                height: 15.625rem;
-            }
-        }
+        
     }
-    .form_wrap{
+    .box_wrap .box_two .form_wrap{
         width:28rem;
     }
 }
@@ -60,29 +59,49 @@
         }
         .box_two{
             width: 100%;
-            order:1;
+            order:1;           
+            padding-left:15px;
+            padding-right:15px;
+            &::before{
+                display: none;               
+            }
+            
         }
-    }
-    .form_wrap{
-        width:494px;
-    }
-
+    }    
 }
 @media screen and (max-width: 767px) {
-
-}
-@media screen and (max-width: 575px) {
-    .form_wrap{
-        width:100%;
-        margin-left: 20px;
-        margin-right: 20px;
-        &.after_before_dots{
-            &::before, &::after{
-                content: '';
+    .form_wrap{        
+        padding: 5rem 1.5rem 4rem;
+        .btn_primary, .other_login{
+            min-width: 100%;
+        }        
+    }
+    .box_wrap{
+        .box_two{
+            .form_wrap,.form{
+                max-width:100%;
             }
         }
-    }
+    }       
+    .heading_one{ 
+        font-size: 2.5rem;
+        line-height: 3.2rem; 
+    }    
 }
-@media screen and (max-width: 480px) {
-    
+@media screen and (max-width: 575px) {    
+    .heading_one{ 
+        font-size: 2rem;
+        line-height: 2.6rem; 
+    }
+    .form_wrap{
+        &.after_before_dots{
+            &::before, &::after{
+               display: none;
+            }
+        }
+        .sub_title{                       
+            font-size: 1.2rem; 
+            max-width:100%         
+        }
+    } 
 }

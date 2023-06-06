@@ -17,7 +17,7 @@ type Props = {
     submitCode:(val:VerifyCodeInterface)=>void;
 }
 const validationSchema = Yup.object().shape({            
-    oneTimePassword: Yup.string().min(6, 'Code must be at least 5 characters').max(6, 'Invalid code').required('Please enter verification code'),
+    oneTimePassword: Yup.string().min(6, 'Please enter 6 digit code').max(6, 'Invalid code').required('Please enter verification code'),
 });
 const VerifyCodeForm :React.FC<Props>=({otp, buttonLabel, setOTP, submitCode}) =>{ 
     const {
