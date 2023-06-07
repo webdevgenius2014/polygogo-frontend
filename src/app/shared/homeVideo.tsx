@@ -17,7 +17,7 @@ export default function(){
                     <div className={`col-md-8 ${styles.cust_right}`}>
                         <div className={`${styles.video_right}`}>
                         <div className={`${styles.video_laptop}`}>
-                        <video controls>
+                        <video controls poster='images/YouTube-Thumbnail.png'>
                             <source src="videos/sample_video.mp4" type="video/mp4"/>
                         </video>
                         </div>
