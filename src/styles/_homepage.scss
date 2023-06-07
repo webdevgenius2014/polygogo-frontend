@@ -128,14 +128,14 @@
     .customer_first{
         display: flex;
         align-items: center;
-        max-width: 21.125;
+        max-width: 21.125rem;
         width: 100%;
         position: relative;
         &::after{
             position: absolute;
             content: "";
             height: 2.4375rem;
-            width: 0.125;
+            width: 0.125rem;
             background-color: #1B1C20;
             right: 1.4375rem;
             top: 0.6875rem;
