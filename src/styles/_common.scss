@@ -1,0 +1,67 @@
+.btn{ 
+    padding: .875rem .75rem;    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: solid; 
+    border-radius: 0.313rem;
+    margin-top: 0.625rem;  
+    span{
+        font-weight: 400;
+        font-size: 0.938rem;
+        font-size: 0.938rem;
+    }
+    img{
+        width: .875rem;
+        height: auto;
+    }
+}
+.btn_primary{   
+    @include custom_button($primary-color, $white, $primary-color)
+}
+.btn_secondary{   
+    @include custom_button($primary-color, $white, $primary-color)
+}
+.form{        
+    .label{
+        font-weight: 400;
+        font-size: 0.996rem;
+        line-height: 1.188rem;
+        margin-bottom: .625rem;
+    }
+    .input_field{
+        padding: .875rem 1.25rem .813rem;
+        border-width: 1px;
+        border-radius: .313rem;
+        font-size: .938rem;
+        line-height: 1.125rem;               
+        color: $black-1;
+        &.is_invalid{
+            border-color: $red;
+        }        
+        &:hover, &:focus{
+            box-shadow: none;
+            outline: none;
+            &:not(.is_invalid){
+                border-color: $second-color;
+            }
+        }       
+        &::placeholder{
+            font-size: .938rem;
+            line-height: 1.125rem;
+            color: $black-1;
+        }      
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover, 
+        &:-webkit-autofill:focus, 
+        &:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px $while-1 inset !important;
+        }
+    } 
+}
+/* color classes */
+.text-black{
+    color: $black;
+}
+

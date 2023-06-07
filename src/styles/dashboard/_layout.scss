@@ -1,0 +1,186 @@
+/* Dashboard layout styles start */
+.d_layout{
+    display: flex;
+    flex-direction: row; 
+    // height: 100vh;
+    height: 64.313rem;
+    background-color: $second-color; 
+    
+}
+.d_container{    
+    padding: 2.313rem 2.5rem 0;
+    min-width: 77.688rem;
+    width: 86.6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: width .5s linear;
+    &.expanded{
+        min-width: 88.5rem;
+        width: 96.6%;
+        // transition: width 1s ease;
+    }
+    height: 100%;
+    overflow-y: auto;
+
+}
+.page_content{
+    flex-grow: 1;
+}
+.page_container{
+    background-color: $while-1;
+    height: 100%;
+    border-radius: 19px;
+}
+/* Sidebar styles start */
+.sidebar{
+    min-width: 5.25rem;
+    width: 4.4%;
+    background-color: $primary-color;
+    // min-height: 64.313rem;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 0 3.125rem 3.125rem 0;
+    padding-top: 2.563rem;
+    padding-bottom: 2.563rem;
+    display: inline-block;
+    text-align: center;
+    transition: width .5s linear;
+    .brand{
+        margin-bottom: 2rem;
+        display: block;
+        .brand_icon{
+            min-width: 2.375rem;
+        }
+        .brand_image{
+            min-width: 7.625rem;
+        }
+    }
+    .nav_item{
+        display: block;               
+        margin-bottom: .25rem;
+        transition: all 0.3s ease; 
+        padding: 1rem 0.625rem 1rem 0.625rem;       
+        .nav_link{
+            transition: all 0.3s ease;
+            display: block;
+            color: $white; 
+            padding: 0;
+        }        
+    }
+    &.expanded{
+        min-width: 16.063rem;
+        width: 13.4%;
+        // transition: width 1s ease;
+        padding-left: .625rem;
+        text-align: left; 
+        .brand{
+            margin-left: 1.875rem;
+            margin-bottom: 3rem;
+        }
+        .nav_item{
+            border-radius: 1.75rem 0px 0px 1.75rem; 
+            padding: 1rem 0.813rem .94rem 1.813rem;
+            .nav_link{         
+                padding-left: 1rem;                   
+            }
+            &.active, &:hover{
+                background-color: $second-color;
+                .nav_link{
+                    color: $black;
+                    .nav-icon{
+                        filter: invert(1);
+                    }
+                }
+            }
+            .nav_text{
+                font-size: 0.938rem;
+                line-height: 1.125rem;
+                font-weight: normal;
+            }
+            .nav_icon{
+                margin-right: 1rem;
+            }
+        }
+    }
+}
+/* Topbar styles start */
+.topbar{
+    min-width: 70.875rem;
+    width: 97%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $while-1;
+    border-radius: .625rem;
+    padding: .625rem;
+    min-height: 4.125rem;
+    margin-bottom: 2rem;
+}
+.toggle_btn{
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    @include custom_button($primary-color, $white, $primary-color);
+    position: absolute;
+    left: -1.875rem;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+.search_form{
+    width: 33.5rem;
+    margin: auto;
+    .input_field{
+        background-color: $second-color; 
+        border-color: $second-color;
+    }
+    .search_btn{
+        border: 0;
+        position: absolute;
+        right: .75rem;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background: transparent;
+        &:hover, &:focus{
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+}
+.vrt_border{
+    display: inline-block;
+    border-left: 2px solid $primary-color;
+    width: 1.5rem;
+    height: 100%;
+    margin-left: 1.5rem;
+}
+.user_wrap{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    .icon{
+        margin-right:0.938rem;
+    }
+    .name{
+        font-weight: 600;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+}
+/* Footer styles start */
+.footer{
+    padding-top: 2.375rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    
+    .copyright{
+        font-size: .875rem;
+        line-height: 1.063rem;
+        font-weight: normal;
+        color: $gray-2;
+    }
+}
