@@ -1,21 +1,67 @@
 'use client'
 import styles from '../../styles/styles.module.scss';
 import Link from 'next/link';
+import { motion, spring } from "framer-motion";
+const fromLeft = {
+    hidden: {
+      x: -100,
+      opacity: 0,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 1.5,
+        type: "spring",
+        stiffness: 120,
+      },
+    },
+  };
+  const fromRight = {
+    hidden: {
+      x: 100,
+      opacity: 0,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 1.5,
+        type: "spring",
+        stiffness: 120,
+      },
+    },
+  };
 
 export default function HomeBanner(){
     return(
         <>
-            <section className={`${styles.banner}`}>
+            <motion.section className={`${styles.banner}`}
+            initial={{ x: "100vw" }}
+            animate={{ x: 0 }}
+            transition={{ type: spring, delay: 0.5, stiffness: 120 }}
+            >
                 <div className={`container ${styles.container}`}>
                     <div className='row align-items-center'>
                         <div className='col-md-6'>
-                            <div className={`${styles.banner_left}`}>
+                            <motion.div className={`${styles.banner_left}`}
+                                variants={fromLeft}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: false }}>
                                 <img src='images/banner_img.png' alt=''/>
-                            </div>
+                            </motion.div>
                         </div>
                         <div className='col-md-6'>
-                            <div className={`${styles.banner_right}`}>
-                                <h1>The <span>Text Marketing tool</span> to grow your local business</h1>
+                            <motion.div className={`${styles.banner_right}`}
+                            variants={fromRight}
+                            initial="hidden"
+                            whileInView="visible"
+                            >
+                                <h1>
+                                The <span>Text Marketing tool</span> to grow your local business</h1>
                                 <p>Manage all of your communication—from reviews to calls to text marketing, payments, and more—with Polygogo.</p>
                                 
                                     <div className={`d-flex ${styles.upper} align-items-center`}>
@@ -35,7 +81,7 @@ export default function HomeBanner(){
                                             <li>Cancel any time</li>
                                         </ul>
                                     </div>
-                            </div>
+                            </motion.div>
                             <div className={`${styles.review_sec}`}>
                                 <div className={`${styles.customer_first}`}>
                                     <div><img src='images/customers.png' alt=''/></div>
@@ -52,7 +98,7 @@ export default function HomeBanner(){
                         </div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
         </>
     )
 }

@@ -6,6 +6,8 @@ import Header from '../global/header';
 import HomeBanner from '../shared/homeBanner';
 import HomeTrust from '../shared/homeTrust';
 import HomeVideo from '../shared/homeVideo';
+import HomeReason from '../shared/homeReason';
+import HomeMarketing from '../shared/homeMarketing';
 
 export default function Homepage(){
     return(
@@ -14,6 +16,8 @@ export default function Homepage(){
             <HomeBanner/>
             <HomeTrust/>
             <HomeVideo/>
+            <HomeReason/>
+            <HomeMarketing/>
         </>
     )
 }

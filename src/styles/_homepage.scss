@@ -5,7 +5,9 @@
     background: $white;
     box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
 }
-
+.__className_0ec1f4{
+    overflow-y: hidden;
+}
 .main_menu{
     .nav_item{
         padding: 0 10px;
@@ -201,7 +203,7 @@
     }
     .video_laptop{
         position: relative;
-        padding-top: 25px;
+        padding-top: 1.5625rem;
         padding-bottom: 67.5%;
         height: 0;
         video{
@@ -215,5 +217,120 @@
             width: 100%;
             height: 100%;
         }
+
+        &:before{
+            position: absolute;
+            content: "";
+            background-image: url(../../public/images/dots.png);
+            width: 2.125rem;
+            height: 5.1875rem;
+            bottom: 37%;
+            left: 2.875rem;
+        }
+        &:after{
+            position: absolute;
+            content: "";
+            background-image: url(../../public/images/dots.png);
+            width: 2.125rem;
+            height: 5.1875rem;
+            top: 15%;
+            right: 2.875rem;
+        }
     }
+}
+.reason_sec{
+    padding: 5rem 0;
+    background-color: $black-1;
+    position: relative;
+    &:before{
+        position: absolute;
+        content: "";
+        background-image: url(../../public/images/round-curve.png);
+        height: 14.3125rem;
+        width: 8.4375rem;
+        left: 0;
+        top: 0;
+    }
+    .block_res{
+        background-color: $white;padding: 45px 30px;
+        border: 0.125rem solid #84A98C;
+        box-shadow: 0px 2.125rem 1.5rem rgba(0, 0, 0, 0.1);
+        border-radius: 3.75rem;min-height: 29.625rem;
+        h5{
+            font-size: 1.5625rem;
+            line-height: 1.875rem;
+            font-weight: 700;
+            padding-bottom: 0.6875rem;
+            border-bottom: 0.0625rem solid #D6D6D6;
+            margin-bottom: 0.8125rem;
+        }
+        p{
+            font-size: 1.0625rem;
+            line-height: 1.875rem;
+            color: $black;
+            font-weight: 300;
+            span{
+                font-weight: 500;
+            }
+        }
+    }
+    .author_detail{
+        background: #EEEEEE;
+        border-radius: 1rem;
+        padding: 0.5625rem 0.75rem 0.3125rem;margin-top: 2.3125rem;
+        position: relative;
+        &:before{
+            position: absolute;
+            content: "";
+            height: 0.875rem;
+            width: 1.4375rem;
+            background-image: url(../../public/images/Vector7.png);
+            left: 3.125rem;
+            top: -0.875rem;
+        }
+        h6{
+            margin: 0;
+            font-size: 1.0625rem;
+            line-height: 1.875rem;
+            font-weight: 700;
+        }
+        p{
+            margin: 0;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            line-height: 1.875rem;
+            color: #969696;
+        }
+        .author_data{
+            padding-left: 0.9375rem;
+        }
+    }
+    .block_height{
+        height: 9.0625rem;
+    }
+    .reason_row{
+        position: relative;
+        &:before{
+            position: absolute;
+            content: "";
+            background-image: url(../../public/images/dots-white.png);
+            background-repeat: no-repeat;
+            height: 5.1875rem;
+            width: 2.125rem;
+            left: -2.1875rem;
+            top: -1.5625rem;
+        }&:after{
+            position: absolute;
+            content: "";
+            background-image: url(../../public/images/dots-white.png);
+            background-repeat: no-repeat;
+            height: 5.1875rem;
+            width: 2.125rem;
+            right: -2.1875rem;
+            bottom: -1.5625rem;
+        }
+    }
+}
+.col_white{
+    color: $white;
 }
