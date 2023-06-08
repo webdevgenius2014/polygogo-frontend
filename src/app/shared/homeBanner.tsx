@@ -49,8 +49,7 @@ export default function HomeBanner(){
                             <motion.div className={`${styles.banner_left}`}
                                 variants={fromLeft}
                                 initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: false }}>
+                                whileInView="visible">
                                 <img src='images/banner_img.png' alt=''/>
                             </motion.div>
                         </div>
