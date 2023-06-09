@@ -14,6 +14,7 @@ import HomeMessaging from '../shared/homeMessaging';
 import HomePartner from '../shared/homePartner';
 import HomePhones from '../shared/homePhones';
 import HomeTestimonial from '../shared/homeTestimonial';
+import Footer from '../global/footer';
 
 export default function Homepage(){
     return(
@@ -30,6 +31,7 @@ export default function Homepage(){
             <HomePartner/>
             <HomePhones/>
             <HomeTestimonial/>
+        <Footer/>    
         </>
     )
 }
