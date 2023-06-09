@@ -50,7 +50,7 @@ class AuthService {
     });
   }
   getCurrentUser() {
-    return JSON.parse(sessionStorage.getItem('user'));
+    return JSON.parse(sessionStorage.getItem('user_data'));
   }
 }
 export default new AuthService();

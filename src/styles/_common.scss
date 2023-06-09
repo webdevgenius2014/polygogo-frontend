@@ -8,20 +8,25 @@
     border-radius: 0.313rem;
     margin-top: 0.625rem;  
     span{
-        font-weight: 400;
+        font-weight: normal;        
         font-size: 0.938rem;
-        font-size: 0.938rem;
+        line-height: 1.25rem;
     }
     img{
         width: .875rem;
         height: auto;
+    }
+    &.disabled{
+        opacity: .5;
+        cursor: not-allowed;
+        // background:darken($bg,5%);
     }
 }
 .btn_primary{   
     @include custom_button($primary-color, $white, $primary-color)
 }
 .btn_secondary{   
-    @include custom_button($primary-color, $white, $primary-color)
+    @include custom_button($second-color, $primary-color, $second-color)
 }
 .form{        
     .label{
@@ -29,9 +34,74 @@
         font-size: 0.996rem;
         line-height: 1.188rem;
         margin-bottom: .625rem;
+        color: $primary-color;
     }
-    .input_field{
-        padding: .875rem 1.25rem .813rem;
+    .icon_wrap{
+        &::before{
+            position: absolute;
+            left: 1.25rem;
+            top: .875rem;
+            z-index: 99;
+            background-position: left;
+            background-repeat: no-repeat; 
+            content: ''; 
+        }
+        &.input_mail::before{            
+            background-image: url('../../public/icons/Email.svg'); 
+            @include bg_img(50%, 50%, cover);
+            width: 1.375rem;
+            height: 1.25rem;
+        }
+        &.input_call::before{            
+            background-image: url('../../public/icons/call.png'); 
+            @include bg_img(50%, 50%, cover);
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+        &.input_code::before{                        
+            background-image: url('../../public/icons/Group.svg');
+            @include bg_img(50%, 50%, cover);
+            width: 1.688rem;
+            height: 1.438rem;
+        }
+        &.input_lock::before{           
+            background-image: url('../../public/icons/lock.svg');  
+            @include bg_img(50%, 50%, cover);      
+            width: 1.563rem;
+            height: 1.563rem;        
+        } 
+        &.input_location::before{           
+            background-image: url('../../public/dashboard/icons/location.svg');  
+            @include bg_img(50%, 50%, cover);      
+            width: .875rem;
+            height: 1.188rem;        
+        } 
+        &.input_user::before{           
+            background-image: url('../../public/dashboard/icons/user.svg');  
+            @include bg_img(50%, 50%, cover);      
+            width: 1.375rem;
+            height: 1.375rem;        
+        }
+        &.input_business::before{           
+            background-image: url('../../public/dashboard/icons/business.svg');  
+            @include bg_img(50%, 50%, cover);      
+            width: 1.188rem;
+            height: 1.188rem;        
+        }
+        &.input_job::before{           
+            background-image: url('../../public/dashboard/icons/bag.svg');  
+            @include bg_img(50%, 50%, cover);      
+            width: 1.313rem;
+            height: 1.188rem;                   
+        }
+        &.input_upload::before{            
+            background-image: url('../../public/dashboard/icons/upload.svg');  
+            @include bg_img(50%, 50%, cover);      
+            width: 1.5rem;
+            height: 1.5rem; 
+        }
+    }
+    .input_field, .otp_field{        
         border-width: 1px;
         border-radius: .313rem;
         font-size: .938rem;
@@ -59,9 +129,77 @@
             -webkit-box-shadow: 0 0 0 30px $while-1 inset !important;
         }
     } 
+    .input_field{
+        padding: .875rem 1.25rem .813rem;
+    } 
+    .otp_group{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        .otp_field{
+            margin: 0.25rem;
+            width: 2.875rem;
+            height: 2.875rem;
+            padding: 0;
+            text-align: center;
+        }
+    }   
+    .prev_btn, .next_btn{
+        min-width: 7.75rem;
+        margin-right: .625rem;
+    }
+}
+.form_wrap{  
+    background-color: $second-color;
+    padding: 5.75rem 1.875rem 2.5rem;
+    // margin: 1rem auto 0;
+    border-radius: 0.5rem;
+    &.after_before_dots{
+        position: relative;
+        &::before, &::after{
+            content:'';
+            background-image: url('/dashboard/dots.png');
+            @include bg_img(50%, 50%, cover);
+            position: absolute;
+            width: 2.125rem;
+            height: 5.188rem;
+        }
+        &::before{
+            left: -2.75rem;
+            top: 0.313rem;
+        }
+        &::after{
+            right: -2.75rem;
+            bottom: 0.313rem;
+        }
+    }
+}
+.link{
+    text-decoration: none;
+    color: $primary-color;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    &:hover{
+        text-decoration: none;
+        color:darken($primary-color,8%);
+    }
+}
+.mb_1{
+    margin-bottom: .75rem;
 }
 /* color classes */
 .text-black{
     color: $black;
+}
+.text_primary{
+    color: $primary-color
+}
+.text_lg{
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+}
+.justify_between{
+    justify-content: space-between;
 }
 

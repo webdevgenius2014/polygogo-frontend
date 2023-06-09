@@ -76,7 +76,8 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
           setAlertClass(''); 
           setMessage(''); 
           sessionStorage.setItem("auth_token", response.data.token);
-          router.push('/');
+          sessionStorage.setItem("user_data", JSON.stringify(response.data.data));
+          router.push('/dashboard/profile');
         }else{
           setAlertClass('text-danger');
           setMessage(response?.data.message);      

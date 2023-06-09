@@ -1,9 +1,11 @@
-const apiURl=process.env.NEXT_PUBLIC_API_URL+'/api/'
+const apiURL=process.env.NEXT_PUBLIC_API_URL+'/api/'
 
 const ApiConfig = {
-    'registerLogin' : `${apiURl}register`,
-    'verifyOtp' : `${apiURl}verify-otp`,
-    'socialLogin' : `${apiURl}social-login`
+    'registerLogin' : `${apiURL}register`,
+    'verifyOtp' : `${apiURL}verify-otp`,
+    'socialLogin' : `${apiURL}social-login`,
+    'userDetails': `${apiURL}user-details`,
+    'completeProfile': `${apiURL}complete-profile`
 };
 
 export default ApiConfig;

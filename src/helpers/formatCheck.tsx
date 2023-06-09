@@ -16,4 +16,18 @@ export const validatePhone = (phone: string | undefined) => {
 };
 export const validateOTP= (otp: string | undefined) => {  
     return (otp && otp.length === 6 ? true : false);
-}; 
+};
+export const validateUserName=(username: any | undefined) =>{   
+    var regex=/^[A-Za-z][A-Za-z0-9_]{7,29}$/;
+    return(username && regex.test(username) && username.length >=8? true: false);
+    
+}
+export const validateWebsiteUrl=(url: any | undefined)=>{
+    const regex = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
+    return(url && regex.test(url)? true: false);
+}
+
+export const validateOtpDigit=(digit: any | undefined)=>{
+    const regex= /^[0-9]*$/
+    return( digit && digit.length===1 && regex.test(digit)?true:false);
+}

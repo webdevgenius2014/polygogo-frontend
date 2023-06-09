@@ -18,7 +18,7 @@ const navLinks=[
     },
     {
         label:'Contacts',
-        path:'/contacts',       
+        path:'/dashboard/contacts',       
         icon:{
             name:'contacts.svg',
             altText:'contacts',
@@ -27,7 +27,7 @@ const navLinks=[
     },
     {
         label:'Marketing',
-        path:'/marketing',       
+        path:'/dashboard/marketing',       
         icon:{
             name:'marketing.svg',
             altText:'marketing',
@@ -36,7 +36,7 @@ const navLinks=[
     },
     {
         label:'Review',
-        path:'/review',        
+        path:'/dashboard/review',        
         icon:{
             name:'review.svg',
             altText:'review',
@@ -45,7 +45,7 @@ const navLinks=[
     },
     {
         label:'Email/SMS Template',
-        path:'/email-template',       
+        path:'/dashboard/email-template',       
         icon:{
             name:'email-sms.svg',
             altText:'email-sms',
@@ -54,7 +54,7 @@ const navLinks=[
     },
     {
         label:'Reporting',
-        path:'/reporting',        
+        path:'/dashboard/reporting',        
         icon:{
             name:'reporting.svg',
             altText:'reporting',
@@ -63,7 +63,7 @@ const navLinks=[
     },
     {
         label:'Automatic Review',
-        path:'/automatic-review',       
+        path:'/dashboard/automatic-review',       
         icon:{
             name:'automatic-review.svg',
             altText:'automatic-review',
@@ -72,7 +72,7 @@ const navLinks=[
     },
     {
         label:'Company Profile',
-        path:'/company-profile',       
+        path:'/dashboard/company-profile',       
         icon:{
             name:'company-profile-icon.svg',
             altText:'company-profile-icon',
@@ -81,7 +81,7 @@ const navLinks=[
     },
     {
         label:'Payments',
-        path:'/payments',       
+        path:'/dashboard/payments',       
         icon:{
             name:'cash-payment.svg',
             altText:'cash-payment',
@@ -90,7 +90,7 @@ const navLinks=[
     },
     {
         label:'Faq',
-        path:'/faq',      
+        path:'/dashboard/faq',      
         icon:{
             name:'faq-icon.svg',
             altText:'faq-icon',
@@ -99,13 +99,11 @@ const navLinks=[
     }
 ];
 const Navigation: React.FC<Prop>=({isExpanded})=>{
-  const pathname = usePathname();   
-  console.log(pathname)
+  const pathname = usePathname();  
   return (
     <ul className="nav nav-pills flex-column w-100">
       {navLinks.map((link, index) => {
         const isActive= pathname === link.path?true:false;
-        // const isActive = pathname.startsWith(link.path); 
         return (
             <li key={`item-${index}`} className={`nav-item ${dstyles.nav_item} ${isActive?dstyles.active:''}`}>
                 <Link
