@@ -10,12 +10,15 @@ import VerifyCode from './verify-user/verifyCode'
 import { validateEmail, validatePhone, testPhone} from "../../../helpers/formatCheck";
 import AuthService from '../../../services/auth.service';
 type Props={
-    currentStep:any;   
-    userData:any; 
-    nextStep:(val:any)=>void;
-    prevStep:(val:any)=>void;
-    setSkip:(val:any)=>void;   
-     
+  currentStep:any;   
+  userData:any; 
+  nextStep:(val:any)=>void;
+  prevStep:(val:any)=>void;
+  setSkip:(val:any)=>void; 
+  verifyName:any; 
+  setVerifyName:(val:any)=>void;
+  verifyOtp: any;
+  setVerifyOtp:(val:any)=>void; 
 };
 const validationSchema = Yup.object().shape({
     emailOrPhone: Yup.string()
@@ -25,13 +28,10 @@ const validationSchema = Yup.object().shape({
         }
     )      
 });
-const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData})=>{
-    const [isDisabled, setIsDisabled] = useState(true);
-    const [verifyName, setVerifyName]= useState<string | ''>('');
-    const [verifyOtp, setVerifyOtp]= useState<string | ''>('');
+const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp})=>{
+    const [isDisabled, setIsDisabled] = useState(true);   
     const [isShowOtpForm, setShowOtpForm]=useState(false);
-    const [isResend, setIsResend]=useState(false);  
-
+    const [isResend, setIsResend]=useState(false); 
     const getCode = async () => {
         setIsDisabled(false);
         setShowOtpForm(true);
@@ -56,31 +56,31 @@ const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, us
         })
     };
     const verifyCode = async ()=>{ 
-        let payload = {
-          username : (validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, ''),
-          otp: verifyOtp
-        }
-        nextStep(currentStep);
-        await AuthService.verifyOtp( payload ).then((response)=>{      
-          if(response){
-            if(response.status===200){
-            //   if(isResend){
-            //     setIsResend(false);          
-            //   }
-            //   setAlertClass(''); 
-            //   setMessage(''); 
-            //   sessionStorage.setItem("auth_token", response.data.token);
-            //   router.push('/dashboard/profile');
-            }else{
-            //   setAlertClass('text-danger');
-            //   setMessage(response?.data.message);      
-            }
+      let payload = {
+        username : (validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, ''),
+        otp: verifyOtp
+      }
+      nextStep(currentStep);
+      await AuthService.verifyOtp( payload ).then((response)=>{      
+        if(response){
+          if(response.status===200){
+          //   if(isResend){
+          //     setIsResend(false);          
+          //   }
+          //   setAlertClass(''); 
+          //   setMessage(''); 
+          //   sessionStorage.setItem("auth_token", response.data.token);
+          //   router.push('/dashboard/profile');
+          }else{
+          //   setAlertClass('text-danger');
+          //   setMessage(response?.data.message);      
           }
-        },error=>{
-            console.log(error);
-            //   setAlertClass('text-danger'); 
-            //   setMessage('Please enter valid otp.');
-        })
+        }
+      },error=>{
+          console.log(error);
+          //   setAlertClass('text-danger'); 
+          //   setMessage('Please enter valid otp.');
+      })
     };    
     useEffect(()=>{
         if(isShowOtpForm){
@@ -95,17 +95,18 @@ const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, us
         setShowOtpForm(false);
     }    
     const props={
-        verifyName:verifyName, 
-        setVerifyName:setVerifyName ,
-        verifyOtp:verifyOtp,
-        setVerifyOtp:setVerifyOtp,
-        getCode:getCode, 
-        verifyCode:verifyCode,
-        currentStep:currentStep,
-        prevStep:prevStep,
-        isDisabled:isDisabled,
-        isResend:isResend,
-        updateMobile:updateMobile,        
+      verifyName:verifyName, 
+      setVerifyName:setVerifyName ,
+      verifyOtp:verifyOtp,
+      setVerifyOtp:setVerifyOtp,
+      getCode:getCode, 
+      verifyCode:verifyCode,
+      currentStep:currentStep,
+      prevStep:prevStep,
+      isDisabled:isDisabled,
+      isResend:isResend,
+      updateMobile:updateMobile, 
+      userData: userData       
     }
     return(<> 
         {isShowOtpForm?(<>

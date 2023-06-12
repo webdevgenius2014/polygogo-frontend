@@ -16,6 +16,7 @@ type Props={
     setVerifyName: (val:any)=>void;
     getCode :(val:GetCodeInterface)=>void;   
     prevStep:(val:any)=>void;
+    userData:any;
 };
 const validationSchema = Yup.object().shape({
     emailOrPhone: Yup.string()
@@ -41,10 +42,11 @@ const validatePhoneVal = Yup.object().shape({
         }
     )   
 });
-const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled})=>{   
+const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData})=>{   
     const[maxLength, setMaxLength]=useState(0);   
-    const isEmailVerified=true;
-    const isPhoneVerified=false; 
+    const isEmailVerified=userData.emailVerified;
+    const isPhoneVerified=userData.phoneVerified; 
+    console.log(userData);
     const userEmail="test@gmail.com";
     const userPhone="";    
     const {
@@ -69,8 +71,7 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Make your Website Textable.</h1>
         <Form 
             register={register}          
-            handleSubmit={handleSubmit}
-            //buttonLabel='Send Code'
+            handleSubmit={handleSubmit}           
             isDisabled={isDisabled}     
             onSubmit={getCode}
             onBack={prevStep}
@@ -90,7 +91,7 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
                                 style={{height:'20rem' }}   
                                 className="mw-100"                                
                             />
-                            {isEmailVerified && userEmail && <span className={`${dstyles.d_text} ${dstyles.email_text}`} >{userEmail}</span>}
+                            {isEmailVerified && userData.emailVerified===true && <span className={`${dstyles.d_text} ${dstyles.email_text}`} >{userData.emailVerified===true?userData.email:''}</span>}
                             {!isEmailVerified && validateEmail(verifyName) &&  <span className={`${dstyles.d_text} ${dstyles.email_text}`} >{verifyName}</span>}                       
                         </div>                    
                     </div>
@@ -102,8 +103,8 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
                                 style={{height: "12.813rem" }}                   
                                 className={`mw-100`} 
                             />
-                            { isPhoneVerified && userPhone && <span className={`${dstyles.d_text} ${dstyles.phone_text}`} >{userPhone}</span>}
-                            {!isPhoneVerified && validatePhone(verifyName.replace(/\D/g, '')) && <span className={`${dstyles.d_text} ${dstyles.phone_text}`} >{verifyName}</span>}
+                            { isPhoneVerified && userData.phoneVerified===true && <span className={`${dstyles.d_text} ${dstyles.phone_text}`} >{userData.phoneVerified===true?userData.phone:''}</span>}
+                            {!isPhoneVerified && validatePhone(verifyName && verifyName.replace(/\D/g, '')) && <span className={`${dstyles.d_text} ${dstyles.phone_text}`} >{verifyName}</span>}
                         </div>
                     </div>                  
                     </div>

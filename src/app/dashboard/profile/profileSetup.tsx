@@ -4,11 +4,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Form from '../forms/Form';
 import Input from '../forms/form-fields/Input';
-import { useState, useEffect } from 'react';
-import {
-    useLoadScript,
-    Autocomplete,
-  } from '@react-google-maps/api'
+import { useState, useEffect, useRef } from 'react';
+// import {
+//     useLoadScript,
+//     Autocomplete,
+//   } from '@react-google-maps/api'
+import { StandaloneSearchBox, useLoadScript } from "@react-google-maps/api";
 import ProfileService from '../../../services/profile.service';  
 interface ProfileInterface {
     name: string;
@@ -19,26 +20,31 @@ type Props={
     userData:any;
     setCurrentStep:(val:any)=>void;
     ismanual:boolean;
+    name: any;
+    company:any;
+    setName: (val:any)=>void;
+    setCompany: (val:any)=>void;
+    companyDetails:any;
+    setCompanyDetails: (val:any)=>void;
     nextStep:(val:any)=>void;
     prevStep:(val:any)=>void;
     setSkip:(val:any)=>void;    
-    setIsmanual:(val:boolean)=>void;    
+    setIsmanual:(val:boolean)=>void; 
+    saveData: (val:any)=>void;   
 };
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     //companyName: Yup.string().required('Company name is required')
 });
-const googleKey=process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+// const googleKey=process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 const scriptOptions= {
-    googleMapsApiKey: googleKey,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
     libraries: ['places'],
 }
-const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData})=>{
-    const [name, setName]= useState<string | ''>('');
-    const [company, setCompany]= useState<string | ''>('');
+const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData  })=>{
     const { isLoaded, loadError } = useLoadScript(scriptOptions);
-    const [autocomplete, setAutocomplete] = useState(null)
-        
+    const [autocomplete, setAutocomplete] = useState(null);
+    const inputRef = useRef<any | null>(null);        
     const {
         register,        
         handleSubmit,
@@ -46,51 +52,63 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
     } = useForm<ProfileInterface>({resolver: yupResolver(validationSchema)});
     const setupManually=()=>{        
         setIsmanual(true); 
-        setCurrentStep(2);  
+        setCurrentStep(2);
+        setSkip(null);  
     }  
     useEffect(()=>{
-        if(ismanual){
+        if(ismanual===true){
             setSkip(null);
         }else{
             setSkip(2);
         }
     },[ismanual]); 
 
-    const onLoad = (autocompleteObj:any) => {
-        setAutocomplete(autocompleteObj)
+    const onLoad = (autocompleteObj:any) => {       
+        setAutocomplete(autocompleteObj);
+    }   
+    const handlePlaceChanged = () => { 
+        const [ place ] = inputRef.current.getPlaces();
+        if(place) { 
+            setCompany(place.name);          
+            getAddressDetails(place); 
+        } 
     }
-    const onPlaceChanged = (e:any) => {
-        if (autocomplete) {
-        //   const place = autocomplete.getPlace()
-        //   if ('place_id' in place) {
-        //     router.push(`/place/${place.place_id}`)
-        //   }
-        }
-    }
-    const saveData = async()=>{        
+    const getAddressDetails=(placeData:any)=>{            
+        const city = placeData.address_components.filter((place:any) => {
+            return place.types[0] === 'administrative_area_level_2' || place.types[0] === 'locality';
+        });        
+        const state = placeData.address_components.filter((place:any) => {
+            return place.types[0] === 'administrative_area_level_1';
+        });
+        const zipcode = placeData.address_components.filter((place:any) => {
+            return place.types[0] === 'postal_code';
+        });       
+        setCompanyDetails({
+            company_name: placeData.name, 
+            address_one:  placeData.address_components[0].long_name,
+            address_two:  placeData.address_components[1].long_name, 
+            city: city[0].long_name,
+            state:state[0].long_name,
+            zipcode:zipcode[0].long_name, 
+            resources_strength:'', 
+            revanue:''
+        });
+    } 
+    
+    const saveStepOneData=()=>{
         let payload = {
-            name : name,
-            company: company
-        }
-        await ProfileService.completeProfile( payload ).then((response)=>{      
-            if(response){
-              if(response.status===200){
-                nextStep(currentStep);
-              }else{
-                console.log(response);   
-              }
-            }
-          },error=>{
-            console.log(error);           
-        })
-
-    };
+          name : name, 
+          ...companyDetails          
+        };       
+        saveData(payload);
+    }
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Let’s start by Setting up your Profile.</h1>
         <Form 
             register={register}          
-            handleSubmit={handleSubmit}     
-            onSubmit={saveData}
+            handleSubmit={handleSubmit}
+            isDisabled={name.length>0?false:true}
+            onSubmit={saveStepOneData}
             isbackbutton={false}
             onBack={prevStep}
             formState={formState}
@@ -119,28 +137,28 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
                             { loadError && (
                                 <div className={`text-center ${dstyles.text_lg}`}>Google Map script can't be loaded, please reload the page</div>
                             ) }
-                            { isLoaded && (
-                                <Autocomplete
-                                    onLoad={onLoad}
-                                    fields={['place_id']}
-                                    onPlaceChanged={()=>onPlaceChanged}
-                                >
+                            { isLoaded && (                                
+                                <StandaloneSearchBox
+                                    onLoad={ref => inputRef.current = ref}
+                                    onPlacesChanged={handlePlaceChanged}
+                                >                                    
                                     <Input
-                                        name="companyName"                                               
+                                        name="companyName" 
+                                        type='text'                                              
                                         register={register}                
                                         value={company}
-                                        handleChange={(e:any)=>setCompany(e.target.value)} 
+                                        handleChange={(e:any)=>setCompany(e.target.value)}                                         
                                         placeholder="Company Name"
                                         error={formState.errors.companyName?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
                                         iconClass={`position-relative ${dstyles.input_business} ${dstyles.icon_wrap}`}
                                         className={`form-control ${dstyles.input_field} ${formState.errors.companyName ? dstyles.is_invalid : ''}`}         
                                     />
-                                </Autocomplete> 
+                                </StandaloneSearchBox>
                             )}    
                         </div>
                     </div>
-                    <p className={`text-center ${dstyles.text_lg}`}>Don’t see your business? <span className={`fw-bold ${dstyles.link}`} onClick={()=>setupManually()}>Enter it Manually.</span></p>
+                    <div className={`text-center ${dstyles.text_lg}`}>Don’t see your business? <button type='button' disabled={name.length===0} className={`border-0 fw-bold text-black ${dstyles.btn_link}` } onClick={()=>setupManually()}>Enter it Manually.</button></div>
                 </div>
             </div>
         </Form>

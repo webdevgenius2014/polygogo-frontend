@@ -16,11 +16,11 @@
         width: .875rem;
         height: auto;
     }
-    &.disabled{
+    &.disabled, &:disabled{
         opacity: .5;
         cursor: not-allowed;
         // background:darken($bg,5%);
-    }
+    }        
 }
 .btn_primary{   
     @include custom_button($primary-color, $white, $primary-color)
@@ -184,7 +184,24 @@
         text-decoration: none;
         color:darken($primary-color,8%);
     }
+    &.link_disabled{
+        cursor: not-allowed;
+    }
 }
+.btn_link{
+    border:none;
+    background-color: transparent;
+    font-size: 0.938rem;
+    line-height: 1.25rem;
+    &:hover, &:focus{
+        box-shadow: none;
+        outline: none;
+    }
+    &.disabled, &:disabled{
+        cursor: not-allowed;
+    }
+}
+
 .mb_1{
     margin-bottom: .75rem;
 }

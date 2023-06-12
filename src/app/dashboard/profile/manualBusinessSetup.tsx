@@ -12,7 +12,7 @@ import RadioGroup from '../forms/form-fields/RadioGroup'
 interface BusinessSetupInterface {
     companyName: string;
     buildingName:string;
-    businessAddreaa:string;
+    businessAddress:string;
     city:string;
     state:string;
     zipCode:string;
@@ -25,23 +25,43 @@ type Props={
     nextStep:(val:any)=>void;
     prevStep:(val:any)=>void;
     setSkip:(val:any)=>void;
+    name:any;
+    companyDetails:any;
+    setCompanyDetails: (val:any)=>void;
+    saveData: (val:any)=>void;
 };
+
 const validationSchema = Yup.object().shape({    
     companyName: Yup.string().required('Company name is required')
 });
-const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData})=>{
+const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, name, companyDetails, setCompanyDetails, saveData})=>{
+    const [addressOne, setAddressOne]=useState(companyDetails.address_one)
+    const [addressTwo, setAddressTwo]=useState(companyDetails.address_two);
+    const [companyName, setCompanyName]=useState(companyDetails.company_name)
+    const [stateVal, setStateVal]= useState(companyDetails.state);
+    const [cityVal, setCityVal]= useState(companyDetails.city);
+    const [zipcode,setZipcode]= useState(companyDetails.zipcode);
+    const [companyStrength, setCompanyStrength]= useState(companyDetails.resources_strength);
+    const [revanue, setRevanue]= useState(companyDetails.revanue);
     const {
         register,        
         handleSubmit,
         formState   
     } = useForm<BusinessSetupInterface>({resolver: yupResolver(validationSchema)});
    
-    const saveBusinessData=()=>{      
-        nextStep(currentStep);
-    }
+    useEffect(()=>{
+        setCompanyDetails({
+            company_name:companyName, 
+            address_one:addressOne, 
+            address_two:addressTwo, 
+            city:cityVal,
+            state:stateVal,
+            zipcode:zipcode, 
+            resources_strength:companyStrength, 
+            revanue:revanue
+        })
+    },[addressOne, addressTwo, companyName, stateVal, cityVal, zipcode, companyStrength, revanue])
     const countryCode = 'US';
-    const [stateVal, setStateVal]= useState('');
-    const [cityVal, setCityVal]= useState('');
     const [cityData, setCityData]= useState<any | null>(null);    
     const stateData = getStateData(countryCode);
     const strengthOptions=[
@@ -100,13 +120,20 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                 }
             }
         }
-    },[stateVal])
+    },[stateVal]); 
+    const saveManualBusinessData=()=>{
+        let payload = {
+            name : name, 
+            ...companyDetails          
+        };       
+        saveData(payload);
+    }
     return(<>
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Select the business to use with company.</h1>
         <Form 
             register={register}          
             handleSubmit={handleSubmit}     
-            onSubmit={saveBusinessData}
+            onSubmit={saveManualBusinessData}
             onBack={prevStep}
             formState={formState}
             className={dstyles.form}
@@ -125,6 +152,8 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     name="buildingName"                                               
                                     register={register} 
                                     placeholder="Suite/Unit/Building(optional)"
+                                    value={addressOne}
+                                    handleChange={(e:any)=>setAddressOne(e.target.value)} 
                                     error={formState.errors.buildingName?.message}
                                     wrapperClass={`form-group ${dstyles.mb_1}`}
                                     iconClass={`position-relative ${dstyles.input_mail} ${dstyles.icon_wrap}`}
@@ -136,6 +165,8 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     name="companyName"                                               
                                     register={register} 
                                     placeholder="Company Name"
+                                    value={companyName}
+                                    handleChange={(e:any)=>{setCompanyName(e.target.value)}}
                                     error={formState.errors.companyName?.message}
                                     wrapperClass={`form-group ${dstyles.mb_1}`}
                                     iconClass={`position-relative ${dstyles.input_business} ${dstyles.icon_wrap}`}
@@ -144,13 +175,15 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                             </div>
                             <div className='col-lg-6'>
                                 <Input
-                                    name="businessAddreaa"                                               
+                                    name="businessAddress"                                               
                                     register={register} 
-                                    placeholder="Business Addreaa"
-                                    error={formState.errors.businessAddreaa?.message}
+                                    placeholder="Business Address"                                   
+                                    value={addressTwo}
+                                    handleChange={(e:any)=>{setAddressTwo(e.target.value)}}
+                                    error={formState.errors.businessAddress?.message}
                                     wrapperClass={`form-group ${dstyles.mb_1}`}
                                     iconClass={`position-relative ${dstyles.input_location} ${dstyles.icon_wrap}`}
-                                    className={`form-control ${dstyles.input_field} ${formState.errors.businessAddreaa ? dstyles.is_invalid : ''}`}         
+                                    className={`form-control ${dstyles.input_field} ${formState.errors.businessAddress ? dstyles.is_invalid : ''}`}         
                                 />
                             </div>
                             <div className='col-lg-6'> 
@@ -160,7 +193,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                         register={register}
                                         options={stateData}                
                                         value={stateVal}
-                                        handleChange={(e:any)=>setStateVal(e.target.value)} 
+                                        handleChange={(e:any)=> setStateVal(e.target.value)} 
                                         placeholder="State"
                                         error={formState.errors.state?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
@@ -171,8 +204,8 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                         name="city"                                               
                                         register={register}
                                         options={cityData}                
-                                        value={cityVal}
-                                        handleChange={(e:any)=>setCityVal(e.target.value)} 
+                                        value={cityVal}                                        
+                                        handleChange={(e:any)=>setCityVal(e.target.value)}                                        
                                         placeholder="City"
                                         error={formState.errors.city?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
@@ -182,8 +215,8 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     <Input
                                         name="zipCode"                                               
                                         register={register}                
-                                        // value={name}
-                                        // handleChange={(e:any)=>setCompany(e.target.val)} 
+                                        value={zipcode}
+                                        handleChange={(e:any)=>setZipcode(e.target.value)} 
                                         placeholder="Zip Code"
                                         error={formState.errors.zipCode?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
@@ -198,19 +231,25 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     name="companyStrength"                                               
                                     register={register} 
                                     label="Company Resource Strength "
-                                    options={strengthOptions}                                    
+                                    // value={companyStrength}
+                                    handleChange={(e:any)=>setCompanyStrength(e.target.value)}
+                                    options={strengthOptions} 
                                     error={formState.errors.companyStrength?.message}
-                                    wrapperClass={`form-group ${dstyles.mb_1}`}                                   
+                                    wrapperClass={`form-group ${dstyles.mb_1}`}  
+                                    currentValue={companyStrength}                                 
                                 />
                             </div>
                             <div className='col-lg-6'>
                                 <RadioGroup 
                                     name="companyRevenue"                                               
                                     register={register} 
+                                    // value={revanue}
+                                    handleChange={(e:any)=>setRevanue(e.target.value)}
                                     label="Revenue Details"
                                     options={revenueOptions}                                    
                                     error={formState.errors.companyRevenue?.message}
-                                    wrapperClass={`form-group ${dstyles.mb_1}`}                                
+                                    wrapperClass={`form-group ${dstyles.mb_1}`} 
+                                    currentValue={revanue}                               
                                 />
                             </div>
                         </div>

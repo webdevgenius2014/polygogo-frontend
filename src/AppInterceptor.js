@@ -10,13 +10,15 @@ instance.interceptors.response.use(
 );
 
 const requestHandler = async request => {
-    let token = sessionStorage.getItem("auth_token")
+    let token = sessionStorage.getItem("auth_token")    
     request.headers = {
         'Access-Control-Allow-Origin': '*',
-        Authorization: `Bearer ${token}`,
+        //Authorization: `Bearer ${token}`,        
+        'x-access-token': `Bearer ${token}`,
         'Content-Type': 'application/json',
         Accept: '*/*',
-    }
+    }  
+    console.log(request) ;
     return request;
 }
 

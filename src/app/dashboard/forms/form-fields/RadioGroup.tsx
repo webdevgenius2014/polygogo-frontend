@@ -9,7 +9,8 @@ interface RadioGroupProps extends InputHTMLAttributes<HTMLInputElement> {
   wrapperClass?: string;
   iconClass?:string
   handleChange?:any;
-  inputClassName?: string;  
+  inputClassName?: string;
+  currentValue?:string;  
 }
 
 const RadioGroup: FC<RadioGroupProps> = ({
@@ -22,9 +23,11 @@ const RadioGroup: FC<RadioGroupProps> = ({
   options,
   wrapperClass,
   iconClass,
-  handleChange,  
+  handleChange,
+  currentValue,  
   ...rest
 }) => { 
+    const registerField = register(name);
     return(
         <div className={wrapperClass}>
             {label && <label htmlFor={name} className={`ms-3 ${dstyles.label}`}>{label}</label>}  
@@ -33,10 +36,15 @@ const RadioGroup: FC<RadioGroupProps> = ({
                     return(
                         <label key={index} htmlFor={`field-${option.name}`} className={`${dstyles.radio_input}`}>
                             <input
-                                {...register(name)}
+                                {...registerField}
                                 type="radio"
                                 value={option.value}
-                                id={`field-${option.name}`}
+                                id={`field-${option.name}`}                                
+                                onChange={e => {
+                                    registerField.onChange(e);
+                                    handleChange && handleChange(e); 
+                                }}  
+                                checked={currentValue === option.value}                              
                                 {...rest}
                             />
                             <span className={dstyles.radio_text}>{option.label}</span>

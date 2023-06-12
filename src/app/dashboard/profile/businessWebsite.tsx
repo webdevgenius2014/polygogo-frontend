@@ -10,12 +10,17 @@ interface BusinessWebsiteInterface {
     userName: string;
     businessUrl:string;
 }
-type Props={
-    currentStep:any; 
+type Props={    
+    currentStep:any;     
     userData:any;     
     nextStep:(val:any)=>void;
     prevStep:(val:any)=>void;  
     setSkip:(val:any)=>void;
+    userName:any; 
+    setUserName:(val:any)=>void;
+    businessUrl:any; 
+    setBusinessUrl:(val:any)=>void;
+    saveData:(val:any)=>void;
 };
 const validationSchema = Yup.object().shape({
     userName: Yup.string()
@@ -28,23 +33,24 @@ const validationSchema = Yup.object().shape({
         return validateWebsiteUrl(value);
     })
 });
-const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData})=>{
-    const [name, setUserName]= useState('');
-    const [website, setBusinessUrl]= useState('');
-    const saveBusinessWebsite=()=>{        
-        nextStep(currentStep);
-    }
+const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, userName, setUserName, businessUrl, setBusinessUrl, saveData})=>{    
     const {
         register,        
         handleSubmit,
         formState   
     } = useForm<BusinessWebsiteInterface>({resolver: yupResolver(validationSchema)});
-    
+    const saveBusinessWebsite=()=>{ 
+        let payload={
+            username: userName,
+            bussiness_url:businessUrl
+        }
+        saveData(payload);
+    }
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Enter your Business Website Url</h1>
         <Form 
             register={register}          
-            handleSubmit={handleSubmit}     
+            handleSubmit={handleSubmit}                 
             onSubmit={saveBusinessWebsite}
             onBack={prevStep}
             formState={formState}
@@ -62,18 +68,18 @@ const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSki
                             <Input
                                 name="userName"                                               
                                 register={register}                
-                                value={name}
+                                value={userName}
                                 handleChange={(e:any)=>setUserName(e.target.value)} 
                                 placeholder="Name"
                                 error={formState.errors.userName?.message}
-                                wrapperClass={`form-group ${dstyles.mb_1}`}
+                                wrapperClass={`form-group ${dstyles.mb_1}`}                                
                                 iconClass={`position-relative ${dstyles.input_user} ${dstyles.icon_wrap}`}
                                 className={`form-control ${dstyles.input_field} ${formState.errors.userName ? dstyles.is_invalid : ''}`}         
                             /> 
                             <Input
                                 name="businessUrl"                                               
                                 register={register}                
-                                value={website}
+                                value={businessUrl}
                                 handleChange={(e:any)=>setBusinessUrl(e.target.value)} 
                                 placeholder="Business Url"
                                 error={formState.errors.businessUrl?.message}
