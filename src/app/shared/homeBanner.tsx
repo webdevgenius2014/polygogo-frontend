@@ -44,8 +44,8 @@ export default function HomeBanner(){
             transition={{ type: spring, delay: 0.5, stiffness: 120 }}
             >
                 <div className={`container ${styles.container}`}>
-                    <div className='row align-items-center'>
-                        <div className='col-md-6'>
+                    <div className={`row align-items-center ${styles.banner_row}`}>
+                        <div className={`col-md-6 ${styles.bancol1}`}>
                             <motion.div className={`${styles.banner_left}`}
                                 variants={fromLeft}
                                 initial="hidden"
@@ -53,7 +53,7 @@ export default function HomeBanner(){
                                 <img src='images/banner_img.png' alt=''/>
                             </motion.div>
                         </div>
-                        <div className='col-md-6'>
+                        <div className={`col-md-6 ${styles.bancol2}`}>
                             <motion.div className={`${styles.banner_right}`}
                             variants={fromRight}
                             initial="hidden"

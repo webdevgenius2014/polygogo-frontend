@@ -45,17 +45,17 @@ export default function HomeTrust(){
                         initial="hidden"
                         whileInView="visible"
                     ><b>Trusted by:</b>Join 50.000+ websites that use EmbedSocial to sell more</motion.h4>
-                    <motion.div className='d-flex align-items-center justify-content-between'
+                    <motion.div className={`d-flex align-items-center justify-content-between ${styles.grip_row}`}
                     variants={fromRight}
                     initial="hidden"
                     whileInView="visible"
                     >
-                        <div><img src='images/cnn.png' alt=''/></div>
-                        <div><img src='images/netgeo.png' alt=''/></div>
-                        <div><img src='images/florencebymills.png' alt=''/></div>
-                        <div><img src='images/ancestry-logo.png' alt=''/></div>
-                        <div><img src='images/industrious.png' alt=''/></div>
-                        <div><img src='images/nike.png' alt=''/></div>
+                        <div className={`${styles.trust_logo}`}><img src='images/cnn.png' alt=''/></div>
+                        <div className={`${styles.trust_logo}`}><img src='images/netgeo.png' alt=''/></div>
+                        <div className={`${styles.trust_logo}`}><img src='images/florencebymills.png' alt=''/></div>
+                        <div className={`${styles.trust_logo}`}><img src='images/ancestry-logo.png' alt=''/></div>
+                        <div className={`${styles.trust_logo}`}><img src='images/industrious.png' alt=''/></div>
+                        <div className={`${styles.trust_logo}`}><img src='images/nike.png' alt=''/></div>
                     </motion.div>
                 </div>
             </section>

@@ -1,6 +1,39 @@
 'use client'
 import styles from '../../styles/styles.module.scss';
 import Link from 'next/link';
+import { motion, spring } from "framer-motion";
+const fromLeft = {
+    hidden: {
+      x: -100,
+      opacity: 0,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 1.5,
+        type: "spring",
+        stiffness: 120,
+      },
+    },
+  };
+  const fromRight = {
+    hidden: {
+      x: 100,
+      opacity: 0,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 1.5,
+        type: "spring",
+        stiffness: 120,
+      },
+    },
+  };
 
 export default function HomeCampaign(){
     return(
@@ -9,7 +42,10 @@ export default function HomeCampaign(){
                 <div className={`container ${styles.container}`}>
                     <div className='row align-items-center'>
                         <div className='col-md-4'>
-                            <div className={`${styles.space_left}`}>
+                            <motion.div className={`${styles.space_left}`}
+                            variants={fromLeft}
+                            initial="hidden"
+                            whileInView="visible">
                             <div className='mb-4'><img src='images/megaphone.png' alt=''/></div>
                             <h4 className={`${styles.fig_heading}`}>Text Campaigns</h4>
                             <p className={`${styles.fig_desc}`}>Send text campaigns that get opened 98% of the time.</p>
@@ -18,13 +54,16 @@ export default function HomeCampaign(){
                                         <span className='fw-bold'>Read More</span><img src='icons/right_arrow.svg' alt=''/>
                            
                                         </Link>
-                           </div>
+                           </motion.div>
                            </div>         
                         
                         <div className='col-md-8'>
-                            <div className={`${styles.camp_img} text-end`}>
+                            <motion.div className={`${styles.camp_img} text-end`}
+                            variants={fromRight}
+                            initial="hidden"
+                            whileInView="visible">
                                 <img src='images/campaign_img.png' alt=''/>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>

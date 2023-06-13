@@ -43,7 +43,7 @@ export default function HomeVideo(){
         <section className={`${styles.video_sec}`}>
             <div className={`container ${styles.container}`}>
                 <div className='row align-items-center'>
-                    <motion.div className={`col-md-4 ${styles.cust_left}`}
+                    <motion.div className={`col-lg-4 col-md-5 ${styles.cust_left}`}
                         variants={fromLeft}
                         initial="hidden"
                         whileInView="visible"
@@ -56,7 +56,7 @@ export default function HomeVideo(){
                             <p>Turn all of your customer data into hyper-personalized messages that shoppers want—across email, SMS, push, and more.</p>
                         </div>
                     </motion.div>
-                    <motion.div className={`col-md-8 ${styles.cust_right}`}
+                    <motion.div className={`col-lg-8 col-md-7 ${styles.cust_right}`}
                         variants={fromRight}
                         initial="hidden"
                         whileInView="visible"

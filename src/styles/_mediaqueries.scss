@@ -105,6 +105,9 @@
             font-size: 1.2rem;
             line-height: 1.8rem;
         }
+        img{
+            max-width: 100%;
+        }
     }
     .messaging_sec{
         img{
@@ -118,6 +121,10 @@
     .testimonial{
         .item{
             margin: 0 0.6rem;
+            p{
+                font-size: 1rem;
+                line-height: 1.6rem;
+            }
         }
         .slick_left{
             z-index: 1;
@@ -146,7 +153,166 @@
             }
             
         }
-    }    
+    }
+    .navigation_custom{
+        .nav_logo{
+            order: 1;
+            position: relative;
+        }
+        .header_login{
+            order: 2;
+            position: relative;
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+        .nav_tog{
+            order: 3;position: relative;border: 0;
+            .toggle_sign{
+                background-image: url(../../public/images/menu2.png);
+                height: 30px;
+                width: 30px;
+            }
+            &:focus{
+                box-shadow: none;
+            }
+        }
+    }
+    .video_sec{
+        padding: 1rem 0;
+    }
+    .reason_sec{
+        padding: 3rem 0;
+        .block_res{
+            margin-bottom: 1.5rem;
+            min-height: 28rem;
+        }
+        .author_detail{
+            align-items: center;
+        }
+        .block_height{
+            height: 6.6rem;
+        }
+    } 
+    .marketing{
+        padding: 3rem 0;
+        .space_left{
+            padding-left: 1.5rem;
+        }
+        .back_row{
+            left: 0;
+        }
+    }
+    .account{
+        .fig{
+            padding: 8rem 0 2.688rem;
+        }
+    }
+    .campaign_sec{
+        padding: 3rem 0;
+        .space_left{
+            padding-left: 0;
+        }
+    }
+    .messaging_sec{
+        padding: 3rem 0;
+    }
+    .partner_sec{
+        padding: 3rem 0 0;
+        .partner_back{
+            padding: 2rem 0px;margin-top: 1rem !important;
+            img{
+                max-width: 100%;
+            }
+            .logo_div{
+                margin-bottom: 1.5rem;
+            }
+        }
+        .partner_div{
+            padding: 3rem 1.5rem 3rem;
+        }
+    }
+    .testimonial{
+        padding: 3rem 0;
+        .item{
+            padding: 1.875rem 1rem;
+        }
+    }
+    .banner{
+        .banner_right{
+            p{
+                font-size: 1.1rem;
+                line-height: 1.8rem;
+            }
+            .upper{
+                margin-top: 2rem;
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+            .form_row{
+                margin-right: 0;
+                margin-bottom: 0.5rem
+            }
+        }
+        .review_sec{
+            margin-top: 0.9rem;
+            .customer_first{
+                max-width: 16.125rem;
+                img{
+                    max-width: 100%;
+                }
+            }
+            .cust_count{
+                h5{
+                    font-size: 1.3rem;
+                    line-height: 2rem;
+                }
+                p{
+                    font-size: 0.8rem;
+                    line-height: 1rem;
+                }
+            }
+            .ratings_sec{
+                h5{
+                    font-size: 1.3rem;
+                    line-height: 2rem;
+                }
+                p{
+                    font-size: 0.8rem;
+                    line-height: 1rem;
+                }
+            }
+        }
+        .banner_row{
+            align-items: flex-end !important;
+        }
+    }   
+    .trust_sec{
+        padding: 2.5rem 0;
+    }
+    .video_sec{
+        p{
+            font-size: 1.1rem;
+            line-height: 1.8rem; 
+        }
+    }
+    .marketing{
+        .fig_desc{
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+        }
+    }
+    .campaign_sec{
+        .fig_desc{
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+        }
+    }
+    .messaging_sec{
+        .fig_desc{
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+        }
+    }
 }
 @media screen and (max-width: 767px) {
     .form_wrap{        
@@ -165,7 +331,133 @@
     .heading_one{ 
         font-size: 2.5rem;
         line-height: 3.2rem; 
-    }    
+    }
+    .banner{
+        .bancol1{
+            order: 2;
+            position: relative;
+        }
+        .bancol2{
+            order: 1;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .banner_left{
+            img{
+                width: auto;
+            }
+        }
+        .review_sec{
+            .customer_first{
+                max-width: 20.125rem;
+            }
+        }
+    }
+    .trust_sec{
+        .trust_logo{
+            width: 33.3333%;
+            text-align: center;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .grip_row{
+            flex-wrap: wrap;
+        }
+    }
+    .video_sec{
+        padding: 3rem 0 1rem;
+        .video_laptop{
+            &:after{
+                right: 0;
+            }
+            &:before{
+                bottom: 20%;
+                left: 0;
+            }
+        }
+    }
+    .reason_sec{
+        .block_res{
+            max-width: 26rem;
+            width: 100%;
+            margin: 0 auto 2.5rem;
+        }
+        
+    }
+    .marketing{
+        .fig_text{
+            padding: 1.5rem;
+        }
+        .twoo{
+            order: 2;
+            position: relative;
+        }
+        .one{
+            order: 1;
+            position: relative;
+        }
+    }
+    .account{
+        .newsletter_col{
+            padding: 0 2rem;
+        }
+    }
+    .partner_sec{
+        .partner_back{
+            .logo_div{
+                max-width: 20rem;
+                margin: 0 auto 1rem;
+            }
+            .nom{
+                margin-bottom: 1rem;
+            }
+        }
+    }
+    .campaign_sec{
+        .space_left{
+            padding-left: 1rem;
+        }
+    }
+    .messaging_sec{
+        .space_left{
+            padding-left: 1rem;
+        }
+    }
+    footer{
+        .footer_top{
+            padding: 3rem 0;
+            .title{
+                br{
+                    display: none;
+                }
+            }
+        }
+        .footer_btm{
+            padding: 3rem 0 2.5rem;
+            .copyright{
+                p{
+                    text-align: center !important;margin-bottom: 0.7rem;
+                }
+                .copyright_right{
+                    ul{
+                        li{
+                            line-height: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .testimonial{
+        .item{
+            max-width: 390px;
+            margin: auto;
+        }
+    }
+
+
 }
 @media screen and (max-width: 575px) {    
     .heading_one{ 
@@ -182,5 +474,91 @@
             font-size: 1.2rem; 
             max-width:100%         
         }
+    }
+    footer{
+        .copyright_right{
+            margin-bottom: 0;
+            ul{
+                display: block;
+                li{
+                    margin: 0 0 1rem;
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        .copyright{
+            margin-bottom: 0;
+        }
+    }
+    .reason_sec{
+        &:before{
+            display: none;
+        }
+    }
+    .marketing{
+        .one{
+            &::after{
+                display: none;
+            }
+        }
+        .two{
+            &::before{
+                display: none;
+            }
+        }
+    }
+    .partner_sec{
+        .partner_div{
+            &:before{
+                display: none;
+            }
+            &:after{
+                display: none;
+            }
+        }
+    }
+    .testimonial{
+        &:before{
+            display: none;
+        }
+        &:after{
+            display: none;
+        }
     } 
+}
+
+@media (max-width:480px){
+    header{
+        .header_login{
+            display: none !important;
+        }
+    }
+    .trust_sec{
+        .trust_logo{
+            width: 50%;
+        }
+    }
+    .title{
+        font-size: 2rem;
+        line-height: 2.8rem;
+        br{
+            display: none;
+        }
+    }
+    .account{
+        .newsletter_col{
+            padding: 0 1rem;
+            flex-wrap: wrap;
+            .news_field{
+                border-radius: 0.313rem;height: 3.7rem;
+            }
+            .btn_submit{
+                border-radius: 0.313rem;
+                margin-top: 0.8rem !important;
+            }
+        }
+    }
+
 }

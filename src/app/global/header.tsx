@@ -15,13 +15,13 @@ export default function Header(){
             <header>
             <nav className={`navbar navbar-expand-lg fixed-top ${styles.navigation_custom}`}>
                 <div className={`container ${styles.container}`}>
-                    <a className="navbar-brand" href="#"><img src='images/Polygogo_Logo.png' alt=''/></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span className="navbar-toggler-icon"></span>
+                    <a className={`navbar-brand ${styles.nav_logo}`} href="/"><img src='images/Polygogo_Logo.png' alt=''/></a>
+                    <button className={`navbar-toggler ${styles.nav_tog}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span className={`navbar-toggler-icon ${styles.toggle_sign}`}></span>
                     </button>
                     <div className="offcanvas offcanvas-end" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
-                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel"><img src='images/Polygogo_Logo.png' alt=''/></h5>
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
@@ -31,12 +31,9 @@ export default function Header(){
                             Product
                             </a>
                             <ul className={`dropdown-menu ${styles.custom_dropmenu}`}>
-                            <li><a className="dropdown-item" href="#">Action</a></li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr className="dropdown-divider"/>
-                            </li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
+                            <li><a className={`nav-link ${styles.site_link}`} href="#">Action</a></li>
+                            <li><a className={`nav-link ${styles.site_link}`}>Another action</a></li>
+                            <li><a className={`nav-link ${styles.site_link}`}>Something else here</a></li>
                             </ul>
                         </li>
                         <li className={`nav-item ${styles.nav_item}`}>
@@ -56,7 +53,7 @@ export default function Header(){
                     </div>
                     
                     </div>
-                    <div className='d-flex'>
+                    <div className={`d-flex ${styles.header_login}`}>
                     {sessionStorage.getItem("auth_token") ? 
                     <button type='button' className={`ms-auto w-auto ${styles.btn} ${styles.btn_secondary}`} onClick={()=>logoutUser()}>
                         <span className='fw-bold'>Logout</span>

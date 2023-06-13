@@ -103,7 +103,7 @@ export default function HomeReason(){
                             </motion.div>
                         </div>
                         <div className='col-lg-3 col-md-6'>
-                        <motion.div className={`${styles.block_res}`}
+                        <motion.div className={`${styles.block_res} mb-0`}
                         variants={fromRight}
                         initial="hidden"
                         whileInView="visible">
