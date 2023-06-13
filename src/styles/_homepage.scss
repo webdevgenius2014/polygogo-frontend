@@ -27,8 +27,9 @@
         font-weight: 600;
         color: variable.$black;
     }
-    
+   
 }
+
 .btn_tertiary{
     color: variable.$white;
     background-color: variable.$gray-4;
@@ -85,7 +86,7 @@
                 &::before{
                     position: absolute;
                     height: 0.3125rem;
-                    width: 0.3125;
+                    width: 0.3125rem;
                     background-color: $black;
                     border-radius: 0.625rem;
                     content: "";
@@ -103,6 +104,11 @@
     .banner_left{
         img{
             width: 46.5rem;
+        }
+    }
+    .banner_right{
+        .form_row{
+            margin-right: 1rem;
         }
     }
 }
@@ -338,10 +344,10 @@
     color: #fff;
 }
 .marketing{
-    padding: 100px 0;
+    padding: 6.25rem 0;
     .back_row{
         background-color: $light-green;
-        border-radius: 10px;
+        border-radius: 0.625rem;
     }
     
     .back_row{
@@ -349,28 +355,28 @@
         
     }
     .one{
-        position: relative;left: 38px;
+        position: relative;left: 2.375rem;
         &:before{
             position: absolute;
             content: "";
-            height: 83px;
-            width: 34px;
+            height: 5.188rem;
+            width: 2.125rem;
             background-image: url(../../public/images/light_greem_dots.png);
-            left: -38px;
-            top: 2px;
+            left: 2.375rem;
+            top: 0.125rem;
         }
         &::after{
             position: absolute;
             content: "";
             background-image: url(../../public/images/right_curve.png);
-            height: 206px;
-            width: 239px;
+            height: 12.875rem;
+            width: 14.938rem;
             right: 0;
             top: 0;
         }
     }
     .space_left{
-        padding-left: 135px;
+        padding-left: 8.438rem;
     }
     .two{
         position: relative;
@@ -378,33 +384,33 @@
             position: absolute;
             content: "";
             background-image: url(../../public/images/left_curve.png);
-            height: 206px;
-            width: 256px;
+            height: 12.875rem;
+            width: 16rem;
             left: 0;
             top: 0;
         }
         &:after{
             position: absolute;
             content: "";
-            height: 83px;
-            width: 34px;
+            height: 5.188rem;
+            width: 2.125rem;
             background-image: url(../../public/images/light_greem_dots.png);
-            right: -38px;
-            bottom: 2px;
+            right: -2.375rem;
+            bottom: 0.125rem;
         }
     }
 }
 .fig_heading{
     font-weight: 700;
-    font-size: 28px;
-    line-height: 34px;
+    font-size: 1.75rem;
+    line-height: 2.125rem;
     color: $black;
 }
 .fig_desc{
-    font-size: 20px;
-    line-height: 41px;
+    font-size: 1.25rem;
+    line-height: 2.563rem;
     color: $black;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
 }
 .account{
    
@@ -413,64 +419,83 @@
         background-image: url(../../public/images/account_img.png);
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover;padding: 254px 0 91px;
+        background-size: cover;padding: 15.875rem 0 5.688rem;
     }
     .newsletter_col{
-        max-width: 703px; 
+        max-width: 43.938rem; 
         margin: auto;
         .news_field{
-            height: 65px;border-radius: 5px 0px 0px 5px;padding-left: 25px;
+            height: 4.063rem;border-radius: 0.313rem 0px 0px 0.313rem;padding-left: 1.563rem;
             &:focus{
                 box-shadow: none;
             }
         }
         .btn_submit{
-            max-width: 224px;
+            max-width: 14rem;
             border: 0;
-            width: 100%;border-radius: 0px 5px 5px 0px;
+            width: 100%;border-radius: 0px 0.313rem 0.313rem 0px;
         }
        
     }
     p{
-        font-size: 15px;
-        line-height: 32px;
+        font-size: 0.938rem;
+        line-height: 2rem;
         text-align: center;
         color: #FFF;
         font-weight: 700;
     }
 }
 .campaign_sec{
-    padding: 80px 0;
+    padding: 5rem 0;
     .space_left {
         padding-left: 7rem;
     }
 }
 .messaging_sec{
-    background-color: $light-green;padding: 60px 0;
+    background-color: $light-green;padding: 3.75rem 0;
 }
 .partner_sec{
-    padding-top: 100px;
+    padding-top: 6.25rem;
     .partner_back{
-        max-width: 1076px;
+        max-width: 67.25rem;
         width: 100%;
         margin: auto;
     }
     .partner_div{
-        background-color: $second-color;border-radius: 10px;
-        padding: 50px 0 100px;
+        background-color: $second-color;border-radius: 0.625rem;
+        padding: 3.125rem 0 6.25rem;
+        position: relative;
+        &:before{
+            position: absolute;
+            content: "";
+            background-image: url(../../public/images/client_left_shape.png);
+            height: 12.25rem;
+            width: 11.688rem;
+            left: 0;
+            bottom: 0;
+        }
+        &:after{
+            position: absolute;
+            content: "";
+            background-image: url(../../public/images/client_right_shape.png);
+            height: 11.625rem;
+            width: 11rem;
+            top: 0;
+            right: 0;
+        }
     }
     .logo_div{
         background-color: $white;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 92px;
+        height: 5.75rem;
         width: 100%;
-        border-radius: 10px;
+        border-radius: 0.625rem;
     }
     .partner_btm{
         background-color: $white;
-        border-radius: 10px;padding: 60px 0;
+        border-radius: 0.625rem;padding: 3.75rem 0;
     }
 }
 .site_link:hover{
@@ -478,23 +503,42 @@
 }
 .testimonial{
     background-color: $second-color;
-    padding: 90px 0;
+    padding: 6.25rem 0;
+    position: relative;
+    &:before{
+        left: 0;
+        top: 0;
+        background-image: url(../../public/images/test0monial-left-shape.png);
+        position: absolute;
+        content: "";
+        height: 15.875rem;
+        width: 12.438rem;
+    }
+    &:after{
+        right: 0;
+        bottom: 0;
+        background-image: url(../../public/images/test0monial-right-shape.png);
+        position: absolute;
+        content: "";
+        height: 17.375rem;
+        width: 9.938rem;
+    }
     .item{
         background-color: $white;
-        border-radius: 11.1111px;
+        border-radius: 0.688rem;
         text-align: center;
-        padding: 30px 45px;
-        margin: 0 25px;
+        padding: 1.875rem 2.813rem;
+        margin: 0 1.563rem;
         h5{
-            font-size: 20px;
-            line-height: 28px;
+            font-size: 1.25rem;
+            line-height: 1.75rem;
             font-weight: 900;
             color: $gray-4;
         }
         p{
             font-weight: 400;
-            font-size: 17px;
-            line-height: 30px;
+            font-size: 1.063rem;
+            line-height: 1.875;
             text-align: center;
             color: $black;
             opacity: 0.7;
@@ -503,24 +547,29 @@
     .user_info{
         text-align: center;
         justify-content: center;
-        margin-top: 13px;
+        margin-top: 0.813rem;
         h6{
             font-weight: 700;
-            font-size: 18px;
-            line-height: 30px;
+            font-size: 1.125rem;
+            line-height: 1.875rem;
             margin: 0;
+            text-align: left;
         }
         p{
-            font-size: 14px;
-            line-height: 24px;
+            font-size: 0.875rem;
+            line-height: 1.5rem;
             text-align: left;margin: 0;
         }
     }
+   
 }
+
+
+
 footer{
     .footer_top{
         background-color: $black-1;
-        padding: 70px 0;
+        padding: 4.375rem 0;
         .title{
             color: $white;
             span{
@@ -530,18 +579,18 @@ footer{
         }
     }
     .footer_btm{
-        padding: 80px 0 40px;
+        padding: 5rem 0 2.5rem;
         background-color: $black;
         h6{
             color: $white;
-            font-size: 17px;
-            line-height: 41px;
+            font-size: 1.063rem;
+            line-height: 2.536rem;
         }
         p{
             color: $white;
             font-weight: 400;
-            font-size: 14px;
-            line-height: 27px;
+            font-size: 0.875rem;
+            line-height: 1.688rem;
             margin: 0;
         }
         .footer_col{
@@ -549,7 +598,7 @@ footer{
                 padding: 0;
                 margin: 0;
                 li{
-                    padding-right: 20px;
+                    padding-right: 1.25rem;
                 }
             }
         }
@@ -563,9 +612,9 @@ footer{
             li{
                 color: #fff;
                 font-weight: 400;
-                font-size: 14px;
-                line-height: 27px;
-                margin: 0;margin-left: 25px;
+                font-size: 0.875rem;
+                line-height: 1.688rem;
+                margin: 0;margin-left: 1.563rem;
                 a{
                     &:hover{
                         color: #fff;

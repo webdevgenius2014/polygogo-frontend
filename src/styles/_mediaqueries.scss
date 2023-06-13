@@ -18,6 +18,22 @@
             }
         }
     }
+    .reason_sec{
+        .block_height{
+            height: 10rem;
+        }
+        .block_res{
+            padding: 1.875rem 1.438rem;
+        }
+    }
+    .marketing{
+        .fig_img{
+            img{
+                max-width: 100%;
+            }
+        }
+    }
+
 }
 @media screen and (max-width: 1279px) {
     .box_wrap .box_one{        
@@ -48,6 +64,69 @@
     .box_wrap .box_two .form_wrap{
         width:28rem;
     }
+    .banner{
+        .banner_left{
+            img{
+                max-width: 100%;
+            }
+        }
+        .banner_right{
+            h1{
+                font-size: 2.6rem;
+                line-height: 3.5rem;
+            }
+        }
+    }
+    .title{
+        font-size: 2.5rem;
+        line-height: 3.2rem;
+    }
+    .reason_sec{
+        .block_height{
+            height: 12rem;
+            p{
+                line-height: 1.4rem;
+            }
+        }
+        .author_data{
+            p{
+                line-height: 1rem;
+            }
+        }
+    }
+    .marketing{
+        .fig_desc{
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+        }
+    }
+    .campaign_sec {
+        .fig_desc{
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+        }
+    }
+    .messaging_sec{
+        img{
+            max-width: 100%;
+        }
+        .fig_desc{
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+        }
+    }
+    .testimonial{
+        .item{
+            margin: 0 0.6rem;
+        }
+        .slick_left{
+            z-index: 1;
+        }
+        .slick_right{
+            z-index: 1;
+        }
+    }
+    
 }
 @media screen and (max-width: 991px) {
     .box_wrap{

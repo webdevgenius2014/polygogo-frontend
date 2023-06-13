@@ -7,13 +7,39 @@ import Slider from 'react-slick';
 import custData from '../testimonialAPI/testimonial';
 const HomeTestimonial=()=>{
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 1,
-        centerPadding: '50px'
+        centerPadding: '50px',
+        prevArrow: <LeftNavButton/>,
+        nextArrow: <RightNavButton/>
     };
+    function LeftNavButton(props:any) {
+        const {className, style, onClick} = props
+        return (
+            <div
+                className="slick-arrow slick_left"
+                style={{...style, display: 'block', position: 'absolute', left: -35, top: 95, cursor:'pointer'}}
+                onClick={onClick}
+            >
+                <img src={"images/slide-arrow_left.png"} alt="arrow_left"/>
+            </div>
+        );
+    }
+    function RightNavButton(props:any) {
+        const {className, style, onClick} = props
+        return (
+            <div
+                className="slick-arrow slick_left"
+                style={{...style, display: 'block' , position: 'absolute', right: -35, top: 95, cursor:'pointer'}}
+                onClick={onClick}
+            >
+                <img src={"images/slide-arrow_right.png"} alt="arrow_right"/>
+            </div>
+        );
+    }
     
     const userData = custData;
         
@@ -52,5 +78,4 @@ const HomeTestimonial=()=>{
         </>
     )
 }
-
 export default HomeTestimonial;

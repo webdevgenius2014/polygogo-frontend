@@ -49,6 +49,9 @@ export default function HomeVideo(){
                         whileInView="visible"
                     >
                         <div className={`${styles.video_left}`}>
+                          <div>
+                            <img src='images/house_icon.png' alt=''/>
+                          </div>
                             <h2 className={`${styles.title}`}>Everything you need <span>to run a digital</span> business</h2>
                             <p>Turn all of your customer data into hyper-personalized messages that shoppers want—across email, SMS, push, and more.</p>
                         </div>

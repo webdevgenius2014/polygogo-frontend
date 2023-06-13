@@ -44,7 +44,7 @@ export default function HomeReason(){
                     whileInView="visible"
                     >Here are a few Reasons Why<br></br> Businesses love Polygogo</motion.h2>
                     <div className={`row ${styles.reason_row}`}>
-                        <div className='col-md-3'>
+                        <div className='col-lg-3 col-md-6'>
                             <motion.div className={`${styles.block_res}`}
                             variants={fromLeft}
                             initial="hidden"
@@ -63,7 +63,7 @@ export default function HomeReason(){
                                 </div>
                             </motion.div>
                         </div>
-                        <div className='col-md-3'>
+                        <div className='col-lg-3 col-md-6'>
                         <motion.div className={`${styles.block_res}`}
                         variants={fromRight}
                         initial="hidden"
@@ -83,7 +83,7 @@ export default function HomeReason(){
                                 </div>
                             </motion.div>
                         </div>
-                        <div className='col-md-3'>
+                        <div className='col-lg-3 col-md-6'>
                         <motion.div className={`${styles.block_res}`}
                         variants={fromLeft}
                         initial="hidden"
@@ -102,7 +102,7 @@ export default function HomeReason(){
                                 </div>
                             </motion.div>
                         </div>
-                        <div className='col-md-3'>
+                        <div className='col-lg-3 col-md-6'>
                         <motion.div className={`${styles.block_res}`}
                         variants={fromRight}
                         initial="hidden"
