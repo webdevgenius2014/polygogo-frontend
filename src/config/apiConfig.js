@@ -5,7 +5,8 @@ const ApiConfig = {
     'verifyOtp' : `${apiURL}verify-otp`,
     'socialLogin' : `${apiURL}social-login`,
     'userDetails': `${apiURL}user-details`,
-    'completeProfile': `${apiURL}complete-profile`
+    'completeProfile': `${apiURL}complete-profile`,
+    'sendOtp': `${apiURL}send-otp`
 };
 
 export default ApiConfig;

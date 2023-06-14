@@ -30,26 +30,29 @@ type Props={
     prevStep:(val:any)=>void;
     setSkip:(val:any)=>void;    
     setIsmanual:(val:boolean)=>void; 
-    saveData: (val:any)=>void;   
+    saveData: (val:any)=>void;  
+    isDisabled:any; 
 };
 const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    //companyName: Yup.string().required('Company name is required')
+    name: Yup.string().required('Name is required')    
 });
+const validationSchema1 = Yup.object().shape({});
+
 // const googleKey=process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 const scriptOptions= {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
     libraries: ['places'],
 }
-const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData  })=>{
+const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData,isDisabled  })=>{    
     const { isLoaded, loadError } = useLoadScript(scriptOptions);
     const [autocomplete, setAutocomplete] = useState(null);
-    const inputRef = useRef<any | null>(null);        
+    const inputRef = useRef<any | null>(null);  
+    // const [isvalidated, setValidated]=useState(false);      
     const {
         register,        
         handleSubmit,
         formState   
-    } = useForm<ProfileInterface>({resolver: yupResolver(validationSchema)});
+    } = useForm<ProfileInterface>({resolver: yupResolver(name.legth>0 ? validationSchema:validationSchema1)});
     const setupManually=()=>{        
         setIsmanual(true); 
         setCurrentStep(2);
@@ -59,7 +62,7 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
         if(ismanual===true){
             setSkip(null);
         }else{
-            setSkip(2);
+            setSkip(currentStep+1);
         }
     },[ismanual]); 
 
@@ -93,21 +96,23 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
             resources_strength:'', 
             revanue:''
         });
-    } 
-    
+    }     
     const saveStepOneData=()=>{
         let payload = {
           name : name, 
           ...companyDetails          
-        };       
+        };  
+        setIsmanual(false);
+        setSkip(currentStep+1);     
         saveData(payload);
     }
+    
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Let’s start by Setting up your Profile.</h1>
         <Form 
             register={register}          
             handleSubmit={handleSubmit}
-            isDisabled={name.length>0?false:true}
+            isDisabled={name.length>0 && !isDisabled ?false:true}
             onSubmit={saveStepOneData}
             isbackbutton={false}
             onBack={prevStep}

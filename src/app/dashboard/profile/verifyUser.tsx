@@ -1,14 +1,7 @@
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import Form from '../forms/Form';
-import Input from '../forms/form-fields/Input';
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import GetCode from './verify-user/getCode'
 import VerifyCode from './verify-user/verifyCode'
-import { validateEmail, validatePhone, testPhone} from "../../../helpers/formatCheck";
-import AuthService from '../../../services/auth.service';
 type Props={
   currentStep:any;   
   userData:any; 
@@ -19,101 +12,69 @@ type Props={
   setVerifyName:(val:any)=>void;
   verifyOtp: any;
   setVerifyOtp:(val:any)=>void; 
+  isDisabled: boolean;
+  setIsDisabled:(val:boolean)=>void;   
+  isShowOtpForm:boolean;
+  setShowOtpForm:(val:boolean)=>void;
+  isResend: boolean;
+  setIsResend:(val:boolean)=>void;
+  message: any;
+  setMessage:(val:any)=>void;
+  alertClass: any;
+  setAlertClass: (val:any)=>void;
+  getCode:(val:any)=>void; 
+  verifyCode:(val:any)=>void
+  otpDigits:any; 
+  setOtpDigits:(val:any)=>void;
 };
-const validationSchema = Yup.object().shape({
-    emailOrPhone: Yup.string()
-        .required('Email / Phone is required')
-        .test('emailOrPhone', 'Email / Phone is invalid', (value) => {
-            return validateEmail(value) || validatePhone(value.replace(/\D/g, ''));
-        }
-    )      
-});
-const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp})=>{
-    const [isDisabled, setIsDisabled] = useState(true);   
-    const [isShowOtpForm, setShowOtpForm]=useState(false);
-    const [isResend, setIsResend]=useState(false); 
-    const getCode = async () => {
-        setIsDisabled(false);
-        setShowOtpForm(true);
-        await AuthService.getOtp( (validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, '') )
-        .then((response)=>{
-          console.log(response);
-          if(response?.status===200){ 
-            // if(!isOTPShow){ setIsOTPShow(true);     } 
-            // if(isResend){
-            //   setMessage('');
-            //   setIsResend(false);
-            // }
-            // setAlertClass(styles.text_primary); 
-            // setMessage(`Enter the verification code sent on ${userName}`);
-          }else{
-            // setAlertClass('text-danger');
-            // setMessage(response?.data.message);
-          }
-        },error=>{  
-            // setAlertClass('text-danger');    
-            // setMessage(error?.error)
-        })
-    };
-    const verifyCode = async ()=>{ 
-      let payload = {
-        username : (validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, ''),
-        otp: verifyOtp
-      }
-      nextStep(currentStep);
-      await AuthService.verifyOtp( payload ).then((response)=>{      
-        if(response){
-          if(response.status===200){
-          //   if(isResend){
-          //     setIsResend(false);          
-          //   }
-          //   setAlertClass(''); 
-          //   setMessage(''); 
-          //   sessionStorage.setItem("auth_token", response.data.token);
-          //   router.push('/dashboard/profile');
-          }else{
-          //   setAlertClass('text-danger');
-          //   setMessage(response?.data.message);      
-          }
-        }
-      },error=>{
-          console.log(error);
-          //   setAlertClass('text-danger'); 
-          //   setMessage('Please enter valid otp.');
-      })
-    };    
-    useEffect(()=>{
-        if(isShowOtpForm){
-          setTimeout(() => {
-            setIsResend(true);
-          }, 6000)
-        }
-    },[isShowOtpForm]);
-    
-    const updateMobile=()=>{
-        setIsDisabled(false);
-        setShowOtpForm(false);
-    }    
-    const props={
-      verifyName:verifyName, 
-      setVerifyName:setVerifyName ,
-      verifyOtp:verifyOtp,
-      setVerifyOtp:setVerifyOtp,
-      getCode:getCode, 
-      verifyCode:verifyCode,
-      currentStep:currentStep,
-      prevStep:prevStep,
-      isDisabled:isDisabled,
-      isResend:isResend,
-      updateMobile:updateMobile, 
-      userData: userData       
+const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp, isDisabled, setIsDisabled, isShowOtpForm, setShowOtpForm, isResend, setIsResend, message, alertClass, getCode, verifyCode, otpDigits, setOtpDigits })=>{
+  useEffect(()=>{
+    if(isShowOtpForm){
+      setIsDisabled(false);
+      setTimeout(() => {
+        setIsResend(true);
+      }, 6000)
+    }else{
+      setIsDisabled(true);
     }
-    return(<> 
-        {isShowOtpForm?(<>
-            <VerifyCode  {...props} />            
-        </>):(<>
-            <GetCode {...props} />
-        </>)}
-    </>)
+  },[isShowOtpForm]); 
+
+  const updateMobile=()=>{
+    console.log("hello i am here");
+    setIsDisabled(true);
+    setShowOtpForm(false);
+  }    
+  const props={
+    verifyName:verifyName, 
+    setVerifyName:setVerifyName ,
+    verifyOtp:verifyOtp,
+    setVerifyOtp:setVerifyOtp,
+    getCode:getCode, 
+    verifyCode:verifyCode,
+    currentStep:currentStep,
+    prevStep:prevStep,
+    isDisabled:isDisabled,
+    isResend:isResend,
+    updateMobile:updateMobile, 
+    userData: userData,
+    message:message,
+    alertClass:alertClass,
+    otpDigits:otpDigits, 
+    setOtpDigits:setOtpDigits       
+  } 
+  useEffect(()=>{
+    if(isShowOtpForm && message){
+      setTimeout(() => {
+        setIsResend(true);
+      }, 10000)
+    }
+  },[isShowOtpForm, message])   
+  return(<> 
+    {isShowOtpForm?(<>
+      <VerifyCode  {...props} />            
+    </>):(<>
+      <GetCode {...props} />
+    </>)}    
+  </>)
 }
 export default VerifyUser;

@@ -20,7 +20,7 @@ type Props={
     setUserName:(val:any)=>void;
     businessUrl:any; 
     setBusinessUrl:(val:any)=>void;
-    saveData:(val:any)=>void;
+    saveData:(val:any)=>void;    
 };
 const validationSchema = Yup.object().shape({
     userName: Yup.string()
@@ -46,6 +46,8 @@ const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSki
         }
         saveData(payload);
     }
+    
+    
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Enter your Business Website Url</h1>
         <Form 

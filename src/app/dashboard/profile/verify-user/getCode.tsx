@@ -14,7 +14,7 @@ type Props={
     verifyName: any;
     isDisabled:boolean;
     setVerifyName: (val:any)=>void;
-    getCode :(val:GetCodeInterface)=>void;   
+    getCode :(val:any)=>void;   
     prevStep:(val:any)=>void;
     userData:any;
 };
@@ -45,10 +45,7 @@ const validatePhoneVal = Yup.object().shape({
 const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData})=>{   
     const[maxLength, setMaxLength]=useState(0);   
     const isEmailVerified=userData.emailVerified;
-    const isPhoneVerified=userData.phoneVerified; 
-    console.log(userData);
-    const userEmail="test@gmail.com";
-    const userPhone="";    
+    const isPhoneVerified=userData.phoneVerified;       
     const {
         register,        
         handleSubmit,
@@ -67,13 +64,23 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
             setMaxLength(0);
         }       
     }; 
+    const getOTP=()=>{
+        if(verifyName.length>0){
+            console.log(verifyName);
+            let payload = {
+                username:(validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, '')               
+            }             
+            getCode(payload);
+        }       
+    }
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Make your Website Textable.</h1>
         <Form 
             register={register}          
             handleSubmit={handleSubmit}           
-            isDisabled={isDisabled}     
-            onSubmit={getCode}
+            isDisabled={isDisabled}  
+            type='button' 
+            onSubmit={getOTP}
             onBack={prevStep}
             formState={formState}
             className={dstyles.form}

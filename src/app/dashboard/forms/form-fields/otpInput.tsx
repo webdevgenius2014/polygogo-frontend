@@ -10,7 +10,8 @@ interface OtpInputProps extends InputHTMLAttributes<HTMLInputElement> {
   wrapperClass?: string;
   iconClass?:string
   handleChange?:any;
-  inputClassName?: string;  
+  inputClassName?: string; 
+  reference: any; 
 }
 const OtpInput: FC<OtpInputProps> = ({
   register,
@@ -21,24 +22,24 @@ const OtpInput: FC<OtpInputProps> = ({
   maxLength,
   wrapperClass,
   iconClass,
-  handleChange,  
-  ...rest
+  handleChange, 
+  reference, 
+  ...rest  
 }) => {  
-  const registerField = register(name);   
-  
-  return (
+  const registerField = register(name, {ref: reference});   
+  return (<>    
     <input 
       placeholder={placeholder?placeholder:''}                   
       aria-invalid={error ? "true" : "false"}
       maxLength={maxLength?maxLength:1}
-      {...registerField}
-      onChange={e => {
+      {...registerField}      
+      onChange={e => {        
         registerField.onChange(e);
         handleChange && handleChange(e); 
       }}
       {...rest}
     />
-  );
+  </>);
 };
 
 export default OtpInput;

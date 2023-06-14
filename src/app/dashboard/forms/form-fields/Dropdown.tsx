@@ -58,6 +58,7 @@ const Dropdown:React.FC<DropdownProps> = ({
 				return <option key={index} value={option.value}>{option.displayValue}</option>
 			})}
 		</select>}
+		{error&& <p className={'text-danger mt-2 mb-1'}>{error}</p>}
 	</div>)
 }
 export default Dropdown;

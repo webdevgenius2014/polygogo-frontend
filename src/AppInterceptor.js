@@ -6,7 +6,7 @@ instance.interceptors.response.use(
     response => {
         return response
     },
-    (error)=> errorHandler(error),
+    (error)=> errorHandler(error),    
 );
 
 const requestHandler = async request => {
@@ -17,14 +17,13 @@ const requestHandler = async request => {
         'x-access-token': `Bearer ${token}`,
         'Content-Type': 'application/json',
         Accept: '*/*',
-    }  
-    console.log(request) ;
+    } 
     return request;
 }
 
 const errorHandler = async error => {
-    const originalConfig = error.config;
-    throw error.response
+    const originalConfig = error.config; 
+    throw error.response    
 }
 
 export default instance;

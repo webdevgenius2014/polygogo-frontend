@@ -208,6 +208,21 @@
     padding: 4rem 0 3.4rem;
     .image_wrap{
         margin-right: 7rem;
+        .user_image{
+            position: absolute;
+            right: 30px;
+            top: 92px;            
+            margin: auto;
+            width: 216px;
+            height: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img{
+                max-width: 100%;
+                height: 100%;
+            }
+        }
     }
     .box_image_wrap{
         position: relative;
@@ -390,14 +405,19 @@
             .upload_img{
                 width: 1.5rem;
                 height: 1.5rem; 
+                &.upload_error{
+                    border: 1px solid $red;
+                }
             }
             .input_file{                
                 &.hidden{
                     visibility: hidden !important;
+                    display: none;
                 }
             }
             input{
                 visibility: hidden;
+                display: none;
             }
         } 
     }   

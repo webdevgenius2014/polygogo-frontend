@@ -4,6 +4,12 @@ class ProfileService {
     getCurrentUser(){        
         return instance.post(ApiConfig.userDetails)  
     }
+    getOtp(payload) {  
+        return instance.post(ApiConfig.sendOtp, payload)    
+    }
+    VerifyOtp(payload) {  
+        return instance.post(ApiConfig.verifyOtp, payload)    
+    }
     completeProfile(payload) {  
         return instance.post(ApiConfig.completeProfile, payload)    
     }
