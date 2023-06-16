@@ -1,40 +1,83 @@
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
+import { useState, useEffect } from 'react';
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Form from '../forms/Form';
 import Input from '../forms/form-fields/Input';
-import { useState, useEffect } from 'react';
+import ReviewModal from './reviewModal';
+import { plateformsList } from './plateforms';
 interface ReviewPlateformsInterface {
-    searchReviewPlatform: string;   
+    searchReviewPlatform: string; 
+    platformList: {};
+    setPlatFormList:(val:{})=>void;
+
 }
 type Props={
     currentStep:any;
     userData:any;
     nextStep:(val:any)=>void;
     prevStep:(val:any)=>void;
-    setSkip:(val:any)=>void;   
+    setSkip:(val:any)=>void;    
+    googlePlaceId?:string;
+    facebookPageId?:string;
 };
 const validationSchema = Yup.object().shape({
     searchReviewPlatform: Yup.string().required('Eneter review platform.')  
 });
-const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep})=>{
-    const [reviewPlateform, setReviewPlateform]= useState<string | ''>('');        
+const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep, googlePlaceId, facebookPageId})=>{
+    const [reviewPlateform, setReviewPlateform]= useState<string | ''>('');       
+    const [platformList, setPlatFormList]= useState(plateformsList());
+    const [connectedPlateforms, setConnectedPlateforms]=useState<any | null>(null)
+    const [isshowModal, setIsShowModal]=useState(false);
+    const [modalData, setModalData]=useState<any | null>(null); 
     const {
         register,        
         handleSubmit,
         formState   
     } = useForm<ReviewPlateformsInterface>({resolver: yupResolver(validationSchema)});   
     const saveReviewPlateforms=()=>{
-        console.log(reviewPlateform);
+        // console.log(reviewPlateform);
     }; 
+    const getPlateformsData=()=>{
+        let isGoogleConnect = googlePlaceId?true:false;
+        let isFacebookConnect = facebookPageId?true:false; 
+        const data = plateformsList(isGoogleConnect, isFacebookConnect);
+        if(data){
+            filterConnectedPlateforms(data);
+            setPlatFormList(data);
+        }        
+    }
+    const filterConnectedPlateforms=(data:any)=>{
+    //    console.log(data.plateforms);
+        const filterData = data.plateforms.filter((p:any) => p.connected === true);
+        setConnectedPlateforms(filterData);
+    }
+    useEffect(()=>{
+        getPlateformsData();
+    },[googlePlaceId, facebookPageId]);
+
+    const openReviewModal=(platformId:number)=>{
+        setIsShowModal(true);
+        console.log(platformId);
+        const plateform = platformList.filter((p:any) => p.id === platformId);
+        console.log(plateform);
+        if(plateform){
+            setModalData(plateform[0]);            
+        }
+    };
+    const removePlateform=(platform:string)=>{
+        if(platform==='google'){
+
+        }
+    }
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Review Platforms</h1>
         <Form 
             register={register}          
             handleSubmit={handleSubmit}     
             onSubmit={saveReviewPlateforms}
-            isbackbutton={false}
+            //isbackbutton={false}
             onBack={prevStep}
             buttonLabel="continue"
             formState={formState}
@@ -85,22 +128,46 @@ const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep})=>{
                                 // iconClass={`position-relative ${dstyles.input_user} ${dstyles.icon_wrap}`}
                                 className={`form-control ps-3 ps-lg-4 ${dstyles.input_field} ${formState.errors.searchReviewPlatform ? dstyles.is_invalid : ''}`}         
                             /> 
-                            <div className={`display-flex align-items-center justify-content-center ${dstyles.review_plateforms_list}`}>
-                                <button type='button' className={`${dstyles.btn} ${dstyles.review_btn}`}>
-                                    <img src="/dashboard/icons/google.svg" alt="google" className={dstyles.icon_img} />
-                                </button> 
-                                <button type='button' className={`${dstyles.btn} ${dstyles.review_btn}`}>
-                                    <img src="/dashboard/icons/faceboook.svg" alt="faceboook" className={dstyles.icon_img} />
-                                </button>
-                                <button type='button' className={`${dstyles.btn} ${dstyles.review_btn}`}>
-                                    <img src="/dashboard/icons/glassdoor.svg" alt="glassdoor" className={dstyles.icon_img} />
-                                </button>
+                            <p className={`${dstyles.text_primary}`}>Connected Plateforms</p>
+                            <div className={`display-flex align-items-center justify-content-center flex-wrap ${dstyles.review_plateforms_list}`}>
+                                {connectedPlateforms && connectedPlateforms.map((plateform:any)=>{                                    
+                                    return(
+                                        <div className={`position-relative ${dstyles.connected_app}`}>
+                                            <button data-bs-toggle="modal" data-bs-target="#ReviewModal" key={`plateform-${plateform?.id}`} name={plateform?.name} type='button' className={`${dstyles.btn} ${dstyles.review_btn}`} onClick={()=>openReviewModal(plateform?.id)}>
+                                                <img src={plateform?.icon?.image} alt={plateform?.icon?.alt} className={dstyles.icon_img} />
+                                            </button> <span onClick={()=>removePlateform(plateform?.name)} className={`btn-close`}>X</span>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <hr />
+                            <p className={`${dstyles.text_primary}`}>All Plateforms</p>
+                            <div className={`display-flex align-items-center justify-content-center flex-wrap ${dstyles.review_plateforms_list}`}>
+                                {platformList && platformList.map((plateform:any)=>{                                    
+                                    return(
+                                        <button data-bs-toggle="modal" data-bs-target="#ReviewModal" key={`plateform-${plateform?.id}`} name={plateform?.name} type='button' className={`${dstyles.btn} ${dstyles.review_btn}`} onClick={()=>openReviewModal(plateform?.id)}>
+                                            <img src={plateform?.icon?.image} alt={plateform?.icon?.alt} className={dstyles.icon_img} />
+                                        </button> 
+                                    )
+                                })}                                
                             </div>                            
                         </div>
                     </div>                    
                 </div>
             </div>
-        </Form>
+        </Form>       
+        
+        <ReviewModal 
+            modalId="ReviewModal" 
+            isopen={isshowModal}                
+            buttonLabel="" 
+            buttonAction={saveReviewPlateforms} 
+            platformName=""
+        >
+
+        </ReviewModal>
+                              
+        
     </>)
 }
 export default ReviewPlateformsSetup;

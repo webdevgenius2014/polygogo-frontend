@@ -29,12 +29,14 @@ type Props={
     companyDetails:any;
     setCompanyDetails: (val:any)=>void;
     saveData: (val:any)=>void;
+    message:any;
+    alertClass: any;
 };
 
 const validationSchema = Yup.object().shape({    
     companyName: Yup.string().required('Company name is required')
 });
-const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, name, companyDetails, setCompanyDetails, saveData})=>{
+const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, name, companyDetails, setCompanyDetails, saveData, message, alertClass})=>{
     const [addressOne, setAddressOne]=useState(companyDetails.address_one)
     const [addressTwo, setAddressTwo]=useState(companyDetails.address_two);
     const [companyName, setCompanyName]=useState(companyDetails.company_name)
@@ -253,6 +255,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                 />
                             </div>
                         </div>
+                        {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p></div>} 
                     </div>    
                 </div>
             </div>

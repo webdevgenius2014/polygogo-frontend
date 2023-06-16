@@ -20,7 +20,11 @@ type Props={
     setUserName:(val:any)=>void;
     businessUrl:any; 
     setBusinessUrl:(val:any)=>void;
-    saveData:(val:any)=>void;    
+    saveData:(val:any)=>void; 
+    message:any; 
+    alertClass: any;
+    ismanual:any; 
+    setIsVerified:(val:any)=>void;  
 };
 const validationSchema = Yup.object().shape({
     userName: Yup.string()
@@ -33,28 +37,51 @@ const validationSchema = Yup.object().shape({
         return validateWebsiteUrl(value);
     })
 });
-const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, userName, setUserName, businessUrl, setBusinessUrl, saveData})=>{    
+const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, userName, setUserName, businessUrl, setBusinessUrl, saveData, message, alertClass, ismanual, setIsVerified})=>{  
+    const[prev, setperv] =useState(false);
+    // const[next, setperv] =useState(false);
     const {
         register,        
         handleSubmit,
         formState   
     } = useForm<BusinessWebsiteInterface>({resolver: yupResolver(validationSchema)});
+    
+    useEffect(()=>{
+        if(userData && userData.emailVerified===true && userData.phoneVerified===true){
+            setIsVerified(true);
+            setSkip(currentStep+1);
+        }
+    },[]);
+
     const saveBusinessWebsite=()=>{ 
         let payload={
             username: userName,
             bussiness_url:businessUrl
-        }
+        }       
         saveData(payload);
-    }
-    
-    
+    } 
+    const back=()=>{
+        setperv(true)
+        if(ismanual===false){
+            setSkip(currentStep-1);
+        }
+    }   
+    const backToPrev=()=>{  
+        prevStep(currentStep);
+    };
+    useEffect(()=>{        
+        if(prev===true){
+            setSkip(currentStep-1);
+            backToPrev();
+        }        
+    },[prev])    
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Enter your Business Website Url</h1>
         <Form 
             register={register}          
             handleSubmit={handleSubmit}                 
             onSubmit={saveBusinessWebsite}
-            onBack={prevStep}
+            onBack={back}
             formState={formState}
             className={dstyles.form}
             currentStep={currentStep}
@@ -89,6 +116,7 @@ const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSki
                                 iconClass={`position-relative ${dstyles.input_business} ${dstyles.icon_wrap}`}
                                 className={`form-control ${dstyles.input_field} ${formState.errors.businessUrl ? dstyles.is_invalid : ''}`}         
                             />
+                            {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p></div>} 
                         </div>
                     </div>
                 </div>

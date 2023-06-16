@@ -433,8 +433,14 @@
 }
 .review_plateforms_list{
     display: flex;
+    padding-top: .5rem;
     .review_btn{
-        margin: 1rem 0.219rem;
+        margin: .5rem 0.219rem;
+    }
+    .connected_app{
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 }
 .review_btn{

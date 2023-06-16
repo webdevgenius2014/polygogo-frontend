@@ -1,5 +1,5 @@
 "use client";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import dstyles from '../../styles/dashboard/dstyles.module.scss'
 import Head from 'next/head'
 import Sidebar from './shared/sidebar'
@@ -11,6 +11,9 @@ export default function DashboardLayout({
     children: React.ReactNode
   }) {
     const [isSidebarExpanded, setIsSidebarExpanded]=useState(false);
+    useEffect(() => {
+        require("bootstrap/dist/js/bootstrap.bundle.min.js");
+      }, []);
     return (
         <>
         <Head>

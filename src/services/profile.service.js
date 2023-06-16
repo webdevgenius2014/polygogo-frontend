@@ -10,8 +10,14 @@ class ProfileService {
     VerifyOtp(payload) {  
         return instance.post(ApiConfig.verifyOtp, payload)    
     }
-    completeProfile(payload) {  
-        return instance.post(ApiConfig.completeProfile, payload)    
+    completeProfile(payload) { 
+        return instance.post(ApiConfig.completeProfile, payload); 
+    }
+    uploadProfileImage(payload) {                       
+        let headers = {
+            'content-type': 'multipart/form-data',
+        }
+        return instance.post(ApiConfig.completeProfile, payload, headers); 
     }
 }
 export default new ProfileService();
