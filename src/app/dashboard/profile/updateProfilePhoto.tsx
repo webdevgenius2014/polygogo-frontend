@@ -34,7 +34,8 @@ const validationSchema = Yup.object().shape({
 const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, job, setJob, profilePhoto, setProfilePhoto, saveData, message, setMessage, alertClass, isVarified})=>{ 
     const [previewUrl, setPreviewUrl] = useState<string | ''>(''); 
     const [fileName, setFileName]= useState<any | ''>('');
-    const [fileError, setFileError]= useState<string | ''>('');
+    const [fileError, setFileError]= useState<any | ''>('');
+    const basrUrl= process.env.NEXT_PUBLIC_API_URL+'/images/'
     const handleFileRead = async (file:any) => { 
         const base64 = await convertBase64(file);
         if(base64){
@@ -77,7 +78,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
             let payload = {
                 job_title : job, 
                 profile_img: fileName!==null?fileName:profilePhoto,
-                profile_status:1       
+                profile_status:true      
             };
             saveData(payload);
         }
@@ -87,7 +88,9 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
         handleSubmit,
         formState   
     } = useForm<UpdatePhotoInterface>({resolver: yupResolver(validationSchema)});
-    
+    useEffect(()=>{
+        setFileError(formState?.errors?.profilePhoto?.message?formState?.errors?.profilePhoto?.message:fileError);
+    },[])
     const backToPrev=()=>{
         if(isVarified===true){
             setSkip(currentStep-1);
@@ -110,7 +113,8 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
                 <div className={`position-relative ${dstyles.image_wrap}`}>
                     <img src="/dashboard/profile-photo.png" alt="profile-photo" />
                     <div className={dstyles.user_image}>
-                        <img src="/dashboard/dummy-image.png" alt="dummy-image" />
+                        {previewUrl?(<img src={previewUrl} alt="profile-photo" className='mw-100 h-auto' />):profilePhoto?(<img src={basrUrl+profilePhoto} alt="profile-photo" className='mw-100 h-auto' />):(<img src="/dashboard/dummy-image.png" alt="dummy-image" />)}
+                        
                     </div>                    
                 </div>
                 <div className={`h-100 d-flex flex-column justify-space-between ${dstyles.form_wrap} ${dstyles.after_before_dots}`}>

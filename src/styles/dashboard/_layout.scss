@@ -438,9 +438,14 @@
         margin: .5rem 0.219rem;
     }
     .connected_app{
-        position: absolute;
-        top: 0;
-        right: 0;
+        width: 4.75rem;
+        .remove_btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+
+        }
     }
 }
 .review_btn{
@@ -456,4 +461,35 @@
         width: auto;
         height: 100%;
     }
+}
+.custom_modal{
+    z-index: 500;
+    .btn{
+        img{
+            width: auto;
+            height: 1.25rem; 
+        }
+    }
+}
+.search_business{
+    position: relative;
+    .input_field{
+        background-color: $while-1; 
+        border-color: $while-1;
+        padding-left: 3.2rem;              
+    } 
+}   
+.map_container {
+    // height: 100%;
+    // width: 100%;
+}
+.map_input_wrap{
+    // position: relative;
+    // height: 250px;
+    // .map_input{
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     z-index: 50;
+    // }
 }

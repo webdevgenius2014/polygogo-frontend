@@ -3,7 +3,7 @@ export const plateformsList = (googleconected?:boolean, facebookconnected?:boole
         "plateforms": [
             {
                 "id":1,
-                "name":"Google",       
+                "name":"google",       
                 "icon":{ "image": "/dashboard/icons/google.svg", "alt":"google"},
                 "plateformOptions":{
                     "modalTitle":"Google",
@@ -17,7 +17,7 @@ export const plateformsList = (googleconected?:boolean, facebookconnected?:boole
                 "icon":{ "image": "/dashboard/icons/faceboook.svg", "alt":"faceboook"},
                 "plateformOptions":{
                     "modalTitle":"Facebook",
-                    "buttonLabel":"Sign In with Facebook My Business"
+                    "buttonLabel":"Sign In with Facebook My Business"                   
                 },
                 "connected":facebookconnected?true:false
             },
