@@ -252,7 +252,8 @@ export default function Profile() {
   
   // console.log("currentStep: "+ skip)  ;
   return (
-    <div className={dstyles.page_container}>
+    <div className={dstyles.page_container}> 
+      {/* <VerifyUser {...commmonProps} {...stepFourProps} />       */}
       {currentStep===1 && ismanual===false && <ProfileSetup {...commmonProps} {...stepOneProps} /> }
       {currentStep===2 && ismanual===true && <BusinessSetup {...commmonProps} {...stepTwoProps} /> }
       {currentStep===3 && <BusinessWebsite {...commmonProps} {...stepThreeProps} /> }

@@ -31,20 +31,20 @@ type Props={
     otpDigits:any; 
     setOtpDigits:(val:any)=>void;
 };
-const validationSchema = Yup.object().shape({  
-    digitOne:Yup.string().min(1).max(1).required(),
-    digitTwo:Yup.string().min(1).max(1).required(),
-    digitThree:Yup.string().min(1).max(1).required(),
-    digitFour:Yup.string().min(1).max(1).required(),
-    digitFive:Yup.string().min(1).max(1).required(),
-    digitSix:Yup.string().min(1).max(1).required()
-});
+// const validationSchema = Yup.object().shape({  
+//     digitOne:Yup.string().min(1).max(1).required(),
+//     digitTwo:Yup.string().min(1).max(1).required(),
+//     digitThree:Yup.string().min(1).max(1).required(),
+//     digitFour:Yup.string().min(1).max(1).required(),
+//     digitFive:Yup.string().min(1).max(1).required(),
+//     digitSix:Yup.string().min(1).max(1).required()
+// });
 const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp, setVerifyOtp, verifyCode, verifyName, getCode, isResend, updateMobile, message, alertClass, otpDigits, setOtpDigits})=>{
     const {
         register,        
         handleSubmit,
         formState,       
-    } = useForm<VerifyCodeInterface>({resolver: yupResolver(validationSchema)});
+    } = useForm<VerifyCodeInterface>();
       
     const digitOne = useRef<HTMLInputElement | null>(null);
     const digitTwo = useRef<HTMLInputElement | null>(null);
@@ -85,11 +85,11 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
             let payload = {
                 username:(validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, ''),
                 otp: verifyOtp
-            }             
+            } 
+            console.log(payload);            
             verifyCode(payload);
         }
-    }
-
+    }   
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Perfect! We Just Texted you a Code.</h1>
         <Form 
@@ -111,7 +111,7 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                         <h3 className={dstyles.title}>We sent a 4-digit code to <br className='d-none d-lg-block' /> {verifyName}. Enter the code to continue setting up.</h3>
                         <div className={dstyles.otp_group}>
                             <input 
-                                name="digitOne"     
+                                name="digitOne"                                     
                                 id="digitOne" 
                                 ref={digitOne}
                                 value={otpDigits[0]?.digit}
@@ -269,9 +269,10 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                                 className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[5].digit) ? dstyles.is_invalid : ''}`}  
                             /> */}
                         </div> 
-                        {(formState.errors?.digitOne || formState.errors?.digitTwo || formState.errors?.digitThree || formState.errors?.digitFour || formState.errors?.digitFive || formState.errors?.digitSix) 
+                        {/* {(formState.errors?.digitOne || formState.errors?.digitTwo || formState.errors?.digitThree || formState.errors?.digitFour || formState.errors?.digitFive || formState.errors?.digitSix) 
                             && <p className={'text-center text-danger mt-2 mb-1'}> Please enter 6 digit valid otp.</p>
-                        }                                                      
+                        }  */}
+                        {verifyOtp.length<6 && <p className={'text-center text-danger mt-2 mb-1'}> Please enter 6 digit valid otp.</p>}                                                     
                     </div>
                     {isResend && 
                         <p className={`text-center ${dstyles.mx_362} mt-2 mb-2`}>Didn'’'t get the code? <span onClick={getCode} className={`fw-bold ${dstyles.link}`}>Resend</span> or Update your<span onClick={updateMobile} className={`fw-bold ${dstyles.link}`}> mobile number</span></p>
