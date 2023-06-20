@@ -21,7 +21,7 @@ const AppleLoginButton= () => {
             await AuthService.socialLogin(params).then((response)=>{      
                 if(response?.data?.token){
                     sessionStorage.setItem("auth_token", response.data.token);
-                    router.push('/');
+                    router.push('/dashboard/profile');
                 }
                 else{
                     setMessage("Some error occurred. Please try again later");

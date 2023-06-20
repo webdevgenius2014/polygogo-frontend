@@ -73,8 +73,9 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
         e.currentTarget.type = "file";
     };
     
-    const savePhotoAndJobProfile=()=>{       
-        if(profilePhoto && fileName && job){
+    const savePhotoAndJobProfile=()=>{  
+        console.log(fileName);     
+        if((profilePhoto || fileName) && job){
             let payload = {
                 job_title : job, 
                 profile_img: fileName!==null?fileName:profilePhoto,

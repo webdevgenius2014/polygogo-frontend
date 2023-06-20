@@ -64,7 +64,7 @@ export default function Profile() {
       setIsDisabled(false);
     }
   },[company, ismanual]);  
-  const getCurrentUserDetails = async()=>{ 
+  const getCurrentUserDetails = async()=>{     
     await ProfileService.getCurrentUser().then((response)=>{      
       if(response){          
         if(response.status===200 && response.data.error===false){            
@@ -102,24 +102,7 @@ export default function Profile() {
       setSkip(4);
     }     
     saveProfile(payload);
-  };
-  
-  const saveProfilePhoto = async(payload:any )=>{
-    await ProfileService.uploadProfileImage( payload ).then((response)=>{      
-      if(response){
-        if(response.status===200){
-          setMessage('');
-          nextStep(currentStep);
-        }else{
-          setAlertClass(dstyles.text_primary); 
-          setMessage(response.data.message);             
-        }
-      }
-    },error=>{
-      setMessage(error.data.error); 
-      setAlertClass('text-danger');      
-    });
-  };
+  }; 
   const getCode = async (payload:any) => {    
     await ProfileService.getOtp(payload).then((response)=>{ 
       // console.log('response'); 
@@ -170,24 +153,15 @@ export default function Profile() {
       setAlertClass('text-danger'); 
       setMessage('Please enter valid otp.');
     });
-  };   
-  // const savePlateform = async (plateform?:string)=>{
-  //   // console.log("hello i am here");
-  //   // saveProfile(payload);
-  //   if(plateform==='Google'){
-  //     getCurrentUserDetails();
-  //   }else{
-  //     return;
-  //   }
-  // } 
+  }; 
   useEffect(()=>{
     if(userData){
       setName(userData?.name?userData?.name:name); 
-      setCompany(userData?.companies[0].company_name?userData.companies[0].company_name:company)
+      setCompany(userData?.companies[0]?.company_name?userData.companies[0].company_name:company)
       setCompanyDetails({ 
-        company_name: userData?.companies[0].company_name?userData?.companies[0]?.company_name:companyDetails.company_name, 
-        address_one: userData?.companies[0].address_one?userData?.companies[0]?.address_one:companyDetails.address_one,
-        address_two: userData?.companies[0].address_two?userData?.companies[0]?.address_two:companyDetails.address_two, 
+        company_name: userData?.companies[0]?.company_name?userData?.companies[0]?.company_name:companyDetails.company_name, 
+        address_one: userData?.companies[0]?.address_one?userData?.companies[0]?.address_one:companyDetails.address_one,
+        address_two: userData?.companies[0]?.address_two?userData?.companies[0]?.address_two:companyDetails.address_two, 
         city: userData?.companies[0]?.city?userData.companies[0].city:companyDetails.city,
         state: userData?.companies[0]?.state?userData.companies[0].state:companyDetails.state,
         zipcode: userData?.companies[0]?.zipcode?userData?.companies[0]?.zipcode:companyDetails.zipcode, 
@@ -195,9 +169,9 @@ export default function Profile() {
         revanue: userData?.companies[0]?.revanue?userData.companies[0]?.revanue:companyDetails.revanue
       });
       setBusinessUrl(userData?.companies[0]?.bussiness_url?userData?.companies[0]?.bussiness_url:businessUrl); 
-      setUserName(userData.username?userData.username:userName);
+      setUserName(userData?.companies[0]?.username?userData?.companies[0]?.username:userName);
       setJob(userData?.job_title ? userData?.job_title:job);
-      setProfilePhoto(userData.profile_img?userData.profile_img:profilePhoto);
+      setProfilePhoto(userData?.profile_img?userData.profile_img:profilePhoto);
       setGooglePlaceId(userData?.companies[0]?.googlePlaceId?userData?.companies[0]?.googlePlaceId:googlePlaceId);
       setFacebookPageId(userData?.companies[0]?.facebookPageId?userData?.companies[0]?.facebookPageId:facebookPageId)
     }    
@@ -256,7 +230,7 @@ export default function Profile() {
   const stepFiveProps={
     job: job, setJob:setJob,
     profilePhoto:profilePhoto, setProfilePhoto:setProfilePhoto,
-    saveData: saveProfilePhoto,
+    saveData: saveProfile,
     message:message, alertClass: alertClass,
     setMessage:setMessage,
     isVarified:isVarified
@@ -265,7 +239,7 @@ export default function Profile() {
     googlePlaceId: googlePlaceId,
     facebookPageId:facebookPageId,
     removePlateformId: saveCompanyProfileData,
-    reloadData:getCurrentUserDetails
+    savePlatform:saveProfile
   }
   useEffect(()=>{ 
     getCurrentUserDetails();    

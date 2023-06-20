@@ -7,14 +7,13 @@ import Input from '../forms/form-fields/Input';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { StandaloneSearchBox, useLoadScript } from "@react-google-maps/api";
 import { GoogleMap, Marker} from "@react-google-maps/api";
-import ProfileService from '../../../services/profile.service';
 interface SearchBusinessInterface {    
     businessName:string;
 }
 type Props={
     savePlatform:(val:any)=>void;    
     message:any;
-    setMessage:(val:any)=>void;
+    setMessage:(val:any)=>void;   
 };
 const scriptOptions= {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
@@ -50,8 +49,9 @@ const SearchBusiness:React.FC<Props>=({savePlatform, message, setMessage})=>{
     const submitForm=()=>{
         let payload={
             googlePlaceId:placeId
-        }
-        savePlatform(payload);              
+        }       
+        savePlatform(payload);  
+                   
     }   
     return(<>       
         <form id="SearchBusinessForm" onSubmit={handleSubmit(submitForm)} className={dstyles.form}>
