@@ -13,7 +13,7 @@ export default function DashboardLayout({
     const [isSidebarExpanded, setIsSidebarExpanded]=useState(false);
     useEffect(() => {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
-      }, []);
+    }, []);
     return (
         <>
         <Head>

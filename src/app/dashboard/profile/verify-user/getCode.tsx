@@ -46,8 +46,8 @@ const validatePhoneVal = Yup.object().shape({
 });
 const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData, message, alertClass})=>{   
     const[maxLength, setMaxLength]=useState(0);   
-    const isEmailVerified=userData.emailVerified;
-    const isPhoneVerified=userData.phoneVerified;       
+    const isEmailVerified=userData?.emailVerified;
+    const isPhoneVerified=userData?.phoneVerified;       
     const {
         register,        
         handleSubmit,

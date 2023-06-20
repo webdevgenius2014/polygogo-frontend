@@ -225,7 +225,7 @@ export default function Profile() {
     message: message, setMessage:setMessage,
     alertClass: alertClass, setAlertClass: setAlertClass,
     getCode:getCode, verifyCode:verifyCode,
-    otpDigits:otpDigits, setOtpDigits:setOtpDigits
+    digits:digits, otpDigits:otpDigits, setOtpDigits:setOtpDigits
   }
   const stepFiveProps={
     job: job, setJob:setJob,
@@ -252,8 +252,7 @@ export default function Profile() {
   
   // console.log("currentStep: "+ skip)  ;
   return (
-    <div className={dstyles.page_container}> 
-      {/* <ReviewPlateformsSetup {...commmonProps} {...stepSixProps} /> */}
+    <div className={dstyles.page_container}>
       {currentStep===1 && ismanual===false && <ProfileSetup {...commmonProps} {...stepOneProps} /> }
       {currentStep===2 && ismanual===true && <BusinessSetup {...commmonProps} {...stepTwoProps} /> }
       {currentStep===3 && <BusinessWebsite {...commmonProps} {...stepThreeProps} /> }

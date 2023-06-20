@@ -372,3 +372,14 @@
 .text-black{
     color: variable.$black;
 }
+
+.profile_menu{
+    width: 0px;
+    transition: width 1s ease;
+    overflow: hidden;
+    &.show{
+        position: absolute;
+        right: 0;
+        width: 400px;
+    }
+}

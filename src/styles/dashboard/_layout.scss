@@ -131,6 +131,23 @@
         background:darken($while-1,3%);
     }   
 }
+/* Profile menu styles start */
+.profile_menu{    
+    transition: width 1s ease;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    &.hide{
+        width: 0px;
+        display: none;
+    }
+    &.show{        
+        width: 400px;
+        display: block;
+        background-color: $while-1;
+    }
+}
 .toggle_btn{
     border-radius: 50%;
     width: 3.5rem;
