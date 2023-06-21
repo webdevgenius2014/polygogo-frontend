@@ -102,7 +102,12 @@ const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep, googlePlac
     };
     const savePlateformData = ( payload:any )=>{
         savePlatform(payload);
-        closeBusinessModal();
+        if(isShowbusinessModal===true){
+            closeBusinessModal();
+        }
+        if(isShowPlatformModal===true){
+            closePlatformModal();
+        }
     } 
     const handleSearch=(val:any)=>{
         const data = plateformsList();  

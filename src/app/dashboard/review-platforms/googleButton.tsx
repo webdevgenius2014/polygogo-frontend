@@ -1,15 +1,12 @@
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
 import { useGoogleLogin } from '@react-oauth/google'
 import AuthService from '../../../services/auth.service'
-import { useState } from 'react';
-import { useRouter } from 'next/navigation'
 type Props={
     savePlatform:(val:any)=>void;
     message:any;
     setMessage:(val:any)=>void;
 }
 const GoogleButton: React.FC<Props>=({savePlatform, message, setMessage }) => {  
-    const router = useRouter();    
     const loginWithGoogle = useGoogleLogin({
         scope: "https://www.googleapis.com/auth/business.manage",               
         onSuccess: (codeResponse) => {
