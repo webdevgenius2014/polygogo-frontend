@@ -24,10 +24,11 @@ type Props={
   setAlertClass: (val:any)=>void;
   getCode:(val:any)=>void; 
   verifyCode:(val:any)=>void
+  digits:any;
   otpDigits:any; 
   setOtpDigits:(val:any)=>void;
 };
-const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp, isDisabled, setIsDisabled, isShowOtpForm, setShowOtpForm, isResend, setIsResend, message, alertClass, getCode, verifyCode, otpDigits, setOtpDigits })=>{
+const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp, isDisabled, setIsDisabled, isShowOtpForm, setShowOtpForm, isResend, setIsResend, message, alertClass, getCode, verifyCode, otpDigits, setOtpDigits, setMessage })=>{
   useEffect(()=>{
     if(isShowOtpForm){
       setIsDisabled(false);
@@ -39,10 +40,10 @@ const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, us
     }
   },[isShowOtpForm]); 
 
-  const updateMobile=()=>{
-    console.log("hello i am here");
+  const updateMobile=()=>{  
+    setMessage('');
     setIsDisabled(true);
-    setShowOtpForm(false);
+    setShowOtpForm(false);    
   }    
   const props={
     verifyName:verifyName, 

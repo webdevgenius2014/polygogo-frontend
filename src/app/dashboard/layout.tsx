@@ -1,5 +1,5 @@
 "use client";
-import {useState,useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import dstyles from '../../styles/dashboard/dstyles.module.scss'
 import Head from 'next/head'
 import Sidebar from './shared/sidebar'
@@ -18,7 +18,6 @@ export default function DashboardLayout({
         <>
         <Head>
             <title>Poly Go Go Dashboard</title>
-            
         </Head>
         <div className={dstyles.d_layout}>            
             <Sidebar isExpanded={isSidebarExpanded} />

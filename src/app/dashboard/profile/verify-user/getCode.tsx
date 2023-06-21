@@ -17,6 +17,8 @@ type Props={
     getCode :(val:any)=>void;   
     prevStep:(val:any)=>void;
     userData:any;
+    message:any;
+    alertClass:any;
 };
 const validationSchema = Yup.object().shape({
     emailOrPhone: Yup.string()
@@ -42,10 +44,10 @@ const validatePhoneVal = Yup.object().shape({
         }
     )   
 });
-const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData})=>{   
+const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData, message, alertClass})=>{   
     const[maxLength, setMaxLength]=useState(0);   
-    const isEmailVerified=userData.emailVerified;
-    const isPhoneVerified=userData.phoneVerified;       
+    const isEmailVerified=userData?.emailVerified;
+    const isPhoneVerified=userData?.phoneVerified;       
     const {
         register,        
         handleSubmit,
@@ -138,7 +140,9 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
                                 // iconClass={`position-relative ${dstyles.input_user} ${dstyles.icon_wrap}`}
                                 className={`form-control ${dstyles.input_field} ${formState.errors.emailOrPhone ? dstyles.is_invalid : ''}`} 
                                 iconClass={`position-relative ${!isPhoneVerified?dstyles.input_call:!isEmailVerified?dstyles.input_mail:dstyles.input_mail} ${dstyles.icon_wrap}`}
-                            /> 
+                            />
+
+                            {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p></div>}  
                             
                             <button type='submit' disabled={formState && formState.isSubmitting} className={`w-100 ${dstyles.btn} ${dstyles.next_btn} ${dstyles.btn_primary}`}>
                                 {formState && formState.isSubmitting && <span className="spinner-border spinner-border-sm me-2"></span>}

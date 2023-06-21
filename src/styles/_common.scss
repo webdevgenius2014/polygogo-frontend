@@ -28,6 +28,9 @@
 .btn_secondary{   
     @include custom_button($second-color, $primary-color, $second-color)
 }
+.other_login{  
+    @include custom_button($while-1, $black-1, $gray-3);
+}
 .form{        
     .label{
         font-weight: 400;

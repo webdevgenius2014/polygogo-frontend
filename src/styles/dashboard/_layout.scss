@@ -131,6 +131,23 @@
         background:darken($while-1,3%);
     }   
 }
+/* Profile menu styles start */
+.profile_menu{    
+    transition: width 1s ease;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    &.hide{
+        width: 0px;
+        display: none;
+    }
+    &.show{        
+        width: 400px;
+        display: block;
+        background-color: $while-1;
+    }
+}
 .toggle_btn{
     border-radius: 50%;
     width: 3.5rem;
@@ -433,8 +450,19 @@
 }
 .review_plateforms_list{
     display: flex;
+    padding-top: .5rem;
     .review_btn{
-        margin: 1rem 0.219rem;
+        margin: .5rem 0.219rem;
+    }
+    .connected_app{
+        width: 4.75rem;
+        .remove_btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+
+        }
     }
 }
 .review_btn{
@@ -450,4 +478,35 @@
         width: auto;
         height: 100%;
     }
+}
+.custom_modal{
+    z-index: 500;
+    .btn{
+        img{
+            width: auto;
+            height: 1.25rem; 
+        }
+    }
+}
+.search_business{
+    position: relative;
+    .input_field{
+        background-color: $while-1; 
+        border-color: $while-1;
+        padding-left: 3.2rem;              
+    } 
+}   
+.map_container {
+    // height: 100%;
+    // width: 100%;
+}
+.map_input_wrap{
+    // position: relative;
+    // height: 250px;
+    // .map_input{
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     z-index: 50;
+    // }
 }

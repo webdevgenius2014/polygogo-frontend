@@ -42,8 +42,7 @@ const FileInput: FC<FileInputProps> = ({
           handleChange && handleChange(e); 
         }}
       {...rest}
-      />
-           
+      />   
       {error&& <p className={'text-danger mt-2 mb-1'}>{error}</p>}
     </div>
   );

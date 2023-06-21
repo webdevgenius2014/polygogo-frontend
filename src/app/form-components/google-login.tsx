@@ -8,8 +8,7 @@ const GoogleLoginButton=() => {
     const router = useRouter();
     const [message, setMessage]=useState("");
     const loginWithGoogle = useGoogleLogin({        
-        onSuccess: (codeResponse) => { 
-            console.log("get token from google api successful");         
+        onSuccess: (codeResponse) => {                      
             googleCallback(codeResponse);
         },
         onError: (error) => console.log('Login Failed:', error)
@@ -17,9 +16,7 @@ const GoogleLoginButton=() => {
 
     const googleCallback = async (data:any)=>{ 
         await AuthService.signInWithGoogle( data ).then((response)=>{      
-            if(response.status===200){
-                console.log("get response of verified email from google api");    
-                console.log(response); 
+            if(response.status===200){                 
                 var data={
                     "type" : "google",
                     "name" : response.data.name,
@@ -37,8 +34,8 @@ const GoogleLoginButton=() => {
         await AuthService.socialLogin(data).then((response)=>{      
             if(response){
                 if(response?.data?.token){
-                    sessionStorage.setItem("auth_token", response.data.token);
-                    router.push('/');
+                    sessionStorage.setItem("auth_token", response.data.token);                    
+                    router.push('/dashboard/profile');
                 }
                 else{
                     setMessage("Some error occurred. Please try again later");

@@ -26,12 +26,16 @@ type Props={
     setCompany: (val:any)=>void;
     companyDetails:any;
     setCompanyDetails: (val:any)=>void;
+    googlePlaceId:string;
+    setGooglePlaceId:(val:string)=>void;
     nextStep:(val:any)=>void;
     prevStep:(val:any)=>void;
     setSkip:(val:any)=>void;    
     setIsmanual:(val:boolean)=>void; 
     saveData: (val:any)=>void;  
     isDisabled:any; 
+    message:any;
+    alertClass: any;
 };
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required')    
@@ -43,7 +47,7 @@ const scriptOptions= {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
     libraries: ['places'],
 }
-const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData,isDisabled  })=>{    
+const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData,isDisabled, message, alertClass, setGooglePlaceId, googlePlaceId })=>{    
     const { isLoaded, loadError } = useLoadScript(scriptOptions);
     const [autocomplete, setAutocomplete] = useState(null);
     const inputRef = useRef<any | null>(null);  
@@ -65,18 +69,19 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
             setSkip(currentStep+1);
         }
     },[ismanual]); 
-
     const onLoad = (autocompleteObj:any) => {       
         setAutocomplete(autocompleteObj);
     }   
     const handlePlaceChanged = () => { 
         const [ place ] = inputRef.current.getPlaces();
         if(place) { 
-            setCompany(place.name);          
+            setCompany(place.name); 
+            setGooglePlaceId(place?.place_id);         
             getAddressDetails(place); 
         } 
     }
-    const getAddressDetails=(placeData:any)=>{            
+    const getAddressDetails=(placeData:any)=>{   
+        console.log(placeData.place_id);         
         const city = placeData.address_components.filter((place:any) => {
             return place.types[0] === 'administrative_area_level_2' || place.types[0] === 'locality';
         });        
@@ -87,26 +92,27 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
             return place.types[0] === 'postal_code';
         });       
         setCompanyDetails({
-            company_name: placeData.name, 
-            address_one:  placeData.address_components[0].long_name,
-            address_two:  placeData.address_components[1].long_name, 
-            city: city[0].long_name,
-            state:state[0].long_name,
-            zipcode:zipcode[0].long_name, 
+            company_name: placeData?.name, 
+            address_one:  placeData?.address_components[0]?.long_name,
+            address_two:  placeData?.address_components[1]?.long_name, 
+            city: city[0]?.long_name,
+            state:state[0]?.long_name,
+            zipcode:zipcode[0]?.long_name, 
             resources_strength:'', 
             revanue:''
-        });
+        });        
     }     
     const saveStepOneData=()=>{
         let payload = {
           name : name, 
-          ...companyDetails          
+          googlePlaceId : googlePlaceId, 
+          ...companyDetails  
+                 
         };  
         setIsmanual(false);
-        setSkip(currentStep+1);     
+        setSkip(currentStep+1);          
         saveData(payload);
-    }
-    
+    }    
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Let’s start by Setting up your Profile.</h1>
         <Form 
@@ -159,8 +165,9 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
                                         iconClass={`position-relative ${dstyles.input_business} ${dstyles.icon_wrap}`}
                                         className={`form-control ${dstyles.input_field} ${formState.errors.companyName ? dstyles.is_invalid : ''}`}         
                                     />
-                                </StandaloneSearchBox>
-                            )}    
+                                </StandaloneSearchBox>                                
+                            )} 
+                            {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p></div>}    
                         </div>
                     </div>
                     <div className={`text-center ${dstyles.text_lg}`}>Don’t see your business? <button type='button' disabled={name.length===0} className={`border-0 fw-bold text-black ${dstyles.btn_link}` } onClick={()=>setupManually()}>Enter it Manually.</button></div>

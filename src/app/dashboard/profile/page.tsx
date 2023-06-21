@@ -6,10 +6,12 @@ import BusinessSetup from './manualBusinessSetup'
 import BusinessWebsite from './businessWebsite'
 import VerifyUser from './verifyUser'
 import UpdatePhotoAndTitle from './updateProfilePhoto'
-import ReviewPlateformsSetup from "./reviewPlateforms"
+// import ReviewPlateformsSetup from "./reviewPlateforms"
+import ReviewPlateformsSetup from '../review-platforms/reviewPlateform';
 import AuthService from '../../../services/auth.service';
 import ProfileService from '../../../services/profile.service';
 import { validateEmail } from "../../../helpers/formatCheck";
+import profileService from '../../../services/profile.service';
 export default function Profile() {
   const [currentStep, setCurrentStep] = useState(1); 
   const [ismanual, setIsmanual] = useState(false); 
@@ -31,22 +33,28 @@ export default function Profile() {
   const digits = [{ id: 1, digit: '' },{ id: 2, digit: '' },{ id: 3, digit: '' },{ id: 4, digit: '' },{ id: 5, digit: '' },{ id: 6, digit: '' }];
   const [otpDigits, setOtpDigits]=useState(digits); 
   const [job, setJob]= useState<string | ''>('');
-  const [fileName, setFileName] = useState<File | ''>('');
+  const [profilePhoto, setProfilePhoto] = useState<File | ''>(''); 
+  const [ googlePlaceId, setGooglePlaceId]= useState<string | ''>('');
+  const [ facebookPageId, setFacebookPageId]= useState<string | ''>('')
   const nextStep=(step:any)=>{ 
-    let next= step+1;   
+    let next= step+1; 
+
     if(skip!==null && skip===next){
       setCurrentStep(step+2);      
-    }else{
+    }else if(step<6){ 
       setCurrentStep(step+1);
+    }else{
+      return;
     }
   }
   const prevStep=(step:any)=>{
     let prev = step-1;
-    console.log(skip);
     if(skip!==null && skip===prev){
       setCurrentStep(step-2);      
-    }else{
+    }else if(step >1){
       setCurrentStep(step-1);
+    }else{
+      return;
     }    
   }
   useEffect(()=>{
@@ -55,8 +63,8 @@ export default function Profile() {
     }else{
       setIsDisabled(false);
     }
-  },[company, ismanual])
-  const getCurrentUserDetails = async()=>{ 
+  },[company, ismanual]);  
+  const getCurrentUserDetails = async()=>{     
     await ProfileService.getCurrentUser().then((response)=>{      
       if(response){          
         if(response.status===200 && response.data.error===false){            
@@ -68,26 +76,37 @@ export default function Profile() {
     },error=>{
       console.log(error);           
     })
-  }
-  const saveCompanyProfileData = async(payload:any)=>{     
-    // nextStep(currentStep);      
+  } 
+  const saveProfile= async(payload:any)=>{
     await ProfileService.completeProfile( payload ).then((response)=>{      
-      if(response){
-        if(response.status===200){
+      if(response){        
+        if(response.status===200){  
           nextStep(currentStep);
+          setMessage('');
+          getCurrentUserDetails();
         }else{
-          console.log(response);   
+          setMessage(response.data.message);
+          setAlertClass(dstyles.text_primary);             
         }
       }
-    },error=>{
-      console.log(error);           
+    },error=>{      
+      setMessage(error.data.message);
+      setAlertClass('text-danger');
     });
-  };
-  const getCode = async (payload:any) => { 
-    // if(!isShowOtpForm){setShowOtpForm(true)}   
+  } 
+  const saveCompanyProfileData =(payload:any)=>{ 
+    if(currentStep===1 && ismanual===false){
+      setSkip(2);
+    }
+    if(currentStep===3 && isVarified===true){
+      setSkip(4);
+    }     
+    saveProfile(payload);
+  }; 
+  const getCode = async (payload:any) => {    
     await ProfileService.getOtp(payload).then((response)=>{ 
-      console.log('response'); 
-      console.log(response);   
+      // console.log('response'); 
+      // console.log(response);   
       if(response?.status===200){        
         if(!isShowOtpForm){ setShowOtpForm(true)} 
         if(isDisabled){ setIsDisabled(false)}
@@ -101,10 +120,9 @@ export default function Profile() {
         setAlertClass('text-danger');
         setMessage(response?.data.message);
       }
-    },error=>{  
-      console.log("hello i am here");
+    },error=>{        
       setAlertClass('text-danger');    
-      setMessage(error?.error)
+      setMessage(error.data.error);
     })
   };
   useEffect(()=>{
@@ -112,8 +130,7 @@ export default function Profile() {
       setIsVerified(true);
     }
   },[userData]);
-  const verifyCode = async (payload:any)=>{   
-    // nextStep(currentStep);     
+  const verifyCode = async (payload:any)=>{       
     await ProfileService.VerifyOtp( payload ).then((response)=>{      
       if(response){
         if(response.status===200){
@@ -125,18 +142,40 @@ export default function Profile() {
           sessionStorage.setItem("auth_token", response.data.token);
           sessionStorage.setItem("user_data", JSON.stringify(response.data.data));           
           nextStep(currentStep);
-          getCurrentUserDetails()
+          getCurrentUserDetails();
         }else{
           setAlertClass('text-danger');
           setMessage(response?.data.message);      
         }
       }
     },error=>{
-      console.log(error);
+      // console.log(error);
       setAlertClass('text-danger'); 
       setMessage('Please enter valid otp.');
     });
   }; 
+  useEffect(()=>{
+    if(userData){
+      setName(userData?.name?userData?.name:name); 
+      setCompany(userData?.companies[0]?.company_name?userData.companies[0].company_name:company)
+      setCompanyDetails({ 
+        company_name: userData?.companies[0]?.company_name?userData?.companies[0]?.company_name:companyDetails.company_name, 
+        address_one: userData?.companies[0]?.address_one?userData?.companies[0]?.address_one:companyDetails.address_one,
+        address_two: userData?.companies[0]?.address_two?userData?.companies[0]?.address_two:companyDetails.address_two, 
+        city: userData?.companies[0]?.city?userData.companies[0].city:companyDetails.city,
+        state: userData?.companies[0]?.state?userData.companies[0].state:companyDetails.state,
+        zipcode: userData?.companies[0]?.zipcode?userData?.companies[0]?.zipcode:companyDetails.zipcode, 
+        resources_strength: userData?.companies[0]?.resources_strength?userData?.companies[0]?.resources_strength:companyDetails.resources_strength, 
+        revanue: userData?.companies[0]?.revanue?userData.companies[0]?.revanue:companyDetails.revanue
+      });
+      setBusinessUrl(userData?.companies[0]?.bussiness_url?userData?.companies[0]?.bussiness_url:businessUrl); 
+      setUserName(userData?.companies[0]?.username?userData?.companies[0]?.username:userName);
+      setJob(userData?.job_title ? userData?.job_title:job);
+      setProfilePhoto(userData?.profile_img?userData.profile_img:profilePhoto);
+      setGooglePlaceId(userData?.companies[0]?.googlePlaceId?userData?.companies[0]?.googlePlaceId:googlePlaceId);
+      setFacebookPageId(userData?.companies[0]?.facebookPageId?userData?.companies[0]?.facebookPageId:facebookPageId)
+    }    
+  },[userData]);  
   const commmonProps={
     currentStep:currentStep,
     setCurrentStep: setCurrentStep,
@@ -153,22 +192,29 @@ export default function Profile() {
     setName:setName, 
     setCompany:setCompany, 
     companyDetails: companyDetails,
+    googlePlaceId: googlePlaceId,
+    setGooglePlaceId:setGooglePlaceId,
     setCompanyDetails:setCompanyDetails, 
     saveData:saveCompanyProfileData,
-    isDisabled:isDisabled
+    isDisabled:isDisabled,
+    message:message, alertClass: alertClass,
   }
   const stepTwoProps={    
     name:name,
     companyDetails: companyDetails,
     setCompanyDetails:setCompanyDetails,
-    saveData:saveCompanyProfileData   
+    saveData:saveCompanyProfileData,
+    message:message, alertClass: alertClass     
   }   
   const stepThreeProps={
     userName:userName, 
     setUserName:setUserName,
     businessUrl:businessUrl, 
     setBusinessUrl:setBusinessUrl,
-    saveData: saveCompanyProfileData
+    saveData: saveCompanyProfileData,
+    message:message, alertClass: alertClass,
+    ismanual:ismanual,
+    setIsVerified:setIsVerified 
   }
   const stepFourProps={
     verifyName:verifyName, setVerifyName:setVerifyName,
@@ -179,66 +225,41 @@ export default function Profile() {
     message: message, setMessage:setMessage,
     alertClass: alertClass, setAlertClass: setAlertClass,
     getCode:getCode, verifyCode:verifyCode,
-    otpDigits:otpDigits, setOtpDigits:setOtpDigits
+    digits:digits, otpDigits:otpDigits, setOtpDigits:setOtpDigits
   }
   const stepFiveProps={
     job: job, setJob:setJob,
-    fileName:fileName, setFileName:setFileName,
-    saveData: saveCompanyProfileData
+    profilePhoto:profilePhoto, setProfilePhoto:setProfilePhoto,
+    saveData: saveProfile,
+    message:message, alertClass: alertClass,
+    setMessage:setMessage,
+    isVarified:isVarified
   }
-  useEffect(()=>{
-    if(currentStep===1){
-      setIsmanual(false);     
-    }
-  },[currentStep]);
+  const stepSixProps={
+    googlePlaceId: googlePlaceId,
+    facebookPageId:facebookPageId,
+    removePlateformId: saveCompanyProfileData,
+    savePlatform:saveProfile
+  }
   useEffect(()=>{ 
     getCurrentUserDetails();    
   },[]);
   useEffect(()=>{
-    if(userData && userData.name ){
-      setName(userData.name?userData.name:name);        
+    if(currentStep===1){
+      setIsmanual(false);     
     }
-    if(userData && userData.companies.length>0){
-      setCompany(userData.companies[0].company_name?userData.companies[0].company_name:company)
-      setCompanyDetails({ 
-        company_name: userData.companies[0].company_name?userData.companies[0].company_name:companyDetails.company_name, 
-        address_one: userData.companies[0].address_one?userData.companies[0].address_one:companyDetails.address_one,
-        address_two: userData.companies[0].address_two?userData.companies[0].address_two:companyDetails.address_two, 
-        city: userData.companies[0].city?userData.companies[0].city:companyDetails.city,
-        state: userData.companies[0].state?userData.companies[0].state:companyDetails.state,
-        zipcode: userData.companies[0].zipcode?userData.companies[0].zipcode:companyDetails.zipcode, 
-        resources_strength: userData.companies[0].resources_strength?userData.companies[0].resources_strength:companyDetails.resources_strength, 
-        revanue: userData.companies[0].revanue?userData.companies[0].revanue:companyDetails.revanue
-      })
-    }
-    if(userData && userData.companies.length>0){
-      setBusinessUrl(userData.companies[0].bussiness_url?userData.companies[0].bussiness_url:businessUrl)
-    }
-    if(userData && userData.username ){
-      setUserName(userData.username?userData.username:userName);
-    }
-},[userData]);
-
-useEffect(()=>{
-  if(userData && userData.emailVerified===true && userData.phoneVerified===true){
-      setSkip(currentStep+1);
-  }
-},[userData]);
-  console.log('currentStep:'+currentStep);
+  },[currentStep]);    
+  
+  // console.log("currentStep: "+ skip)  ;
   return (
-    <div className={dstyles.page_container}>             
-        {currentStep===1 && ismanual===false && <ProfileSetup {...commmonProps} {...stepOneProps} /> }
-        {currentStep===2 && ismanual===true && <BusinessSetup {...commmonProps} {...stepTwoProps} /> }
-        {currentStep===3 && <BusinessWebsite {...commmonProps} {...stepThreeProps} /> }
-        {isVarified?(<>
-          {currentStep===4 && <UpdatePhotoAndTitle {...commmonProps} {...stepFiveProps} />}
-          {currentStep===5 && <ReviewPlateformsSetup currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} setSkip={setSkip} userData={userData} />}
-        </>):(<>
-          {currentStep===4 && <VerifyUser {...commmonProps} {...stepFourProps} /> }
-          {currentStep===5 && <UpdatePhotoAndTitle {...commmonProps} {...stepFiveProps} />}
-          {currentStep===6 && <ReviewPlateformsSetup currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} setSkip={setSkip} userData={userData} />} 
-        </>)}
-             
+    <div className={dstyles.page_container}> 
+      {/* <VerifyUser {...commmonProps} {...stepFourProps} />       */}
+      {currentStep===1 && ismanual===false && <ProfileSetup {...commmonProps} {...stepOneProps} /> }
+      {currentStep===2 && ismanual===true && <BusinessSetup {...commmonProps} {...stepTwoProps} /> }
+      {currentStep===3 && <BusinessWebsite {...commmonProps} {...stepThreeProps} /> }
+      {currentStep===4 && <VerifyUser {...commmonProps} {...stepFourProps} /> }
+      {currentStep===5 && <UpdatePhotoAndTitle {...commmonProps} {...stepFiveProps} />}
+      {currentStep===6 && <ReviewPlateformsSetup {...commmonProps} {...stepSixProps} />}              
     </div>
   );
 };
