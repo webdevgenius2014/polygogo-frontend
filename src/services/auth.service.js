@@ -25,7 +25,18 @@ class AuthService {
     .catch((err) => {
       return err; 
     });
-  }  
+  } 
+  getFacebookPageId(data){
+    return axios
+    .get(`https://graph.facebook.com/${data.userID}/accounts
+    ?access_token=${data.accessToken}`)
+    .then((res) => {
+      return res;   
+    })
+    .catch((err) => {
+      return err; 
+    });
+  } 
   socialLogin(payload){    
     return instance.post(ApiConfig.socialLogin, payload)
   }

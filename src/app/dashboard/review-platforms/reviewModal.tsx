@@ -42,7 +42,7 @@ const ReviewModal: React.FC<ModalProps>=({modalId, isShowPlatformModal, closePla
                     <p className="mt-4">Don't have google business listing access? <span className={dstyles.link} onClick={()=>handleNextMoadl()}>click here </span></p>
                 </>)}
                 {platformName==='Facebook' && (
-                    <FacebookButton />
+                    <FacebookButton message={message} setMessage={setMessage} savePlatform={buttonAction}  />
                 )}
                 {platformName==='Glassdoor' && (
                     <GlassDoorButton />

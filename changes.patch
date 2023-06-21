@@ -1,0 +1,33 @@
+diff --git a/src/app/dashboard/profile/updateProfilePhoto.tsx b/src/app/dashboard/profile/updateProfilePhoto.tsx
+index 02cc9a6..f3c7641 100644
+--- a/src/app/dashboard/profile/updateProfilePhoto.tsx
++++ b/src/app/dashboard/profile/updateProfilePhoto.tsx
+@@ -71,8 +71,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
+         /** Reset file input */
+         e.currentTarget.type = "text";
+         e.currentTarget.type = "file";
+-    };
+-    
++    };    
+     const savePhotoAndJobProfile=()=>{  
+         console.log(fileName);     
+         if((profilePhoto || fileName) && job){
+diff --git a/src/styles/_layouts.scss b/src/styles/_layouts.scss
+index 9f1e7aa..5d63954 100644
+--- a/src/styles/_layouts.scss
++++ b/src/styles/_layouts.scss
+@@ -373,13 +373,3 @@
+     color: variable.$black;
+ }
+ 
+-.profile_menu{
+-    width: 0px;
+-    transition: width 1s ease;
+-    overflow: hidden;
+-    &.show{
+-        position: absolute;
+-        right: 0;
+-        width: 400px;
+-    }
+-}
+\ No newline at end of file

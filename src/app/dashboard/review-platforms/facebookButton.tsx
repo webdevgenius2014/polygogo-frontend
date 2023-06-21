@@ -1,29 +1,44 @@
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
 import FacebookLogin from '@greatsumini/react-facebook-login';
+import AuthService from '../../../services/auth.service'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-const FacebookButton=() => { 
+type Props={
+    savePlatform:(val:any)=>void;
+    message:any;
+    setMessage:(val:any)=>void;
+}
+const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => { 
     const appId=process.env.NEXT_PUBLIC_FACEBOOK_APP_ID;
     const router = useRouter();
-    const [message, setMessage]=useState("");
-    const loginWithFacebook=()=>{
-        console.log('login with facebook')
-    }
-    const onFacebookFail=(error:any)=>{
-        console.log('Login Failed!', error);
-    }
-    const onFacebookloginSuccess=(response:any)=>{
-        console.log('Login Success!', response);
-    }
-    const onFacebookProfileSuccess=(response:any)=>{
-        console.log('Get Profile Success!', response);
-    }
+
+    const facebookCallback = async (data:any)=>{         
+        await AuthService.getFacebookPageId( data ).then((response:any)=>{ 
+            console.log("login to facebook with token") ;  
+            if(response.status===200){ 
+                console.log(response);
+                if(response.data.facebookPageId){
+                    let payload = {
+                        facebookPageId: response.data.id
+                    }                    
+                    savePlatform(payload);                    
+                }else{
+                    setMessage("facebook page id not found.");
+                    return;
+                }                
+            }else{
+                setMessage("Authentication failed please try again");
+            }
+        },error=>{
+            console.log(error);
+        })
+    };
     return( <>
         {appId && (<>
             <FacebookLogin
                 appId={appId}
-                onSuccess={(response) => {
-                    console.log('Login Success!', response);
+                onSuccess={(response) => {                   
+                    facebookCallback(response);
                 }}
                 onFail={(error) => {
                     console.log('Login Failed!', error);
