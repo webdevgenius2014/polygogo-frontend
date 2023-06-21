@@ -21,16 +21,16 @@ export const plateformsList = (googleconected?:boolean, facebookconnected?:boole
                 },
                 "connected":facebookconnected?true:false
             },
-            {
-                "id":3,
-                "name":"glassdoor",
-                "icon":{ "image":"/dashboard/icons/glassdoor.svg", "alt":"glassdoor"},
-                "plateformOptions":{
-                    "modalTitle":"Glassdoor",
-                    "buttonLabel":"Sign In with Glassdoor My Business"
-                },
-                "connected":false
-            }
+            // {
+            //     "id":3,
+            //     "name":"glassdoor",
+            //     "icon":{ "image":"/dashboard/icons/glassdoor.svg", "alt":"glassdoor"},
+            //     "plateformOptions":{
+            //         "modalTitle":"Glassdoor",
+            //         "buttonLabel":"Sign In with Glassdoor My Business"
+            //     },
+            //     "connected":false
+            // }
         ]
     }];
     return plateforms;    
