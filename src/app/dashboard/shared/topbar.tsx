@@ -38,7 +38,7 @@ const Topbar:React.FC<Prop>=({isExpanded, setIsExpanded})=>{
     // }); 
     const logoutUser=()=>{
         AuthService.logout();
-        router.push('/');
+        router.push('/login');
     }
 
     return(
