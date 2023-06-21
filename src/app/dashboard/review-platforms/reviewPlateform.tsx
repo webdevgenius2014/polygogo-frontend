@@ -119,7 +119,7 @@ const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep, googlePlac
             setShowResults(false);
         }
     }
-    
+    console.log(platformList);
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Review Platforms</h1>
         <Form 
@@ -209,13 +209,13 @@ const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep, googlePlac
                                                 </div>
                                             );
                                         })}
-                                    </div>
-                                    <hr />
+                                    </div>                                    
                                 </> } 
-                                {platformList && platformList!==null && (<>                                                           
+                                {platformList && platformList.length>0 && (<> 
+                                    <hr />                                                          
                                     <p className={`mt-4 ${dstyles.text_primary}`}>All Plateforms</p>
                                     <div className={`display-flex align-items-center justify-content-center flex-wrap ${dstyles.review_plateforms_list}`}>
-                                        {platformList && platformList.map((plateform:any, key:number)=>{
+                                        { platformList.map((plateform:any, key:number)=>{
                                             return(                                        
                                                 <button type='button' className={`${dstyles.btn} ${dstyles.review_btn}`} key={`plateform-${key}`} 
                                                     name={plateform?.name}   

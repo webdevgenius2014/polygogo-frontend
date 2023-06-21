@@ -18,7 +18,7 @@ const GoogleButton: React.FC<Props>=({savePlatform, message, setMessage }) => {
     const googleCallback = async (data:any)=>{         
         await AuthService.signInWithGoogle( data ).then((response:any)=>{             
             if(response.status===200){
-                if(response.data.googlePlacesId){
+                if(response?.data?.googlePlacesId){
                     let payload = {
                         googlePlaceId: response.data.googlePlacesId
                     }                    
