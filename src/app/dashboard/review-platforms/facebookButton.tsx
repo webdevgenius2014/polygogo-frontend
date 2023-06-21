@@ -14,37 +14,50 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
 
     const facebookCallback = async (data:any)=>{         
         await AuthService.getFacebookPageId( data ).then((response:any)=>{ 
-            console.log("login to facebook with token") ;  
-            if(response.status===200){ 
-                console.log(response);
-                if(response.data.facebookPageId){
-                    let payload = {
-                        facebookPageId: response.data.id
-                    }                    
-                    savePlatform(payload);                    
-                }else{
-                    setMessage("facebook page id not found.");
-                    return;
-                }                
-            }else{
-                setMessage("Authentication failed please try again");
-            }
+            console.log("login to facebook with token") ;
+            console.log(response) ; 
+            // if(response.status===200){
+            //     if(response.data.facebookPageId){
+            //         let payload = {
+            //             facebookPageId: response.data.id
+            //         }                    
+            //         savePlatform(payload);                    
+            //     }else{
+            //         setMessage("facebook page id not found.");
+            //         return;
+            //     }                
+            // }else{
+            //     setMessage("Authentication failed please try again");
+            // }
         },error=>{
             console.log(error);
         })
     };
+    const saveFacebookPageId=(response:any)=>{
+        if(response.data.id){
+            let payload = {
+                facebookPageId: response.data.id
+            }                    
+            savePlatform(payload);                    
+        }else{
+            setMessage("facebook page id not found.");
+            return;
+        } 
+    }
     return( <>
         {appId && (<>
             <FacebookLogin
                 appId={appId}
-                onSuccess={(response) => {                   
-                    facebookCallback(response);
+                onSuccess={(response) => {   
+                    console.log('Login Success', response); 
+                    AuthService.getFacebookPageId(response);
                 }}
                 onFail={(error) => {
                     console.log('Login Failed!', error);
                 }}
                 onProfileSuccess={(response) => {
                     console.log('Get Profile Success!', response);
+                    saveFacebookPageId(response);
                 }}
                 className={`${dstyles.btn} ${dstyles.other_login}`}
             >
