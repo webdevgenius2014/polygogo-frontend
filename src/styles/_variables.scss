@@ -1,0 +1,21 @@
+$primary-color: #263238;
+$secondary-color: #8EBDC3;
+$second-color:#CAD2C5;
+$black: #000000;
+$black-1:#2F3E46;
+$gray-1: #F8F8F8;
+$gray-2: #797979;
+$gray-3: #D1D1D1;
+$gray-4: #38585C;
+$white: #ffffff; 
+$while-1: #E5E8E5;
+$red:#dc3545;
+
+:export {
+  primaryColor: $primary-color;
+  gray_1: $gray-1;
+  gray_2: $gray-2;
+  black:  $black; 
+  secondColor: $second-color; 
+  $white_1:$while-1;
+}

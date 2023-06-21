@@ -1,0 +1,39 @@
+.dropdown{
+    span{
+        height: 6px;
+        width: 6px;
+        background: #263238;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 1px;
+    }
+    button{
+        border: none;
+        background-color: transparent;
+    }
+    .dropdown-menu{
+        background: #CAD2C5;
+        border-radius: 5px;
+        width: 227px;
+        border: 0px;
+        padding: 30px 14px;
+        box-shadow: 7px 4px 5px rgba(0,0,0,0.2);
+        li{
+            .dropdown-item{
+                background: transparent;
+                border: 0.99625px solid #D1D1D1;
+                border-radius: 5px;
+                border: 1px solid #D1D1D1;
+                padding: 13px 15px;
+                display: flex;
+                align-items: center;
+                &:hover{
+                    background-color: #E5E8E5;
+                }
+                div{
+                    width: 30px;
+                }
+            }
+        }
+    }
+}

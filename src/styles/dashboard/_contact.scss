@@ -1,0 +1,74 @@
+.table_main{
+    
+    table{
+        border-collapse: separate;
+        border-spacing: 0 9px;
+            td:first-child,
+            th:first-child {
+                border-radius: 15px 0 0 15px;
+            }
+            td:last-child,
+            th:last-child {
+                border-radius: 0 15px 15px 0;
+            }
+            
+    }
+    .tab_head{
+        background-color: $white;
+        height: 64px;
+        border-radius: 15px;
+        vertical-align: middle;
+        th{
+            font-size: 20px;
+            line-height: 24px;
+            color: $primary-color;
+        }
+    }
+    tbody{
+        tr{
+            background: #E5E8E5;
+            height: 64px;
+            border-radius: 15px;
+            vertical-align: middle;
+        }
+        td{
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 18px;
+            color: $black-1;
+            .list_dis{
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+                display: flex;
+                li{
+                    background: #CAD2C5;
+                    border-radius: 5px;
+                    margin: 0 5px 0 0;
+                    padding: 6px 9px;
+                }
+            }
+
+        }
+    }
+    .table_top{
+        .search_field{
+            background: #E5E8E5;
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            height: 45px;
+            max-width: 327px;
+            background-image: url(../../../public/icons/search.png);
+            background-repeat: no-repeat;
+            background-position: 95% 13px;
+            padding-right: 43px;
+        }
+    }
+}
+.btn_secondry{
+    background-color: #E5E8E5;
+    border: 1px solid #E5E8E5;
+}
+.btn{
+    font-weight: 700;
+}
