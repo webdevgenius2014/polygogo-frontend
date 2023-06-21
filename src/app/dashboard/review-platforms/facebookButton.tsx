@@ -34,11 +34,11 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
         })
     };
     const saveFacebookPageId=(response:any)=>{
-        if(response.data.id){
+        if(response.id){
             let payload = {
-                facebookPageId: response.data.id
+                facebookPageId: response.id
             }                    
-            savePlatform(payload);                    
+            savePlatform(payload);                  
         }else{
             setMessage("facebook page id not found.");
             return;
