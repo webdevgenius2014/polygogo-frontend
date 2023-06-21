@@ -4,6 +4,7 @@ const instance = axios.create({});
 instance.interceptors.request.use(request => requestHandler(request));
 instance.interceptors.response.use(
     response => {
+        console.log(response);
         return response
     },
     (error)=> errorHandler(error),    
@@ -25,7 +26,8 @@ const requestHandler = async request => {
 }
 const errorHandler = async error => {
     const originalConfig = error.config; 
-    throw error.response    
+    return error.response  
+    //throw error.response    
 }
 
 export default instance;

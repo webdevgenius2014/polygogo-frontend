@@ -418,7 +418,10 @@
             border:1px solid $gray-3;
     
         } 
-        .file_group{
+        .file_group{            
+            label{
+                cursor: pointer;
+            }
             .upload_img{
                 width: 1.5rem;
                 height: 1.5rem; 

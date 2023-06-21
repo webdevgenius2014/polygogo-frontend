@@ -15,7 +15,7 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
             }                    
             savePlatform(payload);                  
         }else{
-            setMessage("facebook page id not found.");
+            setMessage("Facebook page id not found.");
             return;
         } 
     }
@@ -24,14 +24,17 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
             <FacebookLogin
                 appId={appId}
                 onSuccess={(response) => {   
-                    console.log('Login Success', response); 
+                    //console.log('Login Success', response); 
+                    setMessage('');
                     AuthService.getFacebookPageId(response);
                 }}
                 onFail={(error) => {
                     console.log('Login Failed!', error);
+                    setMessage('Authentication failed please try again')
                 }}
                 onProfileSuccess={(response) => {
-                    console.log('Get Profile Success!', response);
+                    //console.log('Get Profile Success!', response);
+                    setMessage('');
                     saveFacebookPageId(response);
                 }}
                 className={`${dstyles.btn} ${dstyles.other_login}`}
@@ -39,7 +42,7 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
                 <img src="/dashboard/icons/faceboook.svg" alt="faceboook" className="me-2" />
                 <span className="text fw-bold">Sign In with Facebook My Business</span> 
             </FacebookLogin> 
-            {message && <p className={`text-center fw-md mt-2`}>{message}</p>}
+            {message && <p className={`text-center fw-md mt-3 text-danger`}>{message}</p>}
         </>)}
     </>);
 }

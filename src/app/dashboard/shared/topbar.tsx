@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
 import Search from './search'
 import Link from 'next/link'
+import AuthService from '../../../services/auth.service'
+import { useRouter } from 'next/navigation'
 type Prop={
     isExpanded?: boolean,
     setIsExpanded:(val: boolean) => void
@@ -10,6 +12,7 @@ const Topbar:React.FC<Prop>=({isExpanded, setIsExpanded})=>{
     const [btnIcon, setBtnIcon]=useState({name:'toggle-icon.svg', altText:'toggle-icon', width:'2.5'});
     const [scroll, setScroll] = useState(false);
     const [showProfileMenu, setProfileMenu]=useState<boolean | false>(false);
+    const router= useRouter();
     const toggleSidebar=()=>{
         if(isExpanded){
             setIsExpanded(false);
@@ -33,6 +36,10 @@ const Topbar:React.FC<Prop>=({isExpanded, setIsExpanded})=>{
     //         setScroll(window.scrollY > 50);
     //     });
     // }); 
+    const logoutUser=()=>{
+        AuthService.logout();
+        router.push('/');
+    }
 
     return(
         <>
@@ -49,6 +56,9 @@ const Topbar:React.FC<Prop>=({isExpanded, setIsExpanded})=>{
                         <img src="/dashboard/user-icon.png" alt="user-icon" className={dstyles.icon} />
                         <span className={dstyles.name}>Stephen C.</span>
                     </Link>
+                    <button type='button' className={`mt-0 ms-3 me-0 p-2 ${dstyles.btn} ${dstyles.btn_secondary}`} onClick={()=>logoutUser()}>
+                        <span className='fw-bold'>Logout</span>
+                    </button>                    
                 </div>                
             </div>
             {/* <div className={`${dstyles.profile_menu} ${showProfileMenu===true? dstyles.show:dstyles.hide}`}>

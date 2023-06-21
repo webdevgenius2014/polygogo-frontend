@@ -212,24 +212,26 @@ const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep, googlePlac
                                         })}
                                     </div>
                                     <hr />
-                                </> }                            
-                                <p className={`mt-4 ${dstyles.text_primary}`}>All Plateforms</p>
-                                <div className={`display-flex align-items-center justify-content-center flex-wrap ${dstyles.review_plateforms_list}`}>
-                                    {platformList && platformList.map((plateform:any, key:number)=>{
-                                        return(                                        
-                                            <button type='button' className={`${dstyles.btn} ${dstyles.review_btn}`} key={`plateform-${key}`} 
-                                                name={plateform?.name}   
-                                                onClick={()=>{
-                                                    setShowPlatforModal(true);
-                                                    setMessage('');
-                                                    openReviewModal(plateform?.id)}
-                                                }
-                                            >
-                                                <img src={plateform?.icon?.image} alt={plateform?.icon?.alt} className={dstyles.icon_img} />
-                                            </button> 
-                                        )
-                                    })}                                
-                                </div> 
+                                </> } 
+                                {platformList && platformList!==null && (<>                                                           
+                                    <p className={`mt-4 ${dstyles.text_primary}`}>All Plateforms</p>
+                                    <div className={`display-flex align-items-center justify-content-center flex-wrap ${dstyles.review_plateforms_list}`}>
+                                        {platformList && platformList.map((plateform:any, key:number)=>{
+                                            return(                                        
+                                                <button type='button' className={`${dstyles.btn} ${dstyles.review_btn}`} key={`plateform-${key}`} 
+                                                    name={plateform?.name}   
+                                                    onClick={()=>{
+                                                        setShowPlatforModal(true);
+                                                        setMessage('');
+                                                        openReviewModal(plateform?.id)}
+                                                    }
+                                                >
+                                                    <img src={plateform?.icon?.image} alt={plateform?.icon?.alt} className={dstyles.icon_img} />
+                                                </button> 
+                                            )
+                                        })}                                
+                                    </div> 
+                                </>)}
                             </>)} 
                             {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 text-danger`}>{message}</p></div>}                          
                         </div>

@@ -1,5 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
 import ProfileSetup from './profileSetup'
 import BusinessSetup from './manualBusinessSetup'
@@ -10,7 +12,6 @@ import UpdatePhotoAndTitle from './updateProfilePhoto'
 import ReviewPlateformsSetup from '../review-platforms/reviewPlateform';
 import AuthService from '../../../services/auth.service';
 import ProfileService from '../../../services/profile.service';
-import { validateEmail } from "../../../helpers/formatCheck";
 import profileService from '../../../services/profile.service';
 export default function Profile() {
   const [currentStep, setCurrentStep] = useState(1); 
@@ -64,34 +65,40 @@ export default function Profile() {
       setIsDisabled(false);
     }
   },[company, ismanual]);  
+  const notify = (message:string, notifiyId?:string) => {
+    console.log("hello: "+ message);
+    toast.error(message, {
+      toastId: notifiyId,
+      position: toast.POSITION.TOP_CENTER
+    });
+  }
   const getCurrentUserDetails = async()=>{     
     await ProfileService.getCurrentUser().then((response)=>{      
       if(response){          
-        if(response.status===200 && response.data.error===false){            
-          SetUseData(response.data.data);
+        if(response?.status===200 && response?.data.error===false){            
+          SetUseData(response?.data?.data);
         }else{
-          SetUseData(AuthService.getCurrentUser);
-        }
-      }
-    },error=>{
-      console.log(error);           
-    })
-  } 
-  const saveProfile= async(payload:any)=>{
-    await ProfileService.completeProfile( payload ).then((response)=>{      
-      if(response){        
-        if(response.status===200){  
-          nextStep(currentStep);
-          setMessage('');
-          getCurrentUserDetails();
-        }else{
-          setMessage(response.data.message);
-          setAlertClass(dstyles.text_primary);             
+          // SetUseData(AuthService.getCurrentUser);
         }
       }
     },error=>{      
-      setMessage(error.data.message);
-      setAlertClass('text-danger');
+      notify(error.data.message, 'userDetails');               
+    })
+  }   
+  const saveProfile= async(payload:any)=>{
+    await ProfileService.completeProfile( payload ).then((response)=>{      
+      if(response){        
+        if(response?.status===200){         
+          nextStep(currentStep);
+          getCurrentUserDetails();          
+        }else if(response?.status===422){          
+          notify(response?.data?.error, 'completeProfile'); 
+        }else{
+          notify('Something went wrong, please try again.', 'completeProfile'); 
+        } 
+      }
+    },error=>{ 
+      notify(error?.data?.message, 'completeProfile');
     });
   } 
   const saveCompanyProfileData =(payload:any)=>{ 
@@ -104,10 +111,8 @@ export default function Profile() {
     saveProfile(payload);
   }; 
   const getCode = async (payload:any) => {    
-    await ProfileService.getOtp(payload).then((response)=>{ 
-      // console.log('response'); 
-      // console.log(response);   
-      if(response?.status===200){        
+    await ProfileService.getOtp(payload).then((response)=>{  
+      if(response?.status===200){         
         if(!isShowOtpForm){ setShowOtpForm(true)} 
         if(isDisabled){ setIsDisabled(false)}
         if(isResend){
@@ -115,14 +120,14 @@ export default function Profile() {
           setIsResend(false);
         }
         setAlertClass(dstyles.text_primary); 
-        setMessage(`Enter the verification code sent on ${verifyName}`);
+        setMessage(`Enter the verification code sent on ${verifyName}`);        
+      }else if(response?.status===422){          
+        notify(response?.data?.error, 'getOTP'); 
       }else{
-        setAlertClass('text-danger');
-        setMessage(response?.data.message);
+        notify('Something went wrong, please try again.', 'getOTP'); 
       }
-    },error=>{        
-      setAlertClass('text-danger');    
-      setMessage(error.data.error);
+    },error=>{ 
+      notify(error?.data?.message, 'getOTP');
     })
   };
   useEffect(()=>{
@@ -131,28 +136,25 @@ export default function Profile() {
     }
   },[userData]);
   const verifyCode = async (payload:any)=>{       
-    await ProfileService.VerifyOtp( payload ).then((response)=>{      
-      if(response){
-        if(response.status===200){
-          if(isResend){
-            setIsResend(false);          
-          }
-          setAlertClass(''); 
-          setMessage('');  
-          sessionStorage.setItem("auth_token", response.data.token);
-          sessionStorage.setItem("user_data", JSON.stringify(response.data.data));           
-          nextStep(currentStep);
-          getCurrentUserDetails();
-        }else{
-          setAlertClass('text-danger');
-          setMessage(response?.data.message);      
+    await ProfileService.VerifyOtp(payload).then((response)=>{  
+      if(response?.status===200){         
+        if(isResend){
+          setIsResend(false);          
         }
+        setAlertClass(''); 
+        setMessage('');  
+        sessionStorage.setItem("auth_token", response?.data?.token);
+        sessionStorage.setItem("user_data", JSON.stringify(response?.data?.data));           
+        nextStep(currentStep);
+        getCurrentUserDetails();     
+      }else if(response?.status===422){          
+        notify(response?.data?.error, 'verifyOTP'); 
+      }else{
+        notify('Something went wrong, please try again.', 'verifyOTP'); 
       }
     },error=>{
-      // console.log(error);
-      setAlertClass('text-danger'); 
-      setMessage('Please enter valid otp.');
-    });
+      notify('Please enter valid otp.', 'verifyOTP'); 
+    })
   }; 
   useEffect(()=>{
     if(userData){
@@ -175,14 +177,15 @@ export default function Profile() {
       setGooglePlaceId(userData?.companies[0]?.googlePlaceId?userData?.companies[0]?.googlePlaceId:googlePlaceId);
       setFacebookPageId(userData?.companies[0]?.facebookPageId?userData?.companies[0]?.facebookPageId:facebookPageId)
     }    
-  },[userData]);  
+  },[userData]);
   const commmonProps={
     currentStep:currentStep,
     setCurrentStep: setCurrentStep,
     nextStep:nextStep,
     prevStep:prevStep,
     setSkip:setSkip,
-    userData:userData
+    userData:userData,
+    notify:notify
   }
   const stepOneProps={
     ismanual:ismanual,
@@ -259,7 +262,8 @@ export default function Profile() {
       {currentStep===3 && <BusinessWebsite {...commmonProps} {...stepThreeProps} /> }
       {currentStep===4 && <VerifyUser {...commmonProps} {...stepFourProps} /> }
       {currentStep===5 && <UpdatePhotoAndTitle {...commmonProps} {...stepFiveProps} />}
-      {currentStep===6 && <ReviewPlateformsSetup {...commmonProps} {...stepSixProps} />}              
+      {currentStep===6 && <ReviewPlateformsSetup {...commmonProps} {...stepSixProps} />}   
+      <ToastContainer />           
     </div>
   );
 };

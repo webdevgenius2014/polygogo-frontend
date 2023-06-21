@@ -37,9 +37,16 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
     const [fileError, setFileError]= useState<any | ''>('');
     const basrUrl= process.env.NEXT_PUBLIC_API_URL+'/api/images/'
     const handleFileRead = async (file:any) => { 
-        const base64 = await convertBase64(file);
-        if(base64){
-            setFileName(base64);
+        let base64 = await convertBase64(file);       
+        if(base64 ){
+            const fileSize = Object.values(base64).length * (3 / 4) - 2;
+            // console.log(fileSize);
+            if (fileSize > 400000) {
+                setFileError("Files size is too large, plaese choose another file");                
+            }else{
+                setFileName(base64);
+                setFileError('');
+            }
         }                    
     }
     const convertBase64 = (file:any) => {
@@ -59,11 +66,12 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
         if (!fileInput.files) {
             setFileError("No file was chosen");
         return;
-        }
+        }        
         if (!fileInput.files || fileInput.files.length === 0) {
             setFileError("Files list is empty");
         return;
-        }
+        }        
+        console.log(fileInput.size);
         const file = fileInput.files[0];
         setPreviewUrl(URL.createObjectURL(file));
         setProfilePhoto(file); 
@@ -73,8 +81,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
         e.currentTarget.type = "file";
     };
     
-    const savePhotoAndJobProfile=()=>{  
-        console.log(fileName);     
+    const savePhotoAndJobProfile=()=>{              
         if((profilePhoto || fileName) && job){
             let payload = {
                 job_title : job, 
@@ -123,7 +130,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
                         <h2 className={`mb-2 ${dstyles.title_lg}`}>Your profile photo</h2>
                         <h3 className={dstyles.title}>Upload a profile picture. Then, <br className='d-none d-lg-block'/> add your job title.</h3>
                         <div className={`${dstyles.uploaded_img} ${previewUrl?dstyles.selected:dstyles.upload_error}`}>
-                            {previewUrl?(<img src={previewUrl} alt="profile-photo" className='img-fluid' />):(<img src={profilePhoto?'/':'/dashboard/upload-imag.png'} alt={profilePhoto?'':'upload-imag'} />)}                                
+                            {previewUrl?(<img src={previewUrl} alt="profile-photo" className='img-fluid' />):profilePhoto?(<img src={basrUrl+profilePhoto} alt="profile-photo" className='img-fluid' />):(<img src="/dashboard/upload-imag.png" alt="upload-imag" />)}                             
                         </div>
                         <div className={`${dstyles.mx_362}`}>
                             <FileInput
@@ -139,7 +146,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
                                 wrapperClass={`text-center ${dstyles.file_group} ${dstyles.mb_1}`}                               
                                 className={`${dstyles.input_file} ${formState.errors.profilePhoto ? dstyles.is_invalid : ''}`}         
                             /> 
-                            {fileError && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{fileError}</p></div>} 
+                            {fileError && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 text-danger`}>{fileError}</p></div>} 
                             <Input
                                 name="jobTitle"                                               
                                 register={register}                                                
@@ -153,7 +160,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
                                 className={`form-control ${dstyles.input_field} ${formState.errors.jobTitle ? dstyles.is_invalid : ''}`} 
                               
                             /> 
-                            {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p></div>} 
+                            {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 text-danger`}>{message}</p></div>} 
                         </div>
                     </div>
                 </div>
