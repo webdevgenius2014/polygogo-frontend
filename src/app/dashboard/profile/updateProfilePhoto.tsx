@@ -35,7 +35,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
     const [previewUrl, setPreviewUrl] = useState<string | ''>(''); 
     const [fileName, setFileName]= useState<any | ''>('');
     const [fileError, setFileError]= useState<any | ''>('');
-    const basrUrl= process.env.NEXT_PUBLIC_API_URL+'/images/'
+    const basrUrl= process.env.NEXT_PUBLIC_API_URL+'/api/images/'
     const handleFileRead = async (file:any) => { 
         const base64 = await convertBase64(file);
         if(base64){
