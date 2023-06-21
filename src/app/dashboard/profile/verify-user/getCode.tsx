@@ -19,6 +19,9 @@ type Props={
     userData:any;
     message:any;
     alertClass:any;
+    isloading:boolean;
+    nextStep:any;
+    setIsDisabled:any;
 };
 const validationSchema = Yup.object().shape({
     emailOrPhone: Yup.string()
@@ -44,7 +47,7 @@ const validatePhoneVal = Yup.object().shape({
         }
     )   
 });
-const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData, message, alertClass})=>{   
+const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, currentStep, isDisabled, userData, message, alertClass, isloading, nextStep, setIsDisabled})=>{   
     const[maxLength, setMaxLength]=useState(0);   
     const isEmailVerified=userData?.emailVerified;
     const isPhoneVerified=userData?.phoneVerified;       
@@ -67,13 +70,19 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
         }       
     }; 
     const getOTP=()=>{
-        if(verifyName.length>0){
-            console.log(verifyName);
+        if(verifyName.length>0){         
             let payload = {
                 username:(validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, '')               
             }             
             getCode(payload);
         }       
+    }
+    const skipStep=()=>{       
+        nextStep(currentStep);
+    }
+    const backStep=()=>{
+        setIsDisabled(false);
+        prevStep(currentStep);
     }
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Make your Website Textable.</h1>
@@ -83,13 +92,15 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
             isDisabled={isDisabled}  
             type='button' 
             onSubmit={getOTP}
-            onBack={prevStep}
+            onBack={backStep}
             formState={formState}
             className={dstyles.form}
-            currentStep={currentStep}            
+            currentStep={currentStep}   
+            isloading={isloading}  
+            isSkipButton={true}  
+            onSkip={skipStep}     
         >
-            <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>
-                
+            <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>                
                 <div className={dstyles.box_image_wrap} style={{ height:"27.93rem" }}>
                     <div className='position-relative h-100 w-100'>
                     <div className={`mw-100 ${dstyles.img_one}`}>
@@ -152,7 +163,7 @@ const GetCode: React.FC<Props>=({verifyName, setVerifyName, getCode, prevStep, c
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>              
         </Form>
     </>)
 }

@@ -13,6 +13,7 @@ export interface IFormProps {
   register?: any;
   className?: any;
   formState?:any;
+  isloading?:boolean;
 }
 
 const Form: FC<IFormProps> = ({
@@ -20,12 +21,13 @@ const Form: FC<IFormProps> = ({
   children,
   buttonLabel,
   onSubmit,
+  isloading,
   handleSubmit,
   register,
   className,
   formState,
   ...rest
-}) => {
+}) => {  
   return (
     <form className={className} onSubmit={handleSubmit(onSubmit)} {...rest}>     
       {Array.isArray(children)
@@ -43,7 +45,7 @@ const Form: FC<IFormProps> = ({
         : children
       } 
       <button type='submit' disabled={formState && formState.isSubmitting} className={`${styles.btn} ${styles.btn_primary}`}>
-        {formState && formState.isSubmitting && <span className="spinner-border spinner-border-sm me-2"></span>}
+        {(formState && formState.isSubmitting) || isloading===true  && <span className="spinner-border spinner-border-sm me-2"></span>}
         <span className="fw-bold">{buttonLabel}</span>
         <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" />
       </button>   

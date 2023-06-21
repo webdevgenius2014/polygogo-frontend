@@ -5,12 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Form from '../forms/Form';
 import Input from '../forms/form-fields/Input';
 import { useState, useEffect, useRef } from 'react';
-// import {
-//     useLoadScript,
-//     Autocomplete,
-//   } from '@react-google-maps/api'
 import { StandaloneSearchBox, useLoadScript } from "@react-google-maps/api";
-import ProfileService from '../../../services/profile.service';  
+const googleKey=process.env.NEXT_PUBLIC_GOOGLE_API_KEY; 
+const scriptOptions= {
+    googleMapsApiKey: googleKey,
+    libraries: ['places'],
+}
 interface ProfileInterface {
     name: string;
     companyName:string;
@@ -36,22 +36,16 @@ type Props={
     isDisabled:any; 
     message:any;
     alertClass: any;
+    isloading:boolean;
 };
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required')    
 });
 const validationSchema1 = Yup.object().shape({});
-
-// const googleKey=process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
-const scriptOptions= {
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-    libraries: ['places'],
-}
-const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, prevStep, setSkip, ismanual, setIsmanual, userData, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData,isDisabled, message, alertClass, setGooglePlaceId, googlePlaceId })=>{    
+const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, prevStep, setSkip, ismanual, setIsmanual, name, company, setName, setCompany, companyDetails, setCompanyDetails, saveData, isDisabled, message, alertClass, setGooglePlaceId, googlePlaceId, isloading })=>{    
     const { isLoaded, loadError } = useLoadScript(scriptOptions);
     const [autocomplete, setAutocomplete] = useState(null);
-    const inputRef = useRef<any | null>(null);  
-    // const [isvalidated, setValidated]=useState(false);      
+    const inputRef = useRef<any | null>(null);         
     const {
         register,        
         handleSubmit,
@@ -80,8 +74,7 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
             getAddressDetails(place); 
         } 
     }
-    const getAddressDetails=(placeData:any)=>{   
-        console.log(placeData.place_id);         
+    const getAddressDetails=(placeData:any)=>{             
         const city = placeData.address_components.filter((place:any) => {
             return place.types[0] === 'administrative_area_level_2' || place.types[0] === 'locality';
         });        
@@ -125,6 +118,7 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, nextStep, pre
             formState={formState}
             className={dstyles.form}
             currentStep={currentStep}
+            isloading={isloading}
         >
             <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>
                 <div className={dstyles.image_wrap}>

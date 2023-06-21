@@ -10,7 +10,9 @@ export interface IFormProps {
   children?: childrenType;
   onSubmit?: any;
   isbackbutton?:boolean;
+  isSkipButton?:boolean;
   onBack:any;
+  onSkip?:any;
   handleSubmit?: any;
   buttonLabel?:string;
   isDisabled?:boolean;
@@ -19,14 +21,17 @@ export interface IFormProps {
   formState?:any;
   currentStep:any;
   type?:any;
+  isloading?:boolean;
 }
 
 const Form: FC<IFormProps> = ({
   defaultValues,    
   children,  
   onSubmit,
-  isbackbutton= true,
+  isbackbutton=true,
+  isSkipButton=false,
   onBack,
+  onSkip,
   handleSubmit,
   buttonLabel,
   isDisabled=false,
@@ -35,6 +40,7 @@ const Form: FC<IFormProps> = ({
   formState,
   currentStep,
   type="submit",
+  isloading,
   ...rest
 }) => {
   return (
@@ -55,12 +61,15 @@ const Form: FC<IFormProps> = ({
         : children
       } 
         <div className="d-flex align-items-center justify-content-center mb-4">
-            {isbackbutton  && <button type='button' disabled={currentStep===1} className={`${dstyles.btn} ${dstyles.prev_btn} ${dstyles.btn_secondary}`} onClick={()=>onBack(currentStep)}><span className="fw-bold">Back</span></button>} 
-            <button type={type} disabled={formState && formState.isSubmitting || isDisabled===true} className={`${dstyles.btn} ${isDisabled?dstyles.disabled:''} ${dstyles.next_btn} ${dstyles.btn_primary} ${isDisabled?dstyles.disabled:''}`}>
-              {formState && formState.isSubmitting && <span className="spinner-border spinner-border-sm me-2"></span>}
-              <span className="fw-bold">{buttonLabel?buttonLabel:'Next'}</span>
-              <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" />
-            </button>  
+          {isbackbutton  && <button type='button' disabled={currentStep===1} className={`${dstyles.btn} ${dstyles.prev_btn} ${dstyles.btn_secondary}`} onClick={()=>onBack(currentStep)}><span className="fw-bold">Back</span></button>} 
+          {isSkipButton && (
+            <button type='button' className={`${dstyles.btn} ${dstyles.prev_btn} ${dstyles.btn_primary}`} onClick={()=>onSkip(currentStep)}><span className="fw-bold">Skip</span></button>
+          )}
+          <button type={type} disabled={formState && formState.isSubmitting || isDisabled===true} className={`${dstyles.btn} ${isDisabled?dstyles.disabled:''} ${dstyles.next_btn} ${dstyles.btn_primary} ${isDisabled?dstyles.disabled:''}`}>
+            {isloading===true || (formState && formState.isSubmitting)  && <span className="spinner-border spinner-border-sm me-2"></span>}
+            <span className="fw-bold">{buttonLabel?buttonLabel:'Next'}</span>
+            <img className='ms-2' src="/icons/right-arrow.svg" alt="right-arrow" />
+          </button> 
         </div> 
     </form>
   );

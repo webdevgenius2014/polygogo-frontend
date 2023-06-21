@@ -175,8 +175,7 @@ const ReviewPlateformsSetup: React.FC<Props>=({currentStep, prevStep, googlePlac
                                 placeholder="Search"
                                 label="Search Review Platform"
                                 error={formState.errors.searchReviewPlatform?.message}
-                                wrapperClass={`form-group ${dstyles.mb_1}`}
-                                // iconClass={`position-relative ${dstyles.input_user} ${dstyles.icon_wrap}`}
+                                wrapperClass={`form-group ${dstyles.mb_1}`}                                
                                 className={`form-control ps-3 ps-lg-4 ${dstyles.input_field} ${formState.errors.searchReviewPlatform ? dstyles.is_invalid : ''}`}         
                             /> 
                             {showResults?(<>

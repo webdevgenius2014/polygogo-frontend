@@ -25,6 +25,7 @@ type Props={
     alertClass: any;
     ismanual:any; 
     setIsVerified:(val:any)=>void;  
+    isloading:boolean;
 };
 const validationSchema = Yup.object().shape({
     userName: Yup.string()
@@ -37,7 +38,7 @@ const validationSchema = Yup.object().shape({
         return validateWebsiteUrl(value);
     })
 });
-const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, userName, setUserName, businessUrl, setBusinessUrl, saveData, message, alertClass, ismanual, setIsVerified})=>{  
+const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, userName, setUserName, businessUrl, setBusinessUrl, saveData, message, alertClass, ismanual, setIsVerified, isloading})=>{  
     const[prev, setperv] =useState(false);
     // const[next, setperv] =useState(false);
     const {
@@ -85,6 +86,7 @@ const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSki
             formState={formState}
             className={dstyles.form}
             currentStep={currentStep}
+            isloading={isloading}
         >
             <div className={`d-flex align-items-center justify-content-center ${dstyles.form_container}`}>
                 <div className={dstyles.image_wrap}>

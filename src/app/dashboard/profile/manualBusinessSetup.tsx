@@ -31,12 +31,13 @@ type Props={
     saveData: (val:any)=>void;
     message:any;
     alertClass: any;
+    isloading:boolean;
 };
 
 const validationSchema = Yup.object().shape({    
     companyName: Yup.string().required('Company name is required')
 });
-const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, name, companyDetails, setCompanyDetails, saveData, message, alertClass})=>{
+const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, name, companyDetails, setCompanyDetails, saveData, message, alertClass, isloading})=>{
     const [addressOne, setAddressOne]=useState(companyDetails.address_one)
     const [addressTwo, setAddressTwo]=useState(companyDetails.address_two);
     const [companyName, setCompanyName]=useState(companyDetails.company_name)
@@ -114,8 +115,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
     useEffect(()=>{ 
         if(stateVal){ 
             const stateCode = filterStateCode(countryCode, stateVal);             
-            if(stateCode){
-                console.log(stateCode);
+            if(stateCode){                
                 const cityList = getCityData(countryCode, stateCode);
                 if(cityList){
                     setCityData(cityList);
@@ -140,6 +140,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
             formState={formState}
             className={dstyles.form}
             currentStep={currentStep}
+            isloading={isloading}
         >
             <div className={`d-flex justify-content-center ${dstyles.form_container}`}>
                 <div className={dstyles.image_wrap}>

@@ -34,9 +34,10 @@ export default function Profile() {
   const digits = [{ id: 1, digit: '' },{ id: 2, digit: '' },{ id: 3, digit: '' },{ id: 4, digit: '' },{ id: 5, digit: '' },{ id: 6, digit: '' }];
   const [otpDigits, setOtpDigits]=useState(digits); 
   const [job, setJob]= useState<string | ''>('');
-  const [profilePhoto, setProfilePhoto] = useState<File | ''>(''); 
+  const [profilePhoto, setProfilePhoto] = useState<File | []>([]); 
   const [ googlePlaceId, setGooglePlaceId]= useState<string | ''>('');
-  const [ facebookPageId, setFacebookPageId]= useState<string | ''>('')
+  const [ facebookPageId, setFacebookPageId]= useState<string | ''>('');
+  const [isloading, setIsLoading]=useState(false);
   const nextStep=(step:any)=>{ 
     let next= step+1; 
 
@@ -57,16 +58,15 @@ export default function Profile() {
     }else{
       return;
     }    
-  }
-  useEffect(()=>{
+  }  
+  useEffect(()=>{    
     if(ismanual===false && company.length===0){
       setIsDisabled(true);
     }else{
       setIsDisabled(false);
     }
   },[company, ismanual]);  
-  const notify = (message:string, notifiyId?:string) => {
-    console.log("hello: "+ message);
+  const notify = (message:string, notifiyId?:string) => {    
     toast.error(message, {
       toastId: notifiyId,
       position: toast.POSITION.TOP_CENTER
@@ -78,7 +78,7 @@ export default function Profile() {
         if(response?.status===200 && response?.data.error===false){            
           SetUseData(response?.data?.data);
         }else{
-          // SetUseData(AuthService.getCurrentUser);
+          SetUseData(AuthService.getCurrentUser);
         }
       }
     },error=>{      
@@ -86,9 +86,11 @@ export default function Profile() {
     })
   }   
   const saveProfile= async(payload:any)=>{
+    setIsLoading(true);
     await ProfileService.completeProfile( payload ).then((response)=>{      
       if(response){        
-        if(response?.status===200){         
+        if(response?.status===200){ 
+          setIsLoading(false);       
           nextStep(currentStep);
           getCurrentUserDetails();          
         }else if(response?.status===422){          
@@ -110,9 +112,11 @@ export default function Profile() {
     }     
     saveProfile(payload);
   }; 
-  const getCode = async (payload:any) => {    
+  const getCode = async (payload:any) => {
+    setIsLoading(true);    
     await ProfileService.getOtp(payload).then((response)=>{  
-      if(response?.status===200){         
+      if(response?.status===200){
+        setIsLoading(false);         
         if(!isShowOtpForm){ setShowOtpForm(true)} 
         if(isDisabled){ setIsDisabled(false)}
         if(isResend){
@@ -135,9 +139,11 @@ export default function Profile() {
       setIsVerified(true);
     }
   },[userData]);
-  const verifyCode = async (payload:any)=>{       
+  const verifyCode = async (payload:any)=>{   
+    setIsLoading(true);    
     await ProfileService.VerifyOtp(payload).then((response)=>{  
-      if(response?.status===200){         
+      if(response?.status===200){   
+        setIsLoading(false);      
         if(isResend){
           setIsResend(false);          
         }
@@ -185,7 +191,8 @@ export default function Profile() {
     prevStep:prevStep,
     setSkip:setSkip,
     userData:userData,
-    notify:notify
+    notify:notify,
+    isloading:isloading,
   }
   const stepOneProps={
     ismanual:ismanual,
@@ -251,12 +258,9 @@ export default function Profile() {
     if(currentStep===1){
       setIsmanual(false);     
     }
-  },[currentStep]);    
-  
-  // console.log("currentStep: "+ skip)  ;
+  },[currentStep]);
   return (
-    <div className={dstyles.page_container}> 
-      {/* <VerifyUser {...commmonProps} {...stepFourProps} />       */}
+    <div className={dstyles.page_container}>       
       {currentStep===1 && ismanual===false && <ProfileSetup {...commmonProps} {...stepOneProps} /> }
       {currentStep===2 && ismanual===true && <BusinessSetup {...commmonProps} {...stepTwoProps} /> }
       {currentStep===3 && <BusinessWebsite {...commmonProps} {...stepThreeProps} /> }

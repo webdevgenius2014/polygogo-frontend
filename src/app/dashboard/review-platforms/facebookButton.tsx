@@ -23,8 +23,7 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
         {appId && (<>
             <FacebookLogin
                 appId={appId}
-                onSuccess={(response) => {   
-                    //console.log('Login Success', response); 
+                onSuccess={(response) => { 
                     setMessage('');
                     AuthService.getFacebookPageId(response);
                 }}
@@ -32,8 +31,7 @@ const FacebookButton: React.FC<Props>=({savePlatform, message, setMessage}) => {
                     console.log('Login Failed!', error);
                     setMessage('Authentication failed please try again')
                 }}
-                onProfileSuccess={(response) => {
-                    //console.log('Get Profile Success!', response);
+                onProfileSuccess={(response) => {                   
                     setMessage('');
                     saveFacebookPageId(response);
                 }}

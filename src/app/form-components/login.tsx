@@ -15,7 +15,8 @@ interface LoginInterface {
 type Props = { 
     userName:string;    
     setUserName:(val: string) => void;
-    loginUser:(val: LoginInterface)=>void;        
+    loginUser:(val: LoginInterface)=>void; 
+    isloading:boolean;       
 };
 // validation
 const validationSchema = Yup.object().shape({
@@ -27,7 +28,7 @@ const validationSchema = Yup.object().shape({
     )      
 });
 
-const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{ 
+const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser, isloading}) =>{ 
     const[inputClass, setInputClass]=useState(styles.input_mail);
     const[maxLength, setMaxLength]=useState(0);
     const {
@@ -59,7 +60,8 @@ const LoginForm :React.FC<Props> = ({ userName, setUserName, loginUser}) =>{
             handleSubmit={handleSubmit}     
             onSubmit={loginUser}
             formState={formState}
-            className={styles.form}     
+            className={styles.form} 
+            isloading={isloading}    
         >            
             <Input
                 name="emailOrPhone"                                               

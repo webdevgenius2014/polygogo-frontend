@@ -14,13 +14,14 @@ export default function Home() {
   //useAuth();
   const [userData, setUserData]=useState<HomeInterface | null >(null);
   const router = useRouter();
-  const logoutUser=()=>{
-    AuthService.logout();
-    router.push('/login');
-  }
   useEffect(()=>{
     setUserData((AuthService.getCurrentUser()));
   },[]);
+
+  const logoutUser=()=>{
+    AuthService.logout();
+    router.push('/login');
+  }  
   console.log(userData);
   return (
     <main className={` ${styles.main} ${styles.bg_light}`}>

@@ -41,7 +41,8 @@ class AuthService {
     return instance.post(ApiConfig.socialLogin, payload)
   }
   logout() {
-    sessionStorage.removeItem("auth_token");        
+    sessionStorage.removeItem("auth_token"); 
+    sessionStorage.removeItem("user_data");        
   }
   register(url, formData) { 
     var finalData = {};

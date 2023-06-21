@@ -1,5 +1,6 @@
 import dstyles from '../../../styles/dashboard/dstyles.module.scss'
 import { useEffect } from 'react'
+
 import GetCode from './verify-user/getCode'
 import VerifyCode from './verify-user/verifyCode'
 type Props={
@@ -27,8 +28,9 @@ type Props={
   digits:any;
   otpDigits:any; 
   setOtpDigits:(val:any)=>void;
+  isloading:boolean;
 };
-const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp, isDisabled, setIsDisabled, isShowOtpForm, setShowOtpForm, isResend, setIsResend, message, alertClass, getCode, verifyCode, otpDigits, setOtpDigits, setMessage })=>{
+const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, verifyName, setVerifyName, verifyOtp, setVerifyOtp, isDisabled, setIsDisabled, isShowOtpForm, setShowOtpForm, isResend, setIsResend, message, alertClass, getCode, verifyCode, otpDigits, setOtpDigits, setMessage, isloading })=>{
   useEffect(()=>{
     if(isShowOtpForm){
       setIsDisabled(false);
@@ -44,7 +46,7 @@ const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, us
     setMessage('');
     setIsDisabled(true);
     setShowOtpForm(false);    
-  }    
+  }     
   const props={
     verifyName:verifyName, 
     setVerifyName:setVerifyName ,
@@ -61,7 +63,11 @@ const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, us
     message:message,
     alertClass:alertClass,
     otpDigits:otpDigits, 
-    setOtpDigits:setOtpDigits       
+    setOtpDigits:setOtpDigits,
+    isloading,  
+    setSkip:setSkip,  
+    nextStep:nextStep,
+    setIsDisabled:setIsDisabled 
   } 
   useEffect(()=>{
     if(isShowOtpForm && message){
@@ -75,7 +81,7 @@ const VerifyUser: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, us
       <VerifyCode  {...props} />            
     </>):(<>
       <GetCode {...props} />
-    </>)}    
+    </>)} 
   </>)
 }
 export default VerifyUser;

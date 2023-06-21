@@ -38,9 +38,8 @@ const Topbar:React.FC<Prop>=({isExpanded, setIsExpanded})=>{
     // }); 
     const logoutUser=()=>{
         AuthService.logout();
-        router.push('/login');
+        router.push('/');
     }
-
     return(
         <>
         <div className={`position-ralative ${dstyles.topbar} ${scroll?dstyles.sticky:''}`}>

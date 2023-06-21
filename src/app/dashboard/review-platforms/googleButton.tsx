@@ -16,21 +16,19 @@ const GoogleButton: React.FC<Props>=({savePlatform, message, setMessage }) => {
     });
 
     const googleCallback = async (data:any)=>{         
-        await AuthService.signInWithGoogle( data ).then((response:any)=>{ 
-            console.log("login to google with token") ;  
-            if(response.status===200){ 
-                console.log(response);
+        await AuthService.signInWithGoogle( data ).then((response:any)=>{             
+            if(response.status===200){
                 if(response.data.googlePlacesId){
                     let payload = {
                         googlePlaceId: response.data.googlePlacesId
                     }                    
                     savePlatform(payload);                    
                 }else{
-                    setMessage("business is not registered with google id");
+                    setMessage("Business is not registered with google account.");
                     return;
                 }                
             }else{
-                setMessage("email verification failed");
+                setMessage("Google account is not verified, please try again.");
             }
         },error=>{
             console.log(error);

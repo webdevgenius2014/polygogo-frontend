@@ -15,11 +15,12 @@ type Props = {
     buttonLabel:string,
     setOTP:(val:string)=>void
     submitCode:(val:VerifyCodeInterface)=>void;
+    isloading:boolean;
 }
 const validationSchema = Yup.object().shape({            
     oneTimePassword: Yup.string().min(6, 'Please enter 6 digit code').max(6, 'Invalid code').required('Please enter verification code'),
 });
-const VerifyCodeForm :React.FC<Props>=({otp, buttonLabel, setOTP, submitCode}) =>{ 
+const VerifyCodeForm :React.FC<Props>=({otp, buttonLabel, setOTP, submitCode, isloading}) =>{ 
     const {
         register, 
         handleSubmit,      
@@ -37,7 +38,8 @@ const VerifyCodeForm :React.FC<Props>=({otp, buttonLabel, setOTP, submitCode}) =
             formState={formState}
             handleSubmit={handleSubmit}              
             onSubmit={submitCode}
-            className={styles.form}     
+            className={styles.form}    
+            isloading={isloading} 
         >
             <Input
                 name="oneTimePassword"                                               

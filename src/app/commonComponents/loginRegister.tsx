@@ -25,6 +25,7 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
   const [formSubTitle, setFormSubTitle]=useState('Your Job is About to Get a Whole Lot Smoother with Text');
   const [alertClass, setAlertClass]=useState('');
   const [isResend, setIsResend]=useState(false);  
+  const [isloading, setIsLoading]=useState(false)
   const [imageProps, setImgeProps] = useState({ 
     imageOne:{image: 'google.png', altText:"google", height:'18.875rem'},
     imageTwo:{image:'apple.png',altText:'apple', height:'11.938rem'},    
@@ -42,11 +43,13 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
   });
   
   const getCode = async () => {
+    setIsLoading(true);
     await AuthService.getOtp( (validateEmail(userName))?userName:userName.replace(/\D/g, '') )
     .then((response)=>{
       console.log(response);
       if(response?.status===200){ 
-        if(!isOTPShow){    setIsOTPShow(true);     } 
+        setIsLoading(false);
+        if(!isOTPShow){ setIsOTPShow(true);     } 
         if(isResend){
           setMessage('');
           setIsResend(false);
@@ -67,9 +70,11 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
       username : (validateEmail(userName))?userName:userName.replace(/\D/g, ''),
       otp: otp
     }
+    setIsLoading(true);
     await AuthService.verifyOtp( payload ).then((response)=>{      
       if(response){
         if(response.status===200){
+          setIsLoading(false);
           if(isResend){
             setIsResend(false);          
           }
@@ -236,10 +241,10 @@ const LoginRegister :React.FC<Props> = ({btnText, buttonLabel}) => {
                       </button>
                     </>):(<>
                       {isOTPShow!==true?(<> 
-                        <LoginForm userName={userName} setUserName={setUserName} loginUser={getCode} />                        
+                        <LoginForm userName={userName} setUserName={setUserName} loginUser={getCode} isloading={isloading} />                        
                         <SocialMideiaLogin />
                       </>):(<>              
-                        <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} buttonLabel={buttonLabel} />                  
+                        <VerifyCodeForm otp={otp} setOTP={setOTP} submitCode={verifyCode} buttonLabel={buttonLabel} isloading={isloading} />                  
                       </>)}
                       {message && <div className='ms-3 me-3 mt-3'>
                         {isResend && 

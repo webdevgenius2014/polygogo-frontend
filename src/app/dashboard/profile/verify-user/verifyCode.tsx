@@ -1,13 +1,9 @@
 import dstyles from '../../../../styles/dashboard/dstyles.module.scss'
-import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import Form from '../../forms/Form';
-import OtpInput from '../../forms/form-fields/otpInput'
 import { useEffect, useRef } from 'react';
 import { validateOtpDigit, validateEmail } from "../../../../helpers/formatCheck"
-interface VerifyCodeInterface {
-    // oneTimePassword: string;
+interface VerifyCodeInterface {    
     digitOne:any; 
     digitTwo:any;  
     digitThree:any;  
@@ -30,16 +26,9 @@ type Props={
     updateMobile:(val:any)=>void;
     otpDigits:any; 
     setOtpDigits:(val:any)=>void;
+    isloading:boolean;
 };
-// const validationSchema = Yup.object().shape({  
-//     digitOne:Yup.string().min(1).max(1).required(),
-//     digitTwo:Yup.string().min(1).max(1).required(),
-//     digitThree:Yup.string().min(1).max(1).required(),
-//     digitFour:Yup.string().min(1).max(1).required(),
-//     digitFive:Yup.string().min(1).max(1).required(),
-//     digitSix:Yup.string().min(1).max(1).required()
-// });
-const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp, setVerifyOtp, verifyCode, verifyName, getCode, isResend, updateMobile, message, alertClass, otpDigits, setOtpDigits})=>{
+const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp, setVerifyOtp, verifyCode, verifyName, getCode, isResend, updateMobile, message, alertClass, otpDigits, setOtpDigits, isloading})=>{
     const {
         register,        
         handleSubmit,
@@ -85,11 +74,16 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
             let payload = {
                 username:(validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, ''),
                 otp: verifyOtp
-            } 
-            console.log(payload);            
+            }                  
             verifyCode(payload);
         }
-    }   
+    }  
+    const resendOtp=()=>{
+        let payload = {
+            username:(validateEmail(verifyName))?verifyName:verifyName.replace(/\D/g, ''),            
+        }
+        getCode(payload);
+    } 
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Perfect! We Just Texted you a Code.</h1>
         <Form 
@@ -101,6 +95,7 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
             formState={formState}
             className={dstyles.form}
             currentStep={currentStep}
+            isloading={isloading}   
         >
             <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>
                 <div className={dstyles.image_wrap}>
@@ -131,8 +126,7 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                                 onChange={(e)=>{
                                     handleDigits(2, e.target.value);
                                     autoFocus(digitThree)
-                                }}                                 
-                                // disabled={otpDigits[0].digit?false:true}                                                             
+                                }}                                                          
                                 className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[1]?.digit) ? dstyles.is_invalid : ''}`}                                 
                             />
                             <input 
@@ -144,8 +138,7 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                                 onChange={(e)=>{
                                     handleDigits(3, e.target.value);
                                     autoFocus(digitFour)
-                                }}
-                                //disabled={otpDigits[1].digit?false:true}                                 
+                                }}                                                            
                                 className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[2]?.digit) ? dstyles.is_invalid : ''}`}
                             />
                             <input 
@@ -157,8 +150,7 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                                 onChange={(e)=>{
                                     handleDigits(4, e.target.value);
                                     autoFocus(digitFive)
-                                }} 
-                                //disabled={otpDigits[2].digit?false:true}                               
+                                }}                                                              
                                 className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[3]?.digit) ? dstyles.is_invalid : ''}`}                                
                             />
                             <input 
@@ -170,8 +162,7 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                                 onChange={(e)=>{
                                     handleDigits(5, e.target.value);
                                     autoFocus(digitSix)
-                                }} 
-                                // disabled={otpDigits[3].digit?false:true}                            
+                                }}                                                            
                                 className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[4]?.digit) ? dstyles.is_invalid : ''}`}                               
                             />
                             <input 
@@ -183,99 +174,14 @@ const VerifyCode: React.FC<Props>=({currentStep, prevStep, isDisabled, verifyOtp
                                 onChange={(e)=>{
                                     handleDigits(6, e.target.value);
                                     autoFocus(digitThree)
-                                }}  
-                                // disabled={otpDigits[4].digit?false:true}                               
+                                }}                          
                                 className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[5]?.digit) ? dstyles.is_invalid : ''}`}
-                                
-                            />
-                            {/* <OtpInput
-                                name="digitOne"     
-                                id="digitOne"  
-                                reference={digitOne}                                        
-                                register={register}                                                
-                                value={otpDigits[0].digit}                               
-                                handleChange={(e:any)=>{
-                                    handleDigits(1, e.target.value);
-                                    autoFocus(digitTwo)                                  
-                                }} 
-                                placeholder=""                                
-                                className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[0].digit) ? dstyles.is_invalid : ''}`}         
-                            />
-                            <OtpInput
-                                name="digitTwo"  
-                                id="digitTwo"  
-                                reference={digitTwo}                                             
-                                register={register}                                                
-                                value={otpDigits[1].digit}                               
-                                handleChange={(e:any)=>{
-                                    handleDigits(2, e.target.value);
-                                    autoFocus(digitThree) 
-                                }} 
-                                placeholder=""
-                                // disabled={otpDigits[0].digit?false:true}                                
-                                className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[1].digit) ? dstyles.is_invalid : ''}`}   
-                            />
-                            <OtpInput
-                                name="digitThree"
-                                id="digitThree"  
-                                reference={digitThree}                                                
-                                register={register}                                                
-                                value={otpDigits[2].digit}                               
-                                handleChange={(e:any)=>{
-                                    handleDigits(3, e.target.value);
-                                    autoFocus(digitFour);
-                                }} 
-                                placeholder=""
-                                // disabled={otpDigits[1].digit?false:true} 
-                                className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[2].digit) ? dstyles.is_invalid : ''}`}  
-                            />
-                            <OtpInput
-                                name="digitFour"  
-                                id="digitFour"  
-                                reference={digitFour}                                              
-                                register={register}                                                
-                                value={otpDigits[3].digit}                               
-                                handleChange={(e:any)=>{
-                                    handleDigits(4, e.target.value);
-                                    autoFocus(digitFive);
-                                }} 
-                                placeholder=""
-                                // disabled={otpDigits[2].digit?false:true}
-                                className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[3].digit) ? dstyles.is_invalid : ''}`} 
-                            />
-                            <OtpInput
-                                name="digitFive" 
-                                id="digitFive"  
-                                reference={digitFive}                                               
-                                register={register}                                                
-                                value={otpDigits[4].digit}                               
-                                handleChange={(e:any)=>{
-                                    handleDigits(5, e.target.value);
-                                    autoFocus(digitSix);
-                                }} 
-                                placeholder=""
-                                // disabled={otpDigits[3].digit?false:true}
-                                className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[4].digit) ? dstyles.is_invalid : ''}`} 
-                            />
-                            <OtpInput
-                                name="digitSix" 
-                                id="digitSix"  
-                                reference={digitSix}                                               
-                                register={register}                                                
-                                value={otpDigits[5].digit}                               
-                                handleChange={(e:any)=>{handleDigits(6, e.target.value)}} 
-                                placeholder=""
-                                // disabled={otpDigits[4].digit?false:true}
-                                className={`form-control ${dstyles.otp_field} ${validateOtpDigit(otpDigits[5].digit) ? dstyles.is_invalid : ''}`}  
-                            /> */}
-                        </div> 
-                        {/* {(formState.errors?.digitOne || formState.errors?.digitTwo || formState.errors?.digitThree || formState.errors?.digitFour || formState.errors?.digitFive || formState.errors?.digitSix) 
-                            && <p className={'text-center text-danger mt-2 mb-1'}> Please enter 6 digit valid otp.</p>
-                        }  */}
-                        {verifyOtp.length<6 && <p className={'text-center text-danger mt-2 mb-1'}> Please enter 6 digit valid otp.</p>}                                                     
+                            />                            
+                        </div>                         
+                        {verifyOtp.length!==6 && <p className={'text-center text-danger mt-2 mb-1'}> Please enter 6 digit valid otp.</p>}                                                     
                     </div>
                     {isResend && 
-                        <p className={`text-center ${dstyles.mx_362} mt-2 mb-2`}>Didn'’'t get the code? <span onClick={getCode} className={`fw-bold ${dstyles.link}`}>Resend</span> or Update your<span onClick={updateMobile} className={`fw-bold ${dstyles.link}`}> mobile number</span></p>
+                        <p className={`text-center ${dstyles.mx_362} mt-2 mb-2`}>Didn'’'t get the code? <span onClick={()=>resendOtp()} className={`fw-bold ${dstyles.link}`}>Resend</span> or Update your<span onClick={updateMobile} className={`fw-bold ${dstyles.link}`}> mobile number</span></p>
                     }
                     {message && <div className='ms-3 me-3 mt-3'><p className={`text-center fw-md mt-2 ${alertClass}`}>{message}</p></div>}                     
                 </div>

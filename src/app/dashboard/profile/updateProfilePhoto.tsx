@@ -25,22 +25,22 @@ type Props={
     message:any;setMessage:(val:any)=>void;
     alertClass: any;
     isVarified:any; 
+    isloading:boolean;
 };
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 const validationSchema = Yup.object().shape({
     profilePhoto: Yup.string().required('Upload profile image'),
     jobTitle: Yup.string().required('Please Enter job title')
 });
-const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, job, setJob, profilePhoto, setProfilePhoto, saveData, message, setMessage, alertClass, isVarified})=>{ 
+const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, userData, job, setJob, profilePhoto, setProfilePhoto, saveData, message, setMessage, alertClass, isVarified, isloading})=>{ 
     const [previewUrl, setPreviewUrl] = useState<string | ''>(''); 
     const [fileName, setFileName]= useState<any | ''>('');
-    const [fileError, setFileError]= useState<any | ''>('');
+    const [fileError, setFileError]= useState<any | ''>('');    
     const basrUrl= process.env.NEXT_PUBLIC_API_URL+'/api/images/'
     const handleFileRead = async (file:any) => { 
         let base64 = await convertBase64(file);       
         if(base64 ){
-            const fileSize = Object.values(base64).length * (3 / 4) - 2;
-            // console.log(fileSize);
+            const fileSize = Object.values(base64).length * (3 / 4) - 2;           
             if (fileSize > 400000) {
                 setFileError("Files size is too large, plaese choose another file");                
             }else{
@@ -70,8 +70,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
         if (!fileInput.files || fileInput.files.length === 0) {
             setFileError("Files list is empty");
         return;
-        }        
-        console.log(fileInput.size);
+        } 
         const file = fileInput.files[0];
         setPreviewUrl(URL.createObjectURL(file));
         setProfilePhoto(file); 
@@ -104,8 +103,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
             setSkip(currentStep-1);
         }
         prevStep(currentStep);
-    }
-    // console.log("profilePhoto: "+ profilePhoto.length);
+    }   
     return(<>        
         <h1 className={`text-center ${dstyles.heading_one} ${dstyles.text_primary}`}>Upload a photo and select your title.</h1>
         <Form 
@@ -116,6 +114,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
             formState={formState}
             className={dstyles.form}
             currentStep={currentStep}
+            isloading={isloading}
         >
             <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>
                 <div className={`position-relative ${dstyles.image_wrap}`}>
@@ -137,8 +136,7 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
                                 name="profilePhoto"
                                 type='file' 
                                 accept="image/png, image/webp, image/jpeg, image/jpg"                                            
-                                register={register} 
-                                value={profilePhoto.length>0?profilePhoto.name:""}                              
+                                register={register}                                                            
                                 handleChange={onFileUploadChange} 
                                 placeholder=""
                                 label="Upload Photo"
