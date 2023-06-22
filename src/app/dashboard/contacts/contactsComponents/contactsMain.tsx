@@ -5,6 +5,7 @@ import apiData from '../user';
 import RoundCheckbox from '@/app/commonComponents/RoundCheckbox/RoundCheckbox';
 import userData from '../user';
 import TableOption from '@/app/commonComponents/TableOption/TableOption';
+import CreateContact from '../common_comps/CreateContact';
 
 export default function ContactsMain() {
     const [tableData, setTableData]=useState<any | null>(null);
@@ -24,7 +25,7 @@ export default function ContactsMain() {
                             </div>
                         </div>
                         <div className='col-md-6 text-end'>
-                            <button className={`me-2 ${dstyles.btn_secondry} ${dstyles.btn}`}>Upload Contact</button>
+                            <CreateContact/>
                             <button className={`${dstyles.btn_primary} ${dstyles.btn}`}>Add Contact</button>
                         </div>
                     </div>
