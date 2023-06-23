@@ -90,7 +90,7 @@ const BusinessWebsite: React.FC<Props>=({currentStep, nextStep, prevStep, setSki
         >
             <div className={`d-flex align-items-center justify-content-center ${dstyles.form_container}`}>
                 <div className={dstyles.image_wrap}>
-                    <img src="/dashboard/webpage-layout.png" alt="webpage-layout" />
+                    <img src="/dashboard/webpage-layout.png" alt="webpage-layout" className='mw-100' />
                 </div>
                 <div className={`h-100 d-flex flex-column justify-space-between ${dstyles.form_wrap} ${dstyles.after_before_dots}`}>
                     <div>

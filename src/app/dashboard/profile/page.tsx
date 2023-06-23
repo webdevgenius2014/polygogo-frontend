@@ -12,7 +12,6 @@ import UpdatePhotoAndTitle from './updateProfilePhoto'
 import ReviewPlateformsSetup from '../review-platforms/reviewPlateform';
 import AuthService from '../../../services/auth.service';
 import ProfileService from '../../../services/profile.service';
-import profileService from '../../../services/profile.service';
 export default function Profile() {
   const [currentStep, setCurrentStep] = useState(1); 
   const [ismanual, setIsmanual] = useState(false); 

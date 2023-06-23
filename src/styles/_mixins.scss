@@ -24,3 +24,9 @@
   font-weight: $font_weight;
   color: $color;
 }
+@mixin circle_box($width, $height){
+  width: $width;
+  height: $height;
+  border-radius: 50%;
+}
+

@@ -28,8 +28,18 @@
 .btn_secondary{   
     @include custom_button($second-color, $primary-color, $second-color)
 }
+.btn_logout{    
+    @include circle_box(2rem, 2rem);    
+    background-color: $second-color;
+    border: none;
+    &:hover, &:focus{
+        background:darken($second-color,3%);
+        outline: none;
+        box-shadow: none;
+    }
+}
 .other_login{  
-    @include custom_button($while-1, $black-1, $gray-3);
+    @include custom_button($white-1, $black-1, $gray-3);
 }
 .form{        
     .label{
@@ -129,7 +139,7 @@
         &:-webkit-autofill:hover, 
         &:-webkit-autofill:focus, 
         &:-webkit-autofill:active{
-            -webkit-box-shadow: 0 0 0 30px $while-1 inset !important;
+            -webkit-box-shadow: 0 0 0 30px $white-1 inset !important;
         }
     } 
     .input_field{
@@ -215,11 +225,46 @@
 .text_primary{
     color: $primary-color
 }
+.text_gray{
+    color: $gray-5;
+}
 .text_lg{
     font-size: 1.125rem;
     line-height: 1.375rem;
 }
+.text_sm{
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+.fw_md{
+    font-weight: 500;
+}
 .justify_between{
     justify-content: space-between;
+}
+.custom_tab_pill{
+    margin-top: 1rem;
+    .custom_pill{ 
+        background-color: $white-1 !important;    
+        color: $primary-color !important; 
+        margin-right: .313rem; 
+        &.active{
+            background-color: $primary-color !important;
+            color: $white !important;
+        }
+    }    
+}
+.notification_bell{
+    position: relative;
+    .count{
+        position: absolute;
+        @include circle_box(1.375rem, 1.375rem); 
+        background-color: $green-1;  
+        top: 0;
+        right: -0.5rem; 
+        color: $white;  
+        font-size: 1rem;       
+        font-weight: 700; 
+    }
 }
 

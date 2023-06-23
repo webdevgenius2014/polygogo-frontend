@@ -16,11 +16,11 @@ const Sidebar: React.FC<Prop>=({isExpanded})=>{
         }
     },[isExpanded])
     return(
-        <section className={`${dstyles.sidebar} ${isExpanded?dstyles.expanded:''}`}>
+        <section className={`${dstyles.sidebar} ${isExpanded?dstyles.expanded:dstyles.compact}`}>            
             <Link href="/dashboard" className={dstyles.brand}>
                 <img src={`/dashboard/${brandImg.name}`} alt={brandImg.altText} className={brandImg.class}  />
             </Link>
-            <Navigation isExpanded={isExpanded} />
+            <Navigation isExpanded={isExpanded} />            
         </section>
     )
 }

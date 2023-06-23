@@ -263,7 +263,7 @@
         font-size: .938rem;
         line-height: 1.125rem;
         padding-left: 3.5rem;
-        background-color: variable.$while-1; 
+        background-color: variable.$white-1; 
         border-color: variable.$gray-3;
         color: variable.$black-1;
         &.is_invalid{
@@ -285,7 +285,7 @@
         &:-webkit-autofill:hover, 
         &:-webkit-autofill:focus, 
         &:-webkit-autofill:active{
-            -webkit-box-shadow: 0 0 0 30px variable.$while-1 inset !important;
+            -webkit-box-shadow: 0 0 0 30px variable.$white-1 inset !important;
         }
     }
     .pass_eye{
@@ -321,7 +321,7 @@
     @include mx.custom_button(variable.$primary-color, variable.$white, variable.$primary-color)
 }
 .other_login{  
-    @include mx.custom_button(variable.$while-1, #2F3E46, variable.$gray-3);
+    @include mx.custom_button(variable.$white-1, #2F3E46, variable.$gray-3);
 }
 .back_btn{
     img{

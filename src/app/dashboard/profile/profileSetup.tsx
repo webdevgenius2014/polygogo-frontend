@@ -120,11 +120,11 @@ const ProfileSetup: React.FC<Props>=({currentStep, setCurrentStep, prevStep, set
             currentStep={currentStep}
             isloading={isloading}
         >
-            <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>
+            <div className={`d-flex justify-content-center ${dstyles.form_container}`}>
                 <div className={dstyles.image_wrap}>
                     <img src="/dashboard/my-profile.png" alt="my-profile" />
                 </div>
-                <div className={`h-100 d-flex flex-column justify-space-between ${dstyles.form_wrap} ${dstyles.after_before_dots}`}>
+                <div className={`d-flex flex-column justify-space-between ${dstyles.form_wrap} ${dstyles.after_before_dots}`}>
                     <div>
                         <h3 className={dstyles.title}>Enter your name and Company Name.</h3>
                         <div className={`${dstyles.mx_362}`}>

@@ -150,7 +150,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                     <div className='mx-auto' style={{maxWidth:'52.25rem'}}>
                         <h3 className={dstyles.title}>Connect your Google listing, then make it super simple to collect reviews by texting review invitations to your customers.</h3>
                         <div className='row gx-2'>
-                            <div className='col-lg-6'>
+                            <div className='col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                                 <Input
                                     name="buildingName"                                               
                                     register={register} 
@@ -163,7 +163,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     className={`form-control ${dstyles.input_field} ${formState.errors.buildingName ? dstyles.is_invalid : ''}`}         
                                 />
                             </div>
-                            <div className='col-lg-6 '>
+                            <div className='col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                                 <Input
                                     name="companyName"                                               
                                     register={register} 
@@ -176,7 +176,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     className={`form-control ${dstyles.input_field} ${formState.errors.companyName ? dstyles.is_invalid : ''}`}         
                                 />
                             </div>
-                            <div className='col-lg-6'>
+                            <div className='col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                                 <Input
                                     name="businessAddress"                                               
                                     register={register} 
@@ -189,7 +189,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     className={`form-control ${dstyles.input_field} ${formState.errors.businessAddress ? dstyles.is_invalid : ''}`}         
                                 />
                             </div>
-                            <div className='col-lg-6'> 
+                            <div className='col-sm-12 col-md-12 col-lg-12 col-xl-6'> 
                                 <div className={`mw-100 ${dstyles.multi_field}`}>
                                     <Dropdown
                                         name="state"                                               
@@ -200,7 +200,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                         placeholder="State"
                                         error={formState.errors.state?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
-                                        iconClass={`position-relative ${dstyles.input_location} ${dstyles.icon_wrap}`}
+                                        iconClass={`position-relative  ${dstyles.input_location} ${dstyles.d_sm_none} ${dstyles.icon_wrap}`}
                                         className={`form-control ${dstyles.input_field} ${dstyles.mw_csc} ${formState.errors.state ? dstyles.is_invalid : ''}`}         
                                     />
                                     <Dropdown
@@ -212,7 +212,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                         placeholder="City"
                                         error={formState.errors.city?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
-                                        iconClass={`position-relative ${dstyles.input_location} ${dstyles.icon_wrap}`}
+                                        iconClass={`position-relative ${dstyles.input_location} ${dstyles.d_sm_none} ${dstyles.icon_wrap}`}
                                         className={`form-control ${dstyles.input_field} ${dstyles.mw_csc} ${formState.errors.city ? dstyles.is_invalid : ''}`}         
                                     />
                                     <Input
@@ -223,13 +223,12 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                         placeholder="Zip Code"
                                         error={formState.errors.zipCode?.message}
                                         wrapperClass={`form-group ${dstyles.mb_1}`}
-                                        iconClass={`position-relative ${dstyles.input_location} ${dstyles.icon_wrap}`}
+                                        iconClass={`position-relative ${dstyles.input_location} ${dstyles.d_sm_none} ${dstyles.icon_wrap}`}
                                         className={`form-control ${dstyles.input_field} ${dstyles.mw_csc} ${formState.errors.zipCode ? dstyles.is_invalid : ''}`}         
                                     />
                                 </div>                                
-                            </div>
-                            
-                            <div className='col-lg-6'>
+                            </div>                            
+                            <div className='col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                                 <RadioGroup 
                                     name="companyStrength"                                               
                                     register={register} 
@@ -242,7 +241,7 @@ const BusinessSetup:React.FC<Props>=({currentStep, nextStep, prevStep, setSkip, 
                                     currentValue={companyStrength}                                 
                                 />
                             </div>
-                            <div className='col-lg-6'>
+                            <div className='col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                                 <RadioGroup 
                                     name="companyRevenue"                                               
                                     register={register} 

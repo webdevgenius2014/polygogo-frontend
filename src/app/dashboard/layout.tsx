@@ -21,7 +21,7 @@ export default function DashboardLayout({
         </Head>
         <div className={dstyles.d_layout}>            
             <Sidebar isExpanded={isSidebarExpanded} />
-            <div className={`${dstyles.d_container} ${isSidebarExpanded?'':dstyles.expanded}`}>
+            <div className={`${dstyles.d_container} ${isSidebarExpanded?dstyles.compact:dstyles.expanded}`}>
                 <Topbar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} />
                 <div className={dstyles.page_content}>
                     {children}

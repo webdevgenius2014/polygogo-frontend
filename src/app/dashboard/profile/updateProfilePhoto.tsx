@@ -118,11 +118,11 @@ const UpdatePhotoAndTitle: React.FC<Props>=({currentStep, nextStep, prevStep, se
         >
             <div className={`d-flex align-items-start justify-content-center ${dstyles.form_container}`}>
                 <div className={`position-relative ${dstyles.image_wrap}`}>
-                    <img src="/dashboard/profile-photo.png" alt="profile-photo" />
+                    <img src="/dashboard/upload-profile-phone.png" alt="upload-profile-phone" className={dstyles.profile_upload} />
                     <div className={dstyles.user_image}>
-                        {previewUrl?(<img src={previewUrl} alt="profile-photo" className='mw-100 h-auto' />):profilePhoto?(<img src={basrUrl+profilePhoto} alt="profile-photo" className='mw-100 h-auto' />):(<img src="/dashboard/dummy-image.png" alt="dummy-image" />)}
-                        
-                    </div>                    
+                        {previewUrl?(<img src={previewUrl} alt="profile-photo" className='mw-100 h-auto' />):profilePhoto?(<img src={basrUrl+profilePhoto} alt="profile-photo" className='mw-100 h-auto' />):(<img src="/dashboard/dummy-image.png" alt="dummy-image" />)}                        
+                    </div>
+                    <div className={dstyles.connect_arrow}><img src="/dashboard/profile-photo-indicator.png" /></div>                    
                 </div>
                 <div className={`h-100 d-flex flex-column justify-space-between ${dstyles.form_wrap} ${dstyles.after_before_dots}`}>
                     <div>

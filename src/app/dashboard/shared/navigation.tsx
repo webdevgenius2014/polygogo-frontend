@@ -101,24 +101,25 @@ const navLinks=[
 const Navigation: React.FC<Prop>=({isExpanded})=>{
   const pathname = usePathname();  
   return (
-    <ul className="nav nav-pills flex-column w-100">
-      {navLinks.map((link, index) => {
-        const isActive= pathname === link.path?true:false;
-        return (
-            <li key={`item-${index}`} className={`nav-item ${dstyles.nav_item} ${isActive?dstyles.active:''}`}>
-                <Link
-                    className={`nav-link align-middle px-0 ${dstyles.nav_link} ${isActive ?dstyles.active:''}`}
-                    href={link.path}
-                    key={link.label}
-                >                       
-                    <img src={`/dashboard/icons/${link.icon.name}`} alt={link.icon.altText} style={{width:`${link.icon.width}rem`}} className={dstyles.nav_icon} />
-                    {isExpanded && <span className={dstyles.nav_text}>{link.label}</span>}
-                    
-                </Link>
-            </li>          
-        );
-      })}
-    </ul>
+    <div className={dstyles.side_navigation}>
+        <ul className="nav nav-pills flex-column w-100">
+        {navLinks.map((link, index) => {
+            const isActive= pathname === link.path?true:false;
+            return (
+                <li key={`item-${index}`} className={`nav-item ${dstyles.nav_item} ${isActive?dstyles.active:''}`}>
+                    <Link
+                        className={`nav-link align-middle px-0 ${dstyles.nav_link} ${isActive ?dstyles.active:''}`}
+                        href={link.path}
+                        key={link.label}
+                    >                       
+                        <img src={`/dashboard/icons/${link.icon.name}`} alt={link.icon.altText} style={{width:`${link.icon.width}rem`}} className={dstyles.nav_icon} />
+                        {isExpanded &&<span className={`${dstyles.nav_text} ${isExpanded?dstyles.show:dstyles.hide}`}>{link.label}</span>  }                  
+                    </Link>
+                </li>          
+            );
+        })}
+        </ul>
+    </div>
   );
 } 
 export default Navigation; 

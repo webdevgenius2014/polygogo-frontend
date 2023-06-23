@@ -1,0 +1,183 @@
+@media screen and (max-width: 1499px) { 
+    .d_container{
+        &.compact, &.expanded{
+            min-width: auto;
+        }
+    }  
+    .topbar{
+        min-width: auto;
+    }
+    .search_form{
+        width: 70%;
+    }
+    .form_container{ 
+        padding-right: 2rem;
+        padding-left: 0rem;     
+        .image_wrap{
+            text-align: center;
+            margin-right: 4rem;                       
+            .connect_arrow{              
+                bottom: 5.875rem;
+                right: -4rem;       
+            } 
+           
+        }
+        .form_wrap{
+            width: auto;
+            // min-width: 44%;
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;  
+            .icon_wrap{
+                &.d_sm_none::before{
+                    display: none !important;
+                }
+                &.d_sm_none  .input_field{
+                    padding-left: 1rem;
+                    &.mw_csc{
+                        min-width: 5rem
+                    }
+                }
+                
+            }
+        }        
+    }   
+}
+@media screen and (max-width: 1279px) { 
+    .form_container{   
+        .image_wrap{           
+            margin-right: 4rem; 
+            .profile_upload{
+                margin-right: 7rem;
+                position: inherit;
+                z-index: 2;
+            }  
+            .user_image{
+                width: 13.75rem;
+                height: 11rem;               
+                right: 0.875rem;
+                top: 5.75rem; 
+                z-index: 3;
+            }                   
+            .connect_arrow{ 
+                bottom: 7rem;
+                right: -2rem;
+                z-index: 1;
+                transform: rotate(346deg);    
+            } 
+           
+        }        
+    }
+    .compact {
+        .form_container{
+            .user_review_Box{                
+                .connect_arrow {
+                    display: none; 
+                }
+            }
+        }
+    }
+    
+}
+@media screen and (max-width: 1199px) {
+    .topbar{
+        .user_wrap{
+            .name{
+                display: none;
+            }
+        }
+    }
+    .vrt_border{    
+        width: .5rem;      
+        margin-left: .75rem;
+        margin-right: 1rem;
+    }
+    .d_container{
+        padding: 2.313rem 1.5rem 0;
+    }
+    .topbar{
+        min-width: auto;
+        margin-left: 2%;
+    }   
+    .form_container{ 
+        .form_wrap{
+            min-width: 50%;
+        }   
+        .image_wrap{
+            .profile_upload{
+                margin-right:3rem;
+            }
+        }
+        .user_review_Box{            
+            margin-right:3rem;
+            .user_box{
+                width: 86%;
+            }
+        }        
+        .image_wrap, .user_review_Box{  
+            .connect_arrow{
+                display: none;
+            }
+        }
+    }
+    
+}
+@media screen and (max-width: 991px) {
+    .heading_one{ 
+        font-size: 2rem;
+        line-height: 2.6rem; 
+    }
+    .form_container{
+        padding-right: 3rem;
+        padding-left: 3rem; 
+        .form_wrap{
+            padding-top: 3rem;
+            min-width: 100%;
+            min-height: fit-content;
+        }   
+        .image_wrap, .user_review_Box{
+            display: none;           
+        }        
+    }
+}
+@media screen and (max-width: 767px) {    
+    .heading_one{ 
+        font-size: 1.8rem;
+        line-height: 2.4rem; 
+    }
+    .form_container{
+        padding-right: 1rem;
+        padding-left: 1rem; 
+        .form_wrap{
+            padding-right: 1rem;
+            padding-left: 1rem;
+            .title{
+                font-size: 1rem;
+            }
+        }
+    }
+}
+@media screen and (max-width: 575px) { 
+    .d_container{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .page_container{
+        padding: 3rem 1rem 1.5rem;
+    }
+    .toggle_btn{
+        width: 3rem;
+        height: 3rem;
+        left: -1rem;
+    }
+    .form_container{
+        padding: 2rem 0;        
+    }   
+    .form_wrap{ 
+        &.after_before_dots{
+            &::after, &::before{
+                display: none;
+            }
+        }
+    }
+    
+}
