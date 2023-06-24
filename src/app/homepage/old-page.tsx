@@ -1,8 +1,8 @@
 'use client'
 import Image from 'next/image'
-import styles from '../styles/styles.module.scss'
-import { useAuth } from './middleware/middleware'
-import AuthService from '../services/auth.service'
+import styles from '../../styles/styles.module.scss'
+import { useAuth } from '../middleware/middleware'
+import AuthService from '../../services/auth.service'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
@@ -24,7 +24,7 @@ export default function Home() {
   }  
   console.log(userData);
   return (
-    <main className={` ${styles.main} ${styles.bg_light}`}>
+    <main className={` ${styles.main} ${styles.container} ${styles.bg_light}`}>
       <div className='p-4 w-100'>
         <div className={`p-4 mb-4 d-flex align-items-center justify-space-between`}>
           <div className={styles.title_image}>
