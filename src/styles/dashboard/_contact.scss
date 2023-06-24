@@ -1,0 +1,133 @@
+.table_main{
+    
+    table{
+        border-collapse: separate;
+        border-spacing: 0 9px;
+            td:first-child,
+            th:first-child {
+                border-radius: 15px 0 0 15px;
+            }
+            td:last-child,
+            th:last-child {
+                border-radius: 0 15px 15px 0;
+            }
+            
+    }
+    .tab_head{
+        background-color: $white;
+        height: 64px;
+        border-radius: 15px;
+        vertical-align: middle;
+        th{
+            font-size: 20px;
+            line-height: 24px;
+            color: $primary-color;
+        }
+    }
+    tbody{
+        tr{
+            background: #E5E8E5;
+            height: 64px;
+            border-radius: 15px;
+            vertical-align: middle;
+        }
+        td{
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 18px;
+            color: $black-1;
+            .list_dis{
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+                display: flex;
+                li{
+                    background: #CAD2C5;
+                    border-radius: 5px;
+                    margin: 0 5px 0 0;
+                    padding: 6px 9px;
+                }
+            }
+
+        }
+    }
+    .table_top{
+        .search_field{
+            background: #E5E8E5;
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            height: 45px;
+            max-width: 327px;
+            background-image: url(../../../public/icons/search.png);
+            background-repeat: no-repeat;
+            background-position: 95% 13px;
+            padding-right: 43px;
+        }
+    }
+}
+.btn_secondry{
+    background-color: #E5E8E5;
+    border: 1px solid #E5E8E5;
+    color:#263238;
+    border: 0px;
+    &:hover{
+        background-color: #E5E8E5;
+        color:#263238;
+    }
+}
+.btn{
+    font-weight: 700;
+}
+.contact_pop{
+    h2{
+        font-size: 40px;
+        line-height: 48px;
+        text-align: center !important;
+        color: $primary-color;
+        font-weight: 900;
+        margin-bottom: 27px;
+    }
+    .custom_content{
+        background: $second-color;
+        border-radius: 8px;padding-bottom: 65px;
+        form{
+            max-width: 388px;
+            margin: auto;
+            input{
+                height: 45px;
+                background: #E5E8E5;
+                border: 0.99625px solid #D1D1D1;
+                border-radius: 10px;
+                margin-bottom: 8px;
+                padding-left: 38px;
+                background-repeat: no-repeat;
+                background-position: 9px 10px;
+            }
+            .name_field{
+                background-image: url(../../../public/icons/user_field.png);
+            }
+            .phone_field{
+                background-image: url(../../../public/icons/phone_field.png);
+            }
+            .email_field{
+                background-image: url(../../../public/icons/Email-icon.png);
+            }
+            .tags_field{
+                background-image: url(../../../public/icons/search_field.png);
+            }
+        }
+    }
+    .pop_header{
+        border: 0px;
+    }
+    .pop_structure{
+        max-width: 565px;
+    }
+    .pop_foot{
+        border: 0;
+        justify-content: center;
+        button{
+            width: 124px;
+        }
+    }
+}

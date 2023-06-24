@@ -1,0 +1,48 @@
+
+.Checkbox {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    
+    > * {
+      position: absolute;
+    }
+    
+    &-visible {
+      border: 1px solid gray;
+      width: 24px;
+      height: 24px;
+      margin: 2px;
+      background: #fff;
+      border: 0;
+      border-radius: 50%;
+    }
+    
+    > input {
+      z-index: 1;
+      opacity: 0;
+      left: 50%;
+      top: 50%;
+      transform: translatex(-50%) translatey(-50%);
+      display: block;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    
+    > input:checked + .Checkbox-visible {
+      background: #CAD2C5;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url(../../../../public/images/Check.png);
+    }
+    > input:hover + .Checkbox-visible {
+      border-color: hsl(0,0,80%);
+    }
+    > input:hover:checked + .Checkbox-visible {
+      border-color: #0ca750;
+    }
+    > input:focus + .Checkbox-visible {
+      border-color: #59cb59;
+    }
+  }
