@@ -1,0 +1,27 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "client_authentication",
+    "client_contact",
+    "client_homepage",
+    "client_profile",
+    "main",
+    "polygogo_client_sha"
+  ],
+  "parent": {
+    "client_authentication": "main",
+    "client_contact": "main",
+    "client_homepage": "main",
+    "client_profile": "main",
+    "main": null,
+    "polygogo_client_sha": "main"
+  },
+  "order": [
+    "main",
+    "client_authentication",
+    "client_contact",
+    "client_homepage",
+    "client_profile",
+    "polygogo_client_sha"
+  ]
+}
